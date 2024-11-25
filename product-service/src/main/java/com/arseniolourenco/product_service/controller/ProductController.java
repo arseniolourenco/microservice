@@ -1,18 +1,23 @@
 package com.arseniolourenco.product_service.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import com.arseniolourenco.product_service.dto.ProductRequest;
 import com.arseniolourenco.product_service.dto.ProductResponse;
 import com.arseniolourenco.product_service.service.ProductService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/product")
 @RequiredArgsConstructor
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -29,4 +34,11 @@ public class ProductController {
     public List<ProductResponse> getAllProducts() {
         return productService.getAllProducts();
     }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable String id) {
+        ProductResponse productResponse = productService.getProductById(id);
+        return ResponseEntity.ok(productResponse);
+    }
+
 }

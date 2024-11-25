@@ -1,6 +1,6 @@
 package com.arseniolourenco.order_service.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;

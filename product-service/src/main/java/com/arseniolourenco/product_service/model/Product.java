@@ -1,18 +1,20 @@
 package com.arseniolourenco.product_service.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 
-@Document(value = "product")
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Document(collection = "products")
 public class Product {
     @Id
     private String id;

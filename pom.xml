@@ -11,16 +11,18 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.arseniolourenco</groupId>
+    <groupId>com.arseniolourenco</groupId>
     <artifactId>microservices-new</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <modules>
+        <module>discovery-server</module>
+        <module>api-gateway</module>
         <module>inventory-service</module>
         <module>order-service</module>
         <module>product-service</module>
-        <module>discovery-server</module>
-        <module>api-gateway</module>
+        <module>notification-service</module>
     </modules>
 
     <properties>
@@ -31,13 +33,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-bom</artifactId>
-                <version>1.20.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -45,15 +41,26 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>1.20.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <!-- Exclude Lombok from the packaged application -->
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -62,15 +69,17 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <!-- Specify Java version for compiling -->
+                    <source>22</source>
+                    <target>22</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

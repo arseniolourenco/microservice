@@ -1,0 +1,27 @@
+# Use an official OpenJDK runtime as the base image
+FROM openjdk:17-jdk AS build
+
+# Set the working directory inside the container
+WORKDIR /app
+
+ADD target/*.jar app.jar
+
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM openjdk:17-jdk
+WORKDIR /app
+
+# Copy only the dependencies layer
+COPY --from=build /app/dependencies/ ./
+# Copy Spring Boot resources layer
+COPY --from=build /app/spring-boot-loader/ ./
+# Copy application resources
+COPY --from=build /app/snapshot-dependencies/ ./
+# Finally, copy application classes
+COPY --from=build /app/application/ ./
+
+# Expose the port the API Gateway will run on
+EXPOSE 8080
+
+# Run the Spring Boot application
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

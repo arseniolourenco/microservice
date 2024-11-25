@@ -1,20 +1,17 @@
 package com.arseniolourenco.order_service.model;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "t_order_line_items")
-@Getter
-@Setter
+
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "t_order_line_items")
 public class OrderLineItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +19,5 @@ public class OrderLineItems {
     private String skuCode;
     private BigDecimal price;
     private Integer quantity;
+
 }
