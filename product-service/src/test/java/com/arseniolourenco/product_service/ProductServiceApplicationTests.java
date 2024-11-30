@@ -44,6 +44,11 @@ class ProductServiceApplicationTests {
         dynamicPropertyRegistry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
     }
 
+    @BeforeAll
+    static void init() {
+        System.out.println("Starting Product Tests...");
+    }
+
     @BeforeEach
     void showUp(){
         productRepository.findAll();    // Clean up after each test
@@ -72,26 +77,31 @@ class ProductServiceApplicationTests {
 
     @Test
     void shouldRetrieveProduct() throws Exception {
-        // Step 1: Use createProductRequest() to define the product
+        // Step 1: Create and save a product in the repository
         ProductRequest productRequest = createProductRequest();
-        Product product = Product.builder().name(productRequest.getName()).description(productRequest.getDescription()).price(productRequest.getPrice()).build();
+        Product product = Product.builder()
+                .name(productRequest.getName())
+                .description(productRequest.getDescription())
+                .price(productRequest.getPrice())
+                .build();
 
-        // Step 2: Save the product directly to the repository
-        productRepository.save(product);
+        // Save the product to the repository
+        Product savedProduct = productRepository.save(product);
 
-        // Step 3: Perform GET request to fetch the saved product
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/product/id/" + product.getId())
+        // Step 2: Perform a GET request to retrieve the saved product by its ID
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/product/id/" + savedProduct.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
+                    // Step 3: Parse and validate the JSON response
                     String jsonResponse = result.getResponse().getContentAsString();
                     ProductResponse productResponse = objectMapper.readValue(jsonResponse, ProductResponse.class);
 
-            // Assertions to validate the response
-            Assertions.assertEquals(productRequest.getName(), productResponse.getName());
-            Assertions.assertEquals(productRequest.getDescription(), productResponse.getDescription());
-            Assertions.assertEquals(productRequest.getPrice(), productResponse.getPrice());
-        });
+                    // Assertions to verify the retrieved product matches the original
+                    Assertions.assertEquals(productRequest.getName(), productResponse.getName(), "Product name does not match");
+                    Assertions.assertEquals(productRequest.getDescription(), productResponse.getDescription(), "Product description does not match");
+                    Assertions.assertEquals(productRequest.getPrice(), productResponse.getPrice(), "Product price does not match");
+                });
     }
 
     private ProductRequest createProductRequest() {

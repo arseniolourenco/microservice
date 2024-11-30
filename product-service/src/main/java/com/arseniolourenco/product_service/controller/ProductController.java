@@ -2,8 +2,7 @@ package com.arseniolourenco.product_service.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.arseniolourenco.product_service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +24,8 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductRequest productRequest) {
-        productService.createProduct(productRequest);
+    public Product createProduct(@RequestBody ProductRequest productRequest) {
+        return productService.createProduct(productRequest);
     }
 
     @GetMapping
@@ -36,9 +35,9 @@ public class ProductController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable String id) {
-        ProductResponse productResponse = productService.getProductById(id);
-        return ResponseEntity.ok(productResponse);
+    public ResponseEntity<ProductRequest> getProductById(@PathVariable String id) {
+        ProductRequest productRequest = productService.getProductById(id);
+        return ResponseEntity.ok(productRequest);
     }
 
 }

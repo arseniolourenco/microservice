@@ -2,6 +2,7 @@ package com.arseniolourenco.product_service.service;
 
 import com.arseniolourenco.product_service.dto.ProductRequest;
 import com.arseniolourenco.product_service.dto.ProductResponse;
+import com.arseniolourenco.product_service.mapper.ProductMapper;
 import com.arseniolourenco.product_service.model.Product;
 import com.arseniolourenco.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,71 +21,83 @@ public class ProductService {
     @Autowired
     private final ProductRepository productRepository;
 
-//    public void createProduct(ProductRequest productRequest) {
-//
-//        // Map the ProductRequest DTO to a Product entity
-//        Product product = mapToProduct(productRequest);
-//
-//        // Save the product to the repository
-//        productRepository.save(product);
-//
-//        // Log success message with the saved product ID
-//        log.info("Product with ID {} has been successfully created!", product.getId());
-//    }
-//
-//    private Product mapToProduct(ProductRequest productRequest) {
-//        return Product.builder()
-//                .name(productRequest.getName())
-//                .description(productRequest.getDescription())
-//                .price(productRequest.getPrice())
-//                .build();
-//    }
-
-    public void createProduct(ProductRequest productRequest) {
-        Product product = Product.builder()
-                .name(productRequest.getName())
-                .description(productRequest.getDescription())
-                .price(productRequest.getPrice())
-                .build();
-
-        log.info("Product with ID {} has been successfully created!", product.getId());
-
-        productRepository.save(product);
-    }
-
-    public List<ProductResponse> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream()
-                .map(this::mapToProductResponse)
-                .toList();
-    }
-
-
-    public ProductResponse getProductById(String id) {
-        return productRepository.findById(id)
-                .map(this::mapToProductResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
-    }
-
-    private ProductResponse mapToProductResponse(Product product) {
-        return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .build();
-    }
-
-//    public Product saveProduct(ProductRequest productRequest) {
-//
+//    public Product createProduct(ProductRequest productRequest) {
 //        Product product = Product.builder()
 //                .name(productRequest.getName())
 //                .description(productRequest.getDescription())
 //                .price(productRequest.getPrice())
 //                .build();
 //
-//        productRepository.save(product);
-//        log.info("Product {} is saved!", product.getId());
-//        return product;
+//        Product savedProduct = productRepository.save(product);
+//        log.info("Product with ID {} has been successfully created!", savedProduct.getId());
+//
+//        return savedProduct;
 //    }
+
+    public Product createProduct(ProductRequest productRequest) {
+        // Step 1: Validate the request
+        if (productRequest.getName() == null || productRequest.getName().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be null or empty");
+        }
+
+        // Step 2: Map the DTO to an entity
+        Product product = ProductMapper.mapToProduct(productRequest);
+
+        try {
+            // Step 3: Save the entity and log success
+            Product savedProduct = productRepository.save(product);
+            log.info("Product with ID {} has been successfully created!", savedProduct.getId());
+            return savedProduct;
+        } catch (Exception e) {
+            // Step 4: Handle potential errors
+            log.error("Failed to save product: {}", e.getMessage());
+            throw new RuntimeException("Could not save product", e);
+        }
+    }
+
+    public List<ProductResponse> getAllProducts() {
+
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(ProductMapper::mapToProductResponse)
+                .toList();
+    }
+
+    public ProductRequest getProductById(String id) {
+        // Input validation
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product ID cannot be null or empty");
+        }
+
+        // Log the operation
+        log.info("Fetching product with ID: {}", id);
+
+        return productRepository.findById(id)
+                .map(ProductMapper::mapToProductRequest)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
+    }
+
+//    public ProductResponse getProductById(String id) {
+//        // Input validation
+//        if (id == null || id.trim().isEmpty()) {
+//            throw new IllegalArgumentException("Product ID cannot be null or empty");
+//        }
+//
+//        // Log the operation
+//        log.info("Fetching product with ID: {}", id);
+//
+//        return productRepository.findById(id)
+//                .map(this::mapToProductResponse)
+//                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
+//    }
+
+//    private ProductResponse mapToProductResponse(Product product) {
+//        return ProductResponse.builder()
+//                .id(product.getId())
+//                .name(product.getName())
+//                .description(product.getDescription())
+//                .price(product.getPrice())
+//                .build();
+//    }
+
 }
