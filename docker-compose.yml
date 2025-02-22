@@ -1,14 +1,17 @@
-version: '3'
-
 services:
-
+  # zookeeper
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - microservices-network
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
+  # Kafka broker
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
@@ -16,74 +19,277 @@ services:
       - zookeeper
     ports:
       - "9092:9092"
+    networks:
+      - microservices-network
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
 
-  kafka-ui:
-    container_name: kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    depends_on:
-      - kafka
-    ports:
-      - "8090:8090"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_ZOOKEEPER: 'zookeeper:2181'
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
-
-###  Zipkin
-#  zipkin:
-#    image: openzipkin/zipkin
-#    container_name: zipkin
+#  #  kafka-ui
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    container_name: kafka-ui
 #    ports:
-#       - "9411:9411"
-#
-###  Eureka Server
-#  eureka-server:
-#    image: arseniolourenco/discovery-server:latest
-#    container_name: discovery-server
-##    pull_police: always
-#    ports:
-#      - "8761:8761"
-##    environment:
-##      -SPRING_PROFILES_ACTIVE=docker
-#    depends_on:
-#      - zipkin
-
-#  accounts-service:
-#    image: your-dockerhub-username/accounts-service
+#      - "8090:8090"
+#    networks:
+#      - microservices-network
 #    environment:
+#      KAFKA_CLUSTERS_0_NAME: local-kafka
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+#    depends_on:
+#      - kafka
+#
+#  kafdrop:
+#    image: obsidiandynamics/kafdrop
+#    container_name: kafdrop
+#    depends_on:
+#      - kafka
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - microservices-network
+#    environment:
+#      KAFKA_BROKERCONNECT: kafka:29092
+#      JVM_OPTS: "-Xms32M -Xmx64M"
+
+  # Keycloak
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.5
+    container_name: keycloak
+    ports:
+      - "8181:8181"
+    networks:
+      - microservices-network
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: MYSQL
+      DB_ADDR: keycloak-mysql
+      DB_DATABASE: keycloak
+      DB_USER: mauro
+      DB_PASSWORD: m@uro007
+    command: [ "start-dev", "--import-realm" ]
+    volumes:
+      - ./realms/:/opt/keycloak/data/import/
+#    depends_on:
+#      - keycloak-mysql
+#
+#  keycloak-mysql:
+#    image: mysql:latest
+#    container_name: keycloak-mysql
+#    volumes:
+#      - ./mysql_keycloak_data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_USER: mauro
+#      MYSQL_DATABASE: keycloak
+#      MYSQL_PASSWORD: m@uro007
+
+  # Zipkin
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - microservices-network
+
+  # Discovery Server
+  discovery-server:
+#    image: arseniolourenco/discovery-server:latest
+    container_name: discovery-server
+    build:
+      context: ./discovery-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - zipkin
+#    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ZIPKIN_BASE_URL: http://zipkin:9411
+      EUREKA_USERNAME: eureka
+      EUREKA_PASSWORD: password
+
+    networks:
+      - microservices-network
+
+#  # API Gateway
+#  api-gateway:
+#    image: api-gateway:latest
+#    container_name: api-gateway
+#    build:
+#      context: ./api-gateway
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    expose:
+#      - "8080"
+#    depends_on:
+##      - discovery-server
+#      - zipkin
+##      - keycloak
+#    networks:
+#      - microservices-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+
+#  # Notification Service
+#  notification-service:
+#    image: arseniolourenco/notification-service:latest
+#    container_name: notification-service
+#    build:
+#      context: ./notification-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8084:8080"
+#    depends_on:
+#      - discovery-server
+#      - kafka
+#      - api-gateway
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+#      KAFKA_BROKER: kafka:9092
+#
+#  # Inventory Service
+#  inventory-service:
+#    image: arseniolourenco/inventory-service:latest
+#    container_name: inventory-service
+#    build:
+#      context: ./inventory-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8085:8080"
+#    depends_on:
+#      - discovery-server
+#      - api-gateway
+#      - postgres-inventory
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order:5430/inventory-service
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+#
+#  # PostgreSQL for Inventory Service
+#  postgres-inventory:
+#    image: postgres:latest
+#    container_name: postgres-inventory
+#    environment:
+#      POSTGRES_DB: inventoryDB
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres-inventory-data:/var/lib/postgresql/data
+#    expose:
+#      - "5430"
+#    ports:
+#      - "5430:5430"
+#    command: -p 5430
+#    restart: unless-stopped
+#
+#  # Order Service
+#  order-service:
+#    image: arseniolourenco/order-service:latest
+#    container_name: order-service
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - discovery-server
+#      - api-gateway
+#      - kafka
+#      - postgres-order
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-order:5431/order-service
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
 #      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
 #    ports:
 #      - "8081:8081"
-#    depends_on:
-#      - eureka-server
-
-## MySQL Docker Compose Config
-#  mysql:
-#    image: mysql:latest
-#    container_name: mysql
+#
+#
+#  # PostgreSQL for Order Service
+#  postgres-order:
+#    image: postgres:latest
+#    container_name: postgres-order
 #    environment:
-#      MYSQL_ROOT_PASSWORD: root  # Set the root password
-#      MYSQL_DATABASE: inventory-service          # Optional: specify a default database
-#      MYSQL_USER: admin                    # Optional: create a new user
-#      MYSQL_PASSWORD: admin       # Optional: password for the new user
-#    ports:
-#      - "3306:3306"  # Expose MySQL port
+#      POSTGRES_DB: order-service
+#      POSTGRES_USER": postgres
+#      POSTGRES_PASSWORD: postgres
+#      PGDATA: /data/postgres
 #    volumes:
-#      - mysql_data:/var/lib/mysql  # Persist data
-#    networks:
-#      - mysql_network
+#      - postgres-order-data:/var/lib/postgresql/data
+#    expose:
+#      - "5431"
+#    ports:
+#      - "5431:5431"
+#    command: -p 5431
+#    restart: unless-stopped
 #
-#volumes:
-#    mysql_data:
+#  # Product Service
+#  product-service:
+#    image: arseniolourenco/product-service:latest
+#    container_name: product-service
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      SERVER_PORT: 8082
+#      MONGODB_HOST: mongo
+#      MONGODB_PORT: 27017
+#      MONGODB_USERNAME: mongoadmin
+#      MONGODB_PASSWORD: secret
+#      MONGODB_DATABASE: productDB
+#      MONGODB_AUTH_DATABASE: admin
+#      EUREKA_URL: http://eureka:password@discovery-server:8761/eureka/
+#      ZIPKIN_URL: http://zipkin:9411
+#      SPRING_PROFILES_ACTIVE: docker
+##      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-order:5431/order-service
+##      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+#      KAFKA_BROKER: kafka:9092
+#    depends_on:
+#      - mongoDB
+#      - discovery-server
+#      - api-gateway
 #
-#networks:
-#    mysql_network:
+#  # Mongo for Product Service
+#  mongoDB:
+#      image: mongo:latest
+#      container_name: mongoDB
+#      restart: unless-stopped
+#      ports:
+#        - "27017:27017"
+#      expose:
+#        - "27017"
+#      environment:
+#        MONGO_INITDB_ROOT_USERNAME: mongoadmin
+#        MONGO_INITDB_ROOT_PASSWORD: secret
+#      volumes:
+#        - ./mongo-data:/data/db
+
+networks:
+  microservices-network:
+    driver: bridge
+
+volumes:
+  kafka_data:
+  zookeeper_data:
+  inventory-mysql-data:
+  keycloak-mysql-data:
+  mongo-data:
+    driver: local
+  postgres-order-data:
+  postgres-inventory-data:
 

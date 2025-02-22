@@ -49,36 +49,29 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
 
     </dependencyManagement>
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!-- Exclude Lombok from the packaged application -->
-                    <excludes>
-                        <exclude>
+                    <includes>
+                        <include>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                        </include>
+                    </includes>
                 </configuration>
             </plugin>
 
-            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!-- Specify Java version for compiling -->
-                    <source>22</source>
-                    <target>22</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

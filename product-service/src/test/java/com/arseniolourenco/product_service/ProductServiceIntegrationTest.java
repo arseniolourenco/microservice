@@ -4,7 +4,7 @@ import com.arseniolourenco.product_service.dto.ProductRequest;
 import com.arseniolourenco.product_service.dto.ProductResponse;
 import com.arseniolourenco.product_service.model.Product;
 import com.arseniolourenco.product_service.repository.ProductRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper; // ✅ Correct Import
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Testcontainers
 @AutoConfigureMockMvc
-class ProductServiceApplicationTests {
+class ProductServiceIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,26 +37,32 @@ class ProductServiceApplicationTests {
     private ProductRepository productRepository;
 
     @Container
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest");
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest"); // ✅ Removed withReuse(true)
+
+    @BeforeAll
+    static void startContainer() {
+        mongoDBContainer.start();
+    }
+
+    @AfterAll
+    static void stopContainer() {
+        mongoDBContainer.stop();
+    }
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry dynamicPropertyRegistry) {
         dynamicPropertyRegistry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
     }
 
-    @BeforeAll
-    static void init() {
-        System.out.println("Starting Product Tests...");
-    }
-
     @BeforeEach
-    void showUp(){
-        productRepository.findAll();    // Clean up after each test
+    void setUp() {
+        System.out.println("Starting test...");
     }
 
     @AfterEach
     void tearDown() {
-        productRepository.deleteAll();  // Clean up after each test
+        productRepository.deleteAll();
+        System.out.println("Test completed.");
     }
 
     @Test
@@ -72,12 +78,19 @@ class ProductServiceApplicationTests {
                 .andExpect(status().isCreated());
 
         // Assert
-        Assertions.assertEquals( 1, productRepository.findAll().size());
+        Assertions.assertEquals(1, productRepository.count()); // ✅ Used count() instead of findAll().size()
+
+        Product savedProduct = productRepository.findAll().get(0);
+        Assertions.assertEquals("iPhone 16", savedProduct.getName());
+        Assertions.assertEquals("The latest Apple iPhone", savedProduct.getDescription());
+        Assertions.assertEquals(BigDecimal.valueOf(1600.00), savedProduct.getPrice());
     }
+
+
 
     @Test
     void shouldRetrieveProduct() throws Exception {
-        // Step 1: Create and save a product in the repository
+        // Arrange
         ProductRequest productRequest = createProductRequest();
         Product product = Product.builder()
                 .name(productRequest.getName())
@@ -85,19 +98,18 @@ class ProductServiceApplicationTests {
                 .price(productRequest.getPrice())
                 .build();
 
-        // Save the product to the repository
+        // Save the product
         Product savedProduct = productRepository.save(product);
 
-        // Step 2: Perform a GET request to retrieve the saved product by its ID
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/product/id/" + savedProduct.getId())
+        // Act & Assert
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/product/" + savedProduct.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
-                    // Step 3: Parse and validate the JSON response
+                    // Validate JSON response
                     String jsonResponse = result.getResponse().getContentAsString();
                     ProductResponse productResponse = objectMapper.readValue(jsonResponse, ProductResponse.class);
 
-                    // Assertions to verify the retrieved product matches the original
                     Assertions.assertEquals(productRequest.getName(), productResponse.getName(), "Product name does not match");
                     Assertions.assertEquals(productRequest.getDescription(), productResponse.getDescription(), "Product description does not match");
                     Assertions.assertEquals(productRequest.getPrice(), productResponse.getPrice(), "Product price does not match");
@@ -108,7 +120,7 @@ class ProductServiceApplicationTests {
         return ProductRequest.builder()
                 .name("iPhone 16")
                 .description("The latest Apple iPhone")
-                .price(BigDecimal.valueOf(1600))
+                .price(BigDecimal.valueOf(1600.00))
                 .build();
     }
 }

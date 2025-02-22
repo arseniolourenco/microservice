@@ -58,6 +58,7 @@ public class OrderService {
                 tracer.currentSpan().end();
             }
         } else {
+            log.error("Product is not in stock. Please try again later.");
             throw new RuntimeException("Product is not in stock. Please try again later.");
         }
     }

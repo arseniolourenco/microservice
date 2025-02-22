@@ -6,7 +6,6 @@ import com.arseniolourenco.product_service.model.Product;
 
 public class ProductMapper {
 
-    // Map from ProductRequest to Product
     public static Product mapToProduct(ProductRequest productRequest) {
         return Product.builder()
                 .name(productRequest.getName())
@@ -15,7 +14,6 @@ public class ProductMapper {
                 .build();
     }
 
-    // Optional: Map from Product to ProductRequest if needed
     public static ProductRequest mapToProductRequest(Product product) {
         return ProductRequest.builder()
                 .name(product.getName())
@@ -24,7 +22,6 @@ public class ProductMapper {
                 .build();
     }
 
-    // Optional: Map from Product to ProductResponse if needed
     public static ProductResponse mapToProductResponse(Product product) {
         return ProductResponse.builder()
                 .id(product.getId())
