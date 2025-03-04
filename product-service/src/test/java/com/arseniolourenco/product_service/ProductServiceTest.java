@@ -32,9 +32,9 @@ class ProductServiceTest {
     @Test
     void shouldCreateProduct() {
         // Arrange
-        ProductRequest productRequest = new ProductRequest("Laptop", "Gaming Laptop", BigDecimal.valueOf(1200.00));
-        Product savedProduct = new Product("123", "Laptop", "Gaming Laptop", BigDecimal.valueOf(1200.00));
-        ProductResponse expectedResponse = new ProductResponse("123", "Laptop", "Gaming Laptop", BigDecimal.valueOf(1200.00));
+        ProductRequest productRequest = new ProductRequest("Laptop", "Gaming Laptop", BigDecimal.valueOf(1200));
+        Product savedProduct = new Product("123", "Laptop", "Gaming Laptop", BigDecimal.valueOf(1200));
+        ProductResponse expectedResponse = new ProductResponse("123", "Laptop", "Gaming Laptop", BigDecimal.valueOf(1200));
 
         when(productRepository.save(any(Product.class))).thenReturn(savedProduct);
 

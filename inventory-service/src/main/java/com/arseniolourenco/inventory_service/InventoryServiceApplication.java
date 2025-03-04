@@ -1,13 +1,13 @@
 package com.arseniolourenco.inventory_service;
 
+
+import com.arseniolourenco.inventory_service.model.Inventory;
+import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
-
-import com.arseniolourenco.inventory_service.model.Inventory;
-import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -25,10 +25,15 @@ public class InventoryServiceApplication {
 
             Inventory inventory2 = new Inventory();
             inventory2.setSkuCode("iPhone 16");
-            inventory2.setQuantity(7);
+            inventory2.setQuantity(100);
+
+            Inventory inventory3 = new Inventory();
+            inventory3.setSkuCode("iPhone 12");
+            inventory3.setQuantity(100);
 
             inventoryRepository.save(inventory1);
             inventoryRepository.save(inventory2);
+            inventoryRepository.save(inventory3);
         };
 
     }

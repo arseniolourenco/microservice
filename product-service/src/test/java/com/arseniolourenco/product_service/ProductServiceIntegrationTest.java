@@ -4,7 +4,7 @@ import com.arseniolourenco.product_service.dto.ProductRequest;
 import com.arseniolourenco.product_service.dto.ProductResponse;
 import com.arseniolourenco.product_service.model.Product;
 import com.arseniolourenco.product_service.repository.ProductRepository;
-import com.fasterxml.jackson.databind.ObjectMapper; // ✅ Correct Import
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,17 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class ProductServiceIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private ProductRepository productRepository;
-
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest"); // ✅ Removed withReuse(true)
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private ProductRepository productRepository;
 
     @BeforeAll
     static void startContainer() {
@@ -83,9 +80,8 @@ class ProductServiceIntegrationTest {
         Product savedProduct = productRepository.findAll().get(0);
         Assertions.assertEquals("iPhone 16", savedProduct.getName());
         Assertions.assertEquals("The latest Apple iPhone", savedProduct.getDescription());
-        Assertions.assertEquals(BigDecimal.valueOf(1600.00), savedProduct.getPrice());
+        Assertions.assertEquals(BigDecimal.valueOf(1600), savedProduct.getPrice());
     }
-
 
 
     @Test
@@ -120,7 +116,7 @@ class ProductServiceIntegrationTest {
         return ProductRequest.builder()
                 .name("iPhone 16")
                 .description("The latest Apple iPhone")
-                .price(BigDecimal.valueOf(1600.00))
+                .price(BigDecimal.valueOf(1600))
                 .build();
     }
 }

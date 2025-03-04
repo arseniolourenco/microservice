@@ -13,9 +13,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Service
+
 @RequiredArgsConstructor
 @Slf4j
+@Service
 public class ProductService {
 
     @Autowired
@@ -88,7 +89,6 @@ public class ProductService {
 //            throw new RuntimeException("Could not save product", e);
 //        }
 //    }
-
     public ProductResponse createProduct(ProductRequest productRequest) {
 
         // Convert ProductRequest to Product entity

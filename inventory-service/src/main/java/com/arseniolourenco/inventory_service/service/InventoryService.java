@@ -4,9 +4,10 @@ import com.arseniolourenco.inventory_service.dto.InventoryRequest;
 import com.arseniolourenco.inventory_service.dto.InventoryResponse;
 import com.arseniolourenco.inventory_service.model.Inventory;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,7 @@ public class InventoryService {
         return skuCodes
                 .stream()
                 .map(code -> {
-                    int totalQuantity = skuCodeToTotalQuantity.getOrDefault(code, 0); // Get total quantity or default to 0
+                    Integer totalQuantity = skuCodeToTotalQuantity.getOrDefault(code, 0); // Get total quantity or default to 0
                     return new InventoryResponse(
                             code,
                             totalQuantity > 0, // Check if the total quantity is greater than 0 for stock status
@@ -144,8 +145,8 @@ public class InventoryService {
     private void processStockReduction(Map<String, Integer> aggregatedSkuQuantityMap, List<Inventory> inventoryList, Map<String, Integer> skuStockMap) {
         for (Map.Entry<String, Integer> entry : aggregatedSkuQuantityMap.entrySet()) {
             String skuCode = entry.getKey();
-            int requestedQuantity = entry.getValue();
-            int currentStock = skuStockMap.getOrDefault(skuCode, 0);
+            Integer requestedQuantity = entry.getValue();
+            Integer currentStock = skuStockMap.getOrDefault(skuCode, 0);
 
             // Ensure enough stock exists
             if (currentStock < requestedQuantity) {
@@ -161,8 +162,8 @@ public class InventoryService {
         int quantityToReduce = requestedQuantity;
         for (Inventory inventory : inventoryList) {
             if (inventory.getSkuCode().equals(skuCode) && quantityToReduce > 0) {
-                int availableStock = inventory.getQuantity();
-                int reduceAmount = Math.min(availableStock, quantityToReduce);
+                Integer availableStock = inventory.getQuantity();
+                Integer reduceAmount = Math.min(availableStock, quantityToReduce);
                 inventory.setQuantity(availableStock - reduceAmount);
                 quantityToReduce -= reduceAmount;
                 inventoryRepository.save(inventory);

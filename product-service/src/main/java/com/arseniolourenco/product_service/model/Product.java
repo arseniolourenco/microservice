@@ -11,11 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 
-@Document(collection = "products")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Document(collection = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

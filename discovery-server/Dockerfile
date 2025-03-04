@@ -1,14 +1,14 @@
-# Use the official OpenJDK 17 slim image
-FROM openjdk:20-ea-1-jdk-slim
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:22-jdk-slim
 
-# Set the working directory inside the container
-WORKDIR /app
+# Set the working directory in the container
+#WORKDIR /app
 
-# Copy the generated JAR file into the container
+# Copy the application JAR file to the container
 COPY target/*.jar app.jar
 
-# Expose the Eureka Server port
-#EXPOSE 8761
+# Expose the port the application runs on
+EXPOSE 8761
 
-# Set the entrypoint to run the JAR
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
