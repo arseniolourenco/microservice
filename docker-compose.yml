@@ -30,7 +30,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
@@ -67,34 +67,34 @@ services:
       start_period: 15s
 
   # ✅ Kafka UI (for Monitoring)
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui
-    restart: always
-    ports:
-      - "8090:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
-    depends_on:
-      - kafka
-    networks:
-      - microservices-network
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    container_name: kafka-ui
+#    restart: always
+#    ports:
+#      - "8090:8080"
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
+#    depends_on:
+#      - kafka
+#    networks:
+#      - microservices-network
 
   # ✅ Kafdrop (for Monitoring)
-  kafdrop:
-    image: obsidiandynamics/kafdrop
-    container_name: kafdrop
-    restart: always
-    depends_on:
-      - kafka
-    ports:
-      - "9000:9000"
-    environment:
-      KAFKA_BROKERCONNECT: kafka:29092
-      JVM_OPTS: "-Xms32M -Xmx64M"
-    networks:
-      - microservices-network
+#  kafdrop:
+#    image: obsidiandynamics/kafdrop
+#    container_name: kafdrop
+#    restart: always
+#    depends_on:
+#      - kafka
+#    ports:
+#      - "9000:9000"
+#    environment:
+#      KAFKA_BROKERCONNECT: kafka:29092
+#      JVM_OPTS: "-Xms32M -Xmx64M"
+#    networks:
+#      - microservices-network
 
   #  🗄 Databases
   #  •	mysql (for Keycloak & Inventory)
@@ -105,25 +105,24 @@ services:
   mysql:
     image: mysql:latest
     container_name: mysql
-    restart: unless-stopped
+    restart: always
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: keycloakDB
       MYSQL_USER: mauro
       MYSQL_PASSWORD: mauro007
+      MYSQL_DATABASE: inventoryDB  # Only for initial setup, actual creation handled by init.sql
     volumes:
-      - mysql-data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql_data:/var/lib/mysql  # Persistent MySQL storage
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Load DB schema
     networks:
       - microservices-network
     healthcheck:
-#      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot" ]
       interval: 10s
-      retries: 5
-      start_period: 20s
+      retries: 10
+      start_period: 30s
 
   # ✅ PostgreSQL Database
   postgres:
@@ -156,6 +155,7 @@ services:
   #    environment:
   #      MONGO_INITDB_ROOT_USERNAME: mongoadmin
   #      MONGO_INITDB_ROOT_PASSWORD: secret
+  #      MONGO_INITDB_DATABASE: productDB
   #    volumes:
   #      - ./mongo-data:/data/db
   #      - ./mongo-init-scripts:/docker-entrypoint-initdb.d # ✅ Place initialization scripts here
@@ -174,24 +174,24 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.1.2
     container_name: keycloak
-    restart: on-failure
+    restart: always
+    hostname: keycloak
     ports:
       - "8181:8080"
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://mysql:3306/keycloakDB
-      KC_DB_USERNAME: mauro  # Ensure this user exists in MySQL
-      KC_DB_PASSWORD: mauro007
-    command: ["start-dev", "--import-realm"]
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost  # Change this if using a production domain
+    command: [ "start-dev", "--import-realm" ]
     volumes:
-      - ./realms/:/opt/keycloak/data/import/
+      - ./keycloak_data:/opt/keycloak/data  # Persistent Keycloak storage
+      - ./realms/:/opt/keycloak/data/import/  # Import realms on startup
     depends_on:
       mysql:
-        condition: service_healthy  # Ensures MySQL is ready before Keycloak starts
+        condition: service_started
     networks:
       - microservices-network
+
 
   #    ⚙️ Core Backend Services
   #    •  discovery-server
@@ -216,9 +216,10 @@ services:
         condition: service_healthy  # ✅ Ensure Zipkin is healthy before starting
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      ZIPKIN_BASE_URL: http://zipkin:9411
-      EUREKA_USERNAME: eureka
-      EUREKA_PASSWORD: password
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_ZIPKIN_ENABLED: true
+    #      EUREKA_USERNAME: eureka
+#      EUREKA_PASSWORD: password
     networks:
       - microservices-network
     healthcheck:
@@ -237,8 +238,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    expose:
-      - "8080"
     depends_on:
       discovery-server:
         condition: service_started
@@ -248,7 +247,12 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
-      ZIPKIN_BASE_URL: http://zipkin:9411
+      EUREKA_INSTANCE_HOSTNAME: api-gateway
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
+#      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/zipkin
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
 
@@ -261,19 +265,18 @@ services:
       context: ./order-service
       dockerfile: Dockerfile
     depends_on:
-      postgres:
-        condition: service_healthy  # Ensures PostgreSQL is ready before startup
       api-gateway:
         condition: service_started  # Waits for API Gateway to start
     ports:
-      - "8081:8080"
+      - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
-      ZIPKIN_BASE_URL: http://zipkin:9411
-
-      # ✅ PostgreSQL Connection
+      EUREKA_INSTANCE_HOSTNAME: order-service
+#      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_ZIPKIN_ENABLED: true
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/orderDB
@@ -292,22 +295,27 @@ services:
       context: ./inventory-service
       dockerfile: Dockerfile
     ports:
-      - "8082:8080"
+      - "8082:8082"
+    expose:
+      - "8082"
     depends_on:
-      mysql:
-        condition: service_healthy
       api-gateway:
+        condition: service_started
+      mysql:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
-      ZIPKIN_BASE_URL: http://zipkin:9411
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka/
+      EUREKA_INSTANCE_HOSTNAME: inventory-service
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/inventoryDB
-      SPRING_DATASOURCE_USERNAME: mauro
-      SPRING_DATASOURCE_PASSWORD: mauro007
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      SPRING_ZIPKIN_BASE_URL: http://localhost:9411/zipkin/
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
 
@@ -320,7 +328,7 @@ services:
       context: ./notification-service
       dockerfile: Dockerfile
     ports:
-      - "8084:8080"
+      - "8084:8084"
     depends_on:
       kafka:
         condition: service_started
@@ -330,9 +338,11 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
-      ZIPKIN_BASE_URL: http://zipkin:9411
+      EUREKA_INSTANCE_HOSTNAME: notification-service
       KAFKA_BROKER: kafka:9092
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
 
@@ -388,7 +398,6 @@ services:
 # ✅ Define the Docker Network
 networks:
   microservices-network:
-    name: microservices-network
     driver: bridge
 
 # ✅ Define Persistent Named Volumes
@@ -397,10 +406,12 @@ volumes:
     driver: local
   zookeeper_data:    # ✅ Zookeeper metadata storage
     driver: local
-  mongo-data:        # ✅ MongoDB persistent storage
+  mongo_data:        # ✅ MongoDB persistent storage
     driver: local
-  mysql-data:        # ✅ MySQL database storage
+  mysql_data:        # ✅ MySQL database storage
     driver: local
-  postgres-data:     # ✅ PostgreSQL database storage
+  postgres_data:     # ✅ PostgreSQL database storage
+    driver: local
+  keycloak_data:     # ✅ Keycloak persistent storage
     driver: local
 

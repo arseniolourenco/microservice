@@ -2,7 +2,7 @@
 FROM openjdk:22-jdk-slim
 
 # Set the working directory in the container
-#WORKDIR /app
+WORKDIR /app
 
 # Copy the application JAR file to the container
 COPY target/*.jar app.jar

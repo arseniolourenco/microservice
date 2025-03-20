@@ -2,13 +2,13 @@
 FROM openjdk:22-jdk-slim
 
 # Set the working directory in the container
-#WORKDIR /app
+WORKDIR /app
 
 # Copy the application JAR file to the container
-COPY target/*.jar app.jar
+COPY target/*.jar /app.jar
 
 # Expose the port the application runs on
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]

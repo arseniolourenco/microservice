@@ -16,14 +16,13 @@ public class SecurityConfig {
         serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/eureka/**")
+                        .pathMatchers("/eureka/**", "/actuator/**")      // Allow Eureka & Actuator endpoints
                         .permitAll()
                         .anyExchange()
-                        .authenticated())
+                        .authenticated()) // Require authentication for other routes
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         return serverHttpSecurity.build();
-
     }
 
 }

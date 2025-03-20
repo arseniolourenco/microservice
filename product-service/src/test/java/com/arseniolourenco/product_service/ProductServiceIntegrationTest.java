@@ -84,25 +84,45 @@ class ProductServiceIntegrationTest {
     }
 
 
-    @Test
-    void shouldRetrieveProduct() throws Exception {
-        // Arrange
-        ProductRequest productRequest = createProductRequest();
-        Product product = Product.builder()
-                .name(productRequest.getName())
-                .description(productRequest.getDescription())
-                .price(productRequest.getPrice())
-                .build();
+//    @Test
+//    void shouldRetrieveProduct() throws Exception {
+//        // Arrange
+//        ProductRequest productRequest = createProductRequest();
+//        Product product = Product.builder()
+//                .name(productRequest.getName())
+//                .description(productRequest.getDescription())
+//                .price(productRequest.getPrice())
+//                .build();
+//
+//        // Save the product
+//        Product savedProduct = productRepository.save(product);
+//
+//        // Act & Assert
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/product/" + savedProduct.getId())
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(result -> {
+//                    // Validate JSON response
+//                    String jsonResponse = result.getResponse().getContentAsString();
+//                    ProductResponse productResponse = objectMapper.readValue(jsonResponse, ProductResponse.class);
+//
+//                    Assertions.assertEquals(productRequest.getName(), productResponse.getName(), "Product name does not match");
+//                    Assertions.assertEquals(productRequest.getDescription(), productResponse.getDescription(), "Product description does not match");
+//                    Assertions.assertEquals(productRequest.getPrice(), productResponse.getPrice(), "Product price does not match");
+//                });
+//    }
 
-        // Save the product
-        Product savedProduct = productRepository.save(product);
+    @Test
+    public void shouldGetProductById() throws Exception {
+        // Arrange - Save a product
+        ProductRequest productRequest = new ProductRequest("Laptop", "High-end gaming laptop", BigDecimal.valueOf(1500));
+        Product savedProduct = productRepository.save(new Product(null, productRequest.getName(), productRequest.getDescription(), productRequest.getPrice()));
 
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.get("/api/product/" + savedProduct.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
-                    // Validate JSON response
                     String jsonResponse = result.getResponse().getContentAsString();
                     ProductResponse productResponse = objectMapper.readValue(jsonResponse, ProductResponse.class);
 

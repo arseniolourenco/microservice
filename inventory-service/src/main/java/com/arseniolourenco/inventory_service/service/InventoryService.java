@@ -4,10 +4,9 @@ import com.arseniolourenco.inventory_service.dto.InventoryRequest;
 import com.arseniolourenco.inventory_service.dto.InventoryResponse;
 import com.arseniolourenco.inventory_service.model.Inventory;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
