@@ -244,14 +244,13 @@ services:
       keycloak:
         condition: service_started
     environment:
-      SPRING_PROFILES_ACTIVE: docker
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
       EUREKA_INSTANCE_HOSTNAME: api-gateway
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
-#      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/zipkin
       MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
