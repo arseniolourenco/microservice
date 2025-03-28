@@ -5,42 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="Product Test">
-      <change afterPath="$PROJECT_DIR$/devbox.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/devbox.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/banner.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000060" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000061" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo9" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo9" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.000059" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.000059" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ibtmp1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/postmaster.pid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,20 +32,23 @@
     <branch-grouping />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="57b8d376c678c8e9e85f2b1fe2aee5688cf14d98" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {}
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/arseniolourenco/microservice-kitadi-API.git&quot;,
-    &quot;accountId&quot;: &quot;d9864795-b34f-4322-a65d-b2423e42c3bb&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "arseniolourenco"
   }
-}</component>
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/arseniolourenco/microservice-kitadi-API.git",
+    "accountId": "d9864795-b34f-4322-a65d-b2423e42c3bb"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -191,7 +162,7 @@
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-22 (2)&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/arseniolourenco/Development/microservices-new/inventory-service&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
@@ -252,7 +223,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.DiscoveryServerApplication">
+  <component name="RunManager" selected="Application.ApiGatewayApplication">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -284,7 +255,8 @@
       </method>
     </configuration>
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH" value="temurin-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.apigateway.ApiGatewayApplication" />
       <module name="api-gateway" />
       <extension name="coverage">
