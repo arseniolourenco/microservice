@@ -22,15 +22,17 @@ RUN mvn clean install -DskipTests
 WORKDIR /app/api-gateway
 RUN mvn package -DskipTests
 
-# Stage 2: Run Stage (Slim JDK for smaller image size)
-FROM eclipse-temurin:22-jdk
+# Use an official OpenJDK runtime as a parent image
+FROM amazoncorretto:22-alpine
+
+# Copy the application JAR file to the container
+COPY target/*.jar app.jar
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-
-# Expose the application's port
-EXPOSE 8080
+# Expose the port the application runs on
+EXPOSE 8082
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,14 +1,14 @@
 # Use an official OpenJDK runtime as a parent image
-FROM openjdk:22-jdk-slim
+FROM amazoncorretto:22-alpine
+
+# Copy the application JAR file to the container
+COPY target/*.jar app.jar
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the Spring Boot application JAR file
-COPY target/*.jar app.jar
+# Expose the port the application runs on
+EXPOSE 8082
 
-# Expose the application's port
-EXPOSE 8083
-
-# Run the JAR file
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
