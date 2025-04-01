@@ -53,7 +53,7 @@ jobs:
   build:
     strategy:
       matrix:
-        image_name: ["order", "product", "inventory"]
+        image_name: ["order-service", "product-service", "inventory-service"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
