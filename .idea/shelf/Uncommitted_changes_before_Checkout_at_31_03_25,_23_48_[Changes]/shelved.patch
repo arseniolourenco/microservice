@@ -1,0 +1,127 @@
+Index: .github/workflows/build.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>name: Build\non:\n  push:\n    branches:\n      - main\nenv:\n  REGISTRY: ghcr.io\n  REPO_OWNER: ${{ }}\n\njobs:\n  build:\n    strategy:\n      matrix:\n        image_name: [\"order\", \"product\", \"inventory\"]\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v2\n\n      - name: Setup Java\n        uses: actions/setup-java@v3\n        with:\n          java-version: 22\n          distribution: \"corretto\"\n\n      - name: Build\n        working-directory: ${{ matrix.image_name }}\n        run: |\n         ./maven bootJar\n          mv build/libs/$(ls build/libs) app.jar\n\n      - name: Log in to GitHub Container Registry\n        uses: docker/login-action@v2\n        with:\n          registry: ${{ env.REGISTRY }}\n          username: ${{ github.actor }}\n          password: ${{ secrets.GH_TOKEN }}
+===================================================================
+diff --git a/.github/workflows/build.yaml b/.github/workflows/build.yaml
+--- a/.github/workflows/build.yaml	
++++ b/.github/workflows/build.yaml	
+@@ -1,37 +1,94 @@
+-name: Build
++#name: Build
++#on:
++#  push:
++#    branches:
++#      - main
++#env:
++#  REGISTRY: ghcr.io
++#  REPO_OWNER: ${{ }}
++#
++#jobs:
++#  build:
++#    strategy:
++#      matrix:
++#        image_name: ["order", "product", "inventory"]
++#    runs-on: ubuntu-latest
++#    steps:
++#      - name: Checkout
++#        uses: actions/checkout@v2
++#
++#      - name: Setup Java
++#        uses: actions/setup-java@v3
++#        with:
++#          java-version: 22
++#          distribution: "corretto"
++#
++#      - name: Build
++#        working-directory: ${{ matrix.image_name }}
++#        run: |
++#         ./maven bootJar
++#          mv build/libs/$(ls build/libs) app.jar
++#
++#      - name: Log in to GitHub Container Registry
++#        uses: docker/login-action@v2
++#        with:
++#          registry: ${{ env.REGISTRY }}
++#          username: ${{ github.actor }}
++#          password: ${{ secrets.GH_TOKEN }}
++
++
++
++
++name: Build and Deploy Java Spring Boot Microservice
++
+ on:
+   push:
+     branches:
+       - main
+-env:
+-  REGISTRY: ghcr.io
+-  REPO_OWNER: ${{ }}
+-
++  pull_request:
++    branches:
++      - main
+ jobs:
+   build:
+-    strategy:
+-      matrix:
+-        image_name: ["order", "product", "inventory"]
+     runs-on: ubuntu-latest
++
+     steps:
+-      - name: Checkout
+-        uses: actions/checkout@v2
++      - name: Checkout Repository
++        uses: actions/checkout@v3
+ 
+-      - name: Setup Java
++      - name: Set Up JDK 22
+         uses: actions/setup-java@v3
+         with:
+-          java-version: 22
+-          distribution: "corretto"
++          distribution: 'temurin'
++          java-version: '22'
++          cache: maven
++
++      - name: Build with Maven
++        run: mvn clean install -DskipTests
+ 
+-      - name: Build
+-        working-directory: ${{ matrix.image_name }}
++      - name: Run Tests
++        run: mvn test
++
++      - name: Build Docker Image
+         run: |
+-         ./maven bootJar
+-          mv build/libs/$(ls build/libs) app.jar
++          docker build -t my-microservice:latest .
++
++      - name: Log in to Docker Hub
++        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+ 
+-      - name: Log in to GitHub Container Registry
+-        uses: docker/login-action@v2
++      - name: Push Docker Image to Docker Hub
++        run: |
++          docker tag my-microservice:latest ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
++          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
++
++      - name: Deploy to Server (Optional)
++        uses: appleboy/ssh-action@master
+         with:
+-          registry: ${{ env.REGISTRY }}
+-          username: ${{ github.actor }}
+-          password: ${{ secrets.GH_TOKEN }}
+\ No newline at end of file
++          host: ${{ secrets.SERVER_HOST }}
++          username: ${{ secrets.SERVER_USER }}
++          key: ${{ secrets.SSH_PRIVATE_KEY }}
++          script: |
++            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
++            docker stop my-microservice || true
++            docker rm my-microservice || true
++            docker run -d --name my-microservice -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
+\ No newline at end of file
