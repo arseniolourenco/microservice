@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="Product Test">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/Dockerfile" afterDir="false" />
-    </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +161,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.29531568&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -532,16 +523,16 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.InventoryServiceApplication" />
-      <item itemvalue="Application.DiscoveryServerApplication" />
       <item itemvalue="Application.ApiGatewayApplication" />
+      <item itemvalue="Application.DiscoveryServerApplication" />
+      <item itemvalue="Application.InventoryServiceApplication" />
+      <item itemvalue="Application.NotificationServiceApplication" />
       <item itemvalue="Application.OrderServiceApplication" />
       <item itemvalue="Application.ProductServiceApplication" />
-      <item itemvalue="Application.NotificationServiceApplication" />
-      <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
     </list>
     <recent_temporary>
@@ -579,7 +570,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740182554542</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="gh action initial">
+      <option name="closed" value="true" />
+      <created>1743541059397</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743541059397</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -619,7 +618,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="develop" />
+                        <option value="origin/develop" />
                       </list>
                     </value>
                   </entry>
@@ -641,7 +640,10 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Product Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Product Test" />
+    <MESSAGE value="GH Action Initial" />
+    <MESSAGE value="action initial" />
+    <MESSAGE value="gh action initial" />
+    <option name="LAST_COMMIT_MESSAGE" value="gh action initial" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
