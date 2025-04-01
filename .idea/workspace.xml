@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="Product Test">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,23 +36,23 @@
     <branch-grouping />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="57b8d376c678c8e9e85f2b1fe2aee5688cf14d98" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "arseniolourenco"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;arseniolourenco&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/arseniolourenco/microservice-kitadi-API.git",
-    "accountId": "d9864795-b34f-4322-a65d-b2423e42c3bb"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/arseniolourenco/microservice-kitadi-API.git&quot;,
+    &quot;accountId&quot;: &quot;d9864795-b34f-4322-a65d-b2423e42c3bb&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -543,10 +547,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
