@@ -1,4 +1,4 @@
-version: '3.9'
+#version: '3.9'
 
 services:
 
@@ -57,7 +57,7 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
-    restart: always
+    restart: unless-stopped
     networks:
       - microservices-network
     healthcheck:
@@ -114,7 +114,8 @@ services:
       MYSQL_PASSWORD: mauro007
       MYSQL_DATABASE: inventoryDB  # Only for initial setup, actual creation handled by init.sql
     volumes:
-      - ./mysql_data:/var/lib/mysql  # Persistent MySQL storage
+#      - ./mysql_data:/var/lib/mysql  # Persistent MySQL storage
+      - mysql_data:/var/lib/mysql
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Load DB schema
     networks:
       - microservices-network
@@ -181,14 +182,12 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost  # Change this if using a production domain
+#      KC_HOSTNAME: localhost  # Change this if using a production domain
+      KC_HOSTNAME: keycloak
     command: [ "start-dev", "--import-realm" ]
     volumes:
       - ./keycloak_data:/opt/keycloak/data  # Persistent Keycloak storage
       - ./realms/:/opt/keycloak/data/import/  # Import realms on startup
-    depends_on:
-      mysql:
-        condition: service_started
     networks:
       - microservices-network
 
@@ -201,7 +200,6 @@ services:
   #    •  notification-service
   #    •  product-service
 
-  # ✅ Discovery Server
   discovery-server:
     image: discovery-server:latest
     container_name: discovery-server
@@ -216,17 +214,17 @@ services:
         condition: service_healthy  # ✅ Ensure Zipkin is healthy before starting
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      SPRING_ZIPKIN_ENABLED: true
-    #      EUREKA_USERNAME: eureka
-#      EUREKA_PASSWORD: password
+      MANAGEMENT_TRACING_ENABLED: "true"  # ✅ Correct setting for tracing
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@discovery-server:8761/eureka/"
+      EUREKA_INSTANCE_HOSTNAME: discovery-server
     networks:
       - microservices-network
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:8761/actuator/health" ]
+      test: [ "CMD", "wget", "--spider", "-q", "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@discovery-server:8761/actuator/health" ]
       interval: 10s
       retries: 10
-      start_period: 40s  # Increased from 20s to 40s
+      start_period: 40s
 
   # ✅ API Gateway
   api-gateway:
@@ -244,14 +242,13 @@ services:
       keycloak:
         condition: service_started
     environment:
-      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
-      EUREKA_INSTANCE_HOSTNAME: api-gateway
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_ZIPKIN_ENABLED: true
+#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+#      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
+#      EUREKA_INSTANCE_HOSTNAME: api-gateway
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
+#      ZIPKIN_BASE_URL: http://zipkin:9411
     networks:
       - microservices-network
 
@@ -270,12 +267,10 @@ services:
       - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
       EUREKA_INSTANCE_HOSTNAME: order-service
-#      SPRING_ZIPKIN_BASE_URL: http://zipkin:9411/
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      SPRING_ZIPKIN_ENABLED: true
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/orderDB
@@ -304,6 +299,7 @@ services:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka/
       EUREKA_INSTANCE_HOSTNAME: inventory-service
@@ -312,9 +308,6 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-#      SPRING_ZIPKIN_BASE_URL: http://localhost:9411/zipkin/
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
 
@@ -335,13 +328,12 @@ services:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
       EUREKA_INSTANCE_HOSTNAME: notification-service
-      KAFKA_BROKER: kafka:9092
+      KAFKA_BROKER: kafka:29092
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      SPRING_ZIPKIN_ENABLED: true
     networks:
       - microservices-network
 
