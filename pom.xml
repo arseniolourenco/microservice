@@ -16,6 +16,16 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>Microservices Project</name>
+    <description>Parent POM for all microservices</description>
+
+    <properties>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <testcontainers.version>1.20.2</testcontainers.version>
+    </properties>
+
     <modules>
         <module>discovery-server</module>
         <module>api-gateway</module>
@@ -24,12 +34,6 @@
         <module>product-service</module>
         <module>notification-service</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
-        <spring-cloud.version>2023.0.3</spring-cloud.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
