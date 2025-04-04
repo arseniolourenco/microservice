@@ -1,42 +1,4 @@
-#name: Build
-#on:
-#  push:
-#    branches:
-#      - main
-#env:
-#  REGISTRY: ghcr.io
-#  REPO_OWNER: ${{ }}
-#
-#jobs:
-#  build:
-#    strategy:
-#      matrix:
-#        image_name: ["order", "product", "inventory"]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Setup Java
-#        uses: actions/setup-java@v3
-#        with:
-#          java-version: 22
-#          distribution: "corretto"
-#
-#      - name: Build
-#        working-directory: ${{ matrix.image_name }}
-#        run: |
-#         ./maven bootJar
-#          mv build/libs/$(ls build/libs) app.jar
-#
-#      - name: Log in to GitHub Container Registry
-#        uses: docker/login-action@v2
-#        with:
-#          registry: ${{ env.REGISTRY }}
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GH_TOKEN }}
-
-name: Build and Deploy Java Spring Boot Microservice
+name: Build and Deploy Microservices
 
 on:
   push:
@@ -45,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+
 env:
   REGISTRY: ghcr.io
   REPO_OWNER: ${{ github.repository_owner }}
@@ -53,8 +16,9 @@ jobs:
   build:
     strategy:
       matrix:
-        image_name: ["order-service", "product-service", "inventory-service"]
+        service: ["api-gateway", "discovery-server", "order-service", "product-service", "inventory-service", "notification-service"]
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -66,62 +30,24 @@ jobs:
           java-version: '22'
           cache: maven
 
-      - name: Build with Maven
+      - name: Build Maven Project
         run: mvn clean install -DskipTests
 
       - name: Run Tests
         run: mvn test
 
-      - name: Build Docker Image
-        working-directory: ${{ matrix.image_name }}
-        run: |
-          ./maven bootJar
-          mvn build/libs/$(ls build/libs) app.jar
-          docker build -t my-microservice:latest .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GH_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Image Metadata For ${{ matrix.image_name }}
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.image_name }}:latest
-
-      - name: Build and Push ${{ matrix.image_name }}
-        uses: docker/build-push-action@v4
-        with:
-          context: ${{ matrix.image_name }}
-          file: ${{ matrix.image_name }}/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.labels }}
-          secrets: |
-            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-            DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
-            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
-
-#      - name: Log in to Docker Hub
-#        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
-#
-#      - name: Push Docker Image to Docker Hub
-#        run: |
-#          docker tag my-microservice:latest ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
-#          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
-#
-#      - name: Deploy to Server (Optional)
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.SERVER_HOST }}
-#          username: ${{ secrets.SERVER_USER }}
-#          key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          script: |
-#            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
-#            docker stop my-microservice || true
-image:
-tasks:
-  - #            docker rm my-microservice || true
-#            docker run -d --name my-microservice -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/my-microservice:latest
+      - name: Build and Push Docker Image for ${{ matrix.service }}
+        working-directory: ${{ matrix.service }}
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest .
+          docker push ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest
