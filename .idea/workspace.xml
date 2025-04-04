@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial" />
+=======
+    <list default="true" id="0f4d48b2-7b2e-45d9-81fb-782c29b3ed7e" name="Changes" comment="gh action initial">
+      <change afterPath="$PROJECT_DIR$/postgres-data/postmaster.pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
+    </list>
+>>>>>>> main
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +82,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
@@ -163,13 +176,108 @@
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.29531568&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.ApiGatewayApplication.executor": "Debug",
+    "Application.DiscoveryServerApplication.executor": "Debug",
+    "Application.InventoryServiceApplication.executor": "Debug",
+    "Application.NotificationServiceApplication.executor": "Debug",
+    "Application.OrderServiceApplication.executor": "Debug",
+    "Application.ProductServiceApplication.executor": "Debug",
+    "Application.Unnamed.executor": "Debug",
+    "Docker.api-gateway/Dockerfile.executor": "Run",
+    "Docker.discovery-server/Dockerfile deps.executor": "Run",
+    "Docker.discovery-server/Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml.api-gateway: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.discovery-server: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.discovery: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.inventory-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafdrop: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafka-ui: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafka: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mongo: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mongoDB: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mysql: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.notification-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.order-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres-inventory: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres-order: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.product-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.volumes: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.zipkin: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.zookeeper: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.inventory-service/Dockerfile.executor": "Run",
+    "Docker.product-service/Dockerfile.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JAR Application.discovery-server-1.0-SNAPSHOT.jar.executor": "Debug",
+    "JUnit.All in microservices-new (1).executor": "Debug",
+    "JUnit.All in microservices-new.executor": "Coverage",
+    "JUnit.ProductServiceApplicationIntegrationTests.executor": "Debug",
+    "JUnit.ProductServiceApplicationIntegrationTests.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests (1).executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldCreateAndRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldGetProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldGetProductById.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationUnitTests.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldGetProductById.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct_Success.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct_WhenProductNotFound_ShouldThrowException.executor": "Debug",
+    "JUnit.ProductServiceTest.executor": "Debug",
+    "JUnit.ProductServiceTest.getAllProducts.executor": "Debug",
+    "JUnit.ProductServiceTest.getProductById.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldDeleteProduct_Success.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldRetrieveAllProducts.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldRetrieveProductById.executor": "Debug",
+    "JUnit.ProductServiceTest.updateProduct.executor": "Debug",
+    "JUnit.ProductServiceUnitTest.executor": "Debug",
+    "Maven.microservices-new [clean,package].executor": "Run",
+    "Maven.microservices-new [clean,test].executor": "Run",
+    "Maven.microservices-new [clean,verify].executor": "Run",
+    "Maven.microservices-new [clean:clean].executor": "Run",
+    "Maven.microservices-new [clean].executor": "Run",
+    "Maven.microservices-new [install].executor": "Run",
+    "Maven.microservices-new [spring-boot:start].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "full.screen.before.presentation.mode": "true",
+    "git-widget-placeholder": "main",
+    "ignore.preview.features.used": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-22 (2)",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new/inventory-service",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.29531568"
+>>>>>>> main
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;SQL&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "SQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/notification-service/src/main/resources" />
