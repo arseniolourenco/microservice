@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
