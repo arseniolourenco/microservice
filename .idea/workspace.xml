@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -590,7 +588,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743541059397</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="gh action initial">
+      <option name="closed" value="true" />
+      <created>1743717007337</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743717007337</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -654,6 +660,7 @@
     <MESSAGE value="Product Test" />
     <MESSAGE value="GH Action Initial" />
     <MESSAGE value="action initial" />
+    <MESSAGE value="enforce update" />
     <MESSAGE value="gh action initial" />
     <option name="LAST_COMMIT_MESSAGE" value="gh action initial" />
   </component>
