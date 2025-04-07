@@ -1,0 +1,22 @@
+Index: postgres-data/postmaster.pid
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1\n/var/lib/postgresql/data\n<<<<<<< HEAD\n1743762989\n=======\n1743712548\n>>>>>>> main\n5432\n/var/run/postgresql\n*\n        7         0\nready   \n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/postgres-data/postmaster.pid b/postgres-data/postmaster.pid
+--- a/postgres-data/postmaster.pid	(revision b06729352d865b343dbcc739b18a872050bd4f13)
++++ b/postgres-data/postmaster.pid	(date 1744049111471)
+@@ -1,10 +1,6 @@
+ 1
+ /var/lib/postgresql/data
+-<<<<<<< HEAD
+-1743762989
+-=======
+-1743712548
+->>>>>>> main
++1744049111
+ 5432
+ /var/run/postgresql
+ *
