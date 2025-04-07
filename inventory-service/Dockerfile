@@ -1,4 +1,4 @@
-# Use an official OpenJDK runtime as a parent image
+# Use Amazon Corretto JDK 22
 FROM amazoncorretto:22-alpine
 
 # Set the working directory in the container
