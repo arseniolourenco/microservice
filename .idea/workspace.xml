@@ -4,7 +4,160 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial" />
+    <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
+      <change afterPath="$PROJECT_DIR$/kubectl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo11" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo42_tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000091" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000092" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000093" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000094" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000095" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000096" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000097" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000098" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000099" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000100" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000101" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000102" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000103" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000104" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000105" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000106" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000107" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000108" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000109" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000110" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000111" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000112" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000113" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000114" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000115" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000116" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000117" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000118" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000119" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000120" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000121" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000122" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000123" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000124" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000125" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000126" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000127" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000128" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000129" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000130" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000131" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000132" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000133" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000134" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000135" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000136" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000137" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000138" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000139" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000140" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000141" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000142" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000143" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000144" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000145" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000146" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000147" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000148" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000149" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000150" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000151" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000152" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000153" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000154" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000155" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000156" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000157" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postgres-data/base/16384/16386" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postgres-data/base/16384/16397" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25,_23_48_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25,_23_48_[Changes]2/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25__23_48__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25__23_48__Changes_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/arseniolourenco/apigateway/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/arseniolourenco/apigateway/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo11_tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/1259" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/1259" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619_fsm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619_fsm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619_vm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619_vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2696" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2696" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2840" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2840" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2841" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2841" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1247" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1247" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1249" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1249" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1259" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1259" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16388" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16385" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16389" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16389" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16392" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16392" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16394" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16391" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16395" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16395" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16398" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16400" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16400" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16403" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2224" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2224" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2579" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2579" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2606" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2606" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2608" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2608" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2610" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2610" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2620" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2620" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2658" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2658" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2659" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2659" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2662" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2662" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2663" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2663" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2664" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2664" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2665" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2665" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2666" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2666" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2667" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2667" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2673" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2673" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2674" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2674" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2678" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2678" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2679" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2679" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2699" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2699" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2701" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2701" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2702" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2702" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2703" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2703" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2704" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2704" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/3455" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/3455" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/5002" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/5002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/global/1260" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/1260" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_xact/0000" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_xact/0000" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,106 +223,106 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.DiscoveryServerApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.InventoryServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.NotificationServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.OrderServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.ProductServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Debug&quot;,
-    &quot;Docker.api-gateway/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.discovery-server/Dockerfile deps.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.discovery-server/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.api-gateway: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.discovery-server: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.discovery: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.inventory-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.kafdrop: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.kafka-ui: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.kafka: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.keycloak: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mongo: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mongoDB: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mysql: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.notification-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.order-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.postgres-inventory: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.postgres-order: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.postgres: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.product-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.volumes: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.zipkin: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.zookeeper: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.inventory-service/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.product-service/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JAR Application.discovery-server-1.0-SNAPSHOT.jar.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.All in microservices-new (1).executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.All in microservices-new.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.ProductServiceApplicationIntegrationTests.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationIntegrationTests.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests (1).executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.shouldCreateAndRetrieveProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.shouldGetProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.shouldGetProductById.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationTests.shouldRetrieveProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceApplicationUnitTests.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceIntegrationTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceIntegrationTest.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceIntegrationTest.shouldGetProductById.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceIntegrationTest.shouldRetrieveProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.deleteProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.deleteProduct_Success.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.deleteProduct_WhenProductNotFound_ShouldThrowException.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.getAllProducts.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.getProductById.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.shouldDeleteProduct_Success.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.shouldRetrieveAllProducts.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.shouldRetrieveProductById.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.updateProduct.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceUnitTest.executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.microservices-new [clean,package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [clean,test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [clean,verify].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [clean:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.microservices-new [spring-boot:start].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#7 on develop&quot;,
-    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-22 (2)&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/arseniolourenco/Development/microservices-new/notification-service/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.29531568&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.ApiGatewayApplication.executor": "Run",
+    "Application.DiscoveryServerApplication.executor": "Debug",
+    "Application.InventoryServiceApplication.executor": "Debug",
+    "Application.NotificationServiceApplication.executor": "Debug",
+    "Application.OrderServiceApplication.executor": "Debug",
+    "Application.ProductServiceApplication.executor": "Debug",
+    "Application.Unnamed.executor": "Debug",
+    "Docker.api-gateway/Dockerfile.executor": "Run",
+    "Docker.discovery-server/Dockerfile deps.executor": "Run",
+    "Docker.discovery-server/Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml.api-gateway: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.discovery-server: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.discovery: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.inventory-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafdrop: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafka-ui: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.kafka: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mongo: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mongoDB: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mysql: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.notification-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.order-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres-inventory: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres-order: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.postgres: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.product-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.volumes: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.zipkin: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.zookeeper: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.inventory-service/Dockerfile.executor": "Run",
+    "Docker.product-service/Dockerfile.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JAR Application.discovery-server-1.0-SNAPSHOT.jar.executor": "Debug",
+    "JUnit.All in microservices-new (1).executor": "Debug",
+    "JUnit.All in microservices-new.executor": "Coverage",
+    "JUnit.ProductServiceApplicationIntegrationTests.executor": "Debug",
+    "JUnit.ProductServiceApplicationIntegrationTests.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests (1).executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldCreateAndRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldGetProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldGetProductById.executor": "Debug",
+    "JUnit.ProductServiceApplicationTests.shouldRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceApplicationUnitTests.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldGetProductById.executor": "Debug",
+    "JUnit.ProductServiceIntegrationTest.shouldRetrieveProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct_Success.executor": "Debug",
+    "JUnit.ProductServiceTest.deleteProduct_WhenProductNotFound_ShouldThrowException.executor": "Debug",
+    "JUnit.ProductServiceTest.executor": "Debug",
+    "JUnit.ProductServiceTest.getAllProducts.executor": "Debug",
+    "JUnit.ProductServiceTest.getProductById.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldCreateProduct.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldDeleteProduct_Success.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldRetrieveAllProducts.executor": "Debug",
+    "JUnit.ProductServiceTest.shouldRetrieveProductById.executor": "Debug",
+    "JUnit.ProductServiceTest.updateProduct.executor": "Debug",
+    "JUnit.ProductServiceUnitTest.executor": "Debug",
+    "Maven.microservices-new [clean,package].executor": "Run",
+    "Maven.microservices-new [clean,test].executor": "Run",
+    "Maven.microservices-new [clean,verify].executor": "Run",
+    "Maven.microservices-new [clean:clean].executor": "Run",
+    "Maven.microservices-new [clean].executor": "Run",
+    "Maven.microservices-new [install].executor": "Run",
+    "Maven.microservices-new [spring-boot:start].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "full.screen.before.presentation.mode": "true",
+    "git-widget-placeholder": "#25 on develop",
+    "ignore.preview.features.used": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-22 (2)",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new/notification-service/src/main/resources",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.29531568"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;SQL&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "SQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/notification-service/src/main/resources" />
@@ -208,9 +361,9 @@
       <command value="mvn spring-boot:start" />
       <command value="mvn clean test" />
       <command value="mvn clean:clean" />
+      <command value="mvn clean package" />
       <command value="mvn clean verify" />
       <command value="mvn install" />
-      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -220,7 +373,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ApiGatewayApplication">
+  <component name="RunManager" selected="Docker.docker-compose.yml.keycloak: Compose Deployment">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -491,19 +644,6 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.inventory-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="inventory-service" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <configuration name="docker-compose.yml.keycloak: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -517,12 +657,25 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.mysql: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="docker-compose.yml.notification-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="mysql" />
+              <option value="notification-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.order-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="order-service" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose.yml" />
@@ -537,19 +690,19 @@
       <item itemvalue="Application.NotificationServiceApplication" />
       <item itemvalue="Application.OrderServiceApplication" />
       <item itemvalue="Application.ProductServiceApplication" />
+      <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>

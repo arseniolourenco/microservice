@@ -1,16 +1,16 @@
-2025-03-16 19:08:12.688224Z jdbc[3]: exception
+2025-04-10 09:41:42.243692Z jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MIGRATION_MODEL" not found (this database is empty); SQL statement:
 SELECT ID, VERSION FROM MIGRATION_MODEL ORDER BY UPDATE_TIME DESC [42104-230]
-2025-03-16 19:08:14.210777Z jdbc[3]: exception
+2025-04-10 09:41:42.990492Z jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOG" not found (this database is empty); SQL statement:
 SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOG [42104-230]
-2025-03-16 19:08:14.511870Z jdbc[4]: exception
+2025-04-10 09:41:43.242609Z jdbc[4]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
 SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-230]
-2025-03-16 19:08:14.569048Z jdbc[3]: exception
+2025-04-10 09:41:43.277637Z jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOG" not found; SQL statement:
 SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOG [42102-230]
-2025-03-16 19:08:20.290993Z jdbc[3]: exception
+2025-04-10 09:41:46.495624Z jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "T.DETAILS_JSON" not found; SQL statement:
 select t.DETAILS_JSON from PUBLIC.ADMIN_EVENT_ENTITY t where 0=1 [42122-230]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
@@ -77,6 +77,7 @@ select t.DETAILS_JSON from PUBLIC.ADMIN_EVENT_ENTITY t where 0=1 [42122-230]
 	at org.keycloak.quarkus.runtime.storage.database.jpa.QuarkusJpaConnectionProviderFactory.postInit(QuarkusJpaConnectionProviderFactory.java:124)
 	at org.keycloak.services.DefaultKeycloakSessionFactory.initializeProviders(DefaultKeycloakSessionFactory.java:168)
 	at org.keycloak.services.DefaultKeycloakSessionFactory.initializeProviders(DefaultKeycloakSessionFactory.java:165)
+	at org.keycloak.services.DefaultKeycloakSessionFactory.initializeProviders(DefaultKeycloakSessionFactory.java:165)
 	at org.keycloak.services.DefaultKeycloakSessionFactory.initProviderFactories(DefaultKeycloakSessionFactory.java:145)
 	at org.keycloak.services.DefaultKeycloakSessionFactory.initProviderFactories(DefaultKeycloakSessionFactory.java:126)
 	at org.keycloak.quarkus.runtime.integration.QuarkusKeycloakSessionFactory.init(QuarkusKeycloakSessionFactory.java:87)
@@ -113,57 +114,3 @@ select t.DETAILS_JSON from PUBLIC.ADMIN_EVENT_ENTITY t where 0=1 [42122-230]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at io.quarkus.bootstrap.runner.QuarkusEntryPoint.doRun(QuarkusEntryPoint.java:62)
 	at io.quarkus.bootstrap.runner.QuarkusEntryPoint.main(QuarkusEntryPoint.java:33)
-2025-03-17 20:40:23.801743Z database: flush
-org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@3c21ec4d failed; length 12288 at 49152 [2.3.230/2]" [50000-230]
-	at org.h2.message.DbException.get(DbException.java:212)
-	at org.h2.message.DbException.convert(DbException.java:407)
-	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
-	at org.h2.mvstore.MVStore.handleException(MVStore.java:1546)
-	at org.h2.mvstore.MVStore.panic(MVStore.java:371)
-	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1529)
-	at org.h2.mvstore.FileStore.lambda$serializeAndStore$3(FileStore.java:1434)
-	at org.h2.mvstore.FileStore.submitOrRun(FileStore.java:1403)
-	at org.h2.mvstore.FileStore.serializeAndStore(FileStore.java:1434)
-	at org.h2.mvstore.FileStore.lambda$storeIt$2(FileStore.java:1378)
-	at org.h2.mvstore.FileStore.submitOrRun(FileStore.java:1403)
-	at org.h2.mvstore.FileStore.storeIt(FileStore.java:1377)
-	at org.h2.mvstore.MVStore.storeNow(MVStore.java:843)
-	at org.h2.mvstore.MVStore.store(MVStore.java:808)
-	at org.h2.mvstore.MVStore.commit(MVStore.java:778)
-	at org.h2.mvstore.MVStore.commit(MVStore.java:770)
-	at org.h2.mvstore.tx.TransactionStore.close(TransactionStore.java:365)
-	at org.h2.mvstore.db.Store.close(Store.java:349)
-	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1292)
-	at org.h2.engine.Database.<init>(Database.java:401)
-	at org.h2.engine.Engine.openSession(Engine.java:92)
-	at org.h2.engine.Engine.openSession(Engine.java:222)
-	at org.h2.engine.Engine.createSession(Engine.java:201)
-	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
-	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
-	at org.h2.Driver.connect(Driver.java:59)
-	at io.agroal.pool.ConnectionFactory.createConnection(ConnectionFactory.java:225)
-	at io.agroal.pool.ConnectionPool$CreateConnectionTask.call(ConnectionPool.java:580)
-	at io.agroal.pool.ConnectionPool$CreateConnectionTask.call(ConnectionPool.java:561)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at io.agroal.pool.util.PriorityScheduledExecutor.beforeExecute(PriorityScheduledExecutor.java:75)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@3c21ec4d failed; length 12288 at 49152 [2.3.230/2]" [50000-230]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
-	... 34 more
-Caused by: org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@3c21ec4d failed; length 12288 at 49152 [2.3.230/2]
-	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
-	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:478)
-	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:67)
-	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:28)
-	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:366)
-	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:28)
-	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1526)
-	... 28 more
-Caused by: java.nio.channels.ClosedChannelException
-	at java.base/sun.nio.ch.FileChannelImpl.ensureOpen(FileChannelImpl.java:160)
-	at java.base/sun.nio.ch.FileChannelImpl.write(FileChannelImpl.java:1000)
-	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:474)
-	... 33 more

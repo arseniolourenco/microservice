@@ -30,8 +30,8 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:29092
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL:localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper  # Ensures Kafka starts only after Zookeeper is ready
@@ -114,8 +114,7 @@ services:
       MYSQL_PASSWORD: mauro007
       MYSQL_DATABASE: inventoryDB  # Only for initial setup, actual creation handled by init.sql
     volumes:
-#      - ./mysql_data:/var/lib/mysql  # Persistent MySQL storage
-      - mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql  # Persistent MySQL storage
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Load DB schema
     networks:
       - microservices-network
@@ -182,8 +181,7 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-#      KC_HOSTNAME: localhost  # Change this if using a production domain
-      KC_HOSTNAME: keycloak
+#      KC_HOSTNAME: keycloak
     command: [ "start-dev", "--import-realm" ]
     volumes:
       - ./keycloak_data:/opt/keycloak/data  # Persistent Keycloak storage
@@ -213,9 +211,8 @@ services:
         condition: service_healthy  # ✅ Ensure Zipkin is healthy before starting
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ENABLED: "true"  # ✅ Correct setting for tracing
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://${EUREKA_USERNAME}:${EUREKA_PASSWORD}@discovery-server:8761/eureka/"
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      ZIPKIN_BASE_URL: http://zipkin:9411
       EUREKA_INSTANCE_HOSTNAME: discovery-server
     networks:
       - microservices-network
@@ -233,6 +230,17 @@ services:
     build:
       context: ./api-gateway
       dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      ZIPKIN_BASE_URL: http://zipkin:9411
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
+      EUREKA_INSTANCE_HOSTNAME: api-gateway
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
+    networks:
+      - microservices-network
     ports:
       - "8080:8080"
     depends_on:
@@ -240,16 +248,8 @@ services:
         condition: service_started
       keycloak:
         condition: service_started
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-#      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-#      EUREKA_INSTANCE_HOSTNAME: api-gateway
-#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
-#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
-#      ZIPKIN_BASE_URL: http://zipkin:9411
-    networks:
-      - microservices-network
+      zipkin:
+        condition: service_started
 
   # ✅ Order Service
   order-service:
@@ -267,8 +267,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
+      EEUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
       EUREKA_INSTANCE_HOSTNAME: order-service
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
@@ -299,8 +300,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
       EUREKA_INSTANCE_HOSTNAME: inventory-service
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/inventoryDB
@@ -328,8 +330,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:password@discovery-server:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
       EUREKA_INSTANCE_HOSTNAME: notification-service
       KAFKA_BROKER: kafka:29092
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
@@ -359,7 +362,7 @@ services:
 #      MONGODB_AUTH_DATABASE: admin
 #
 #      # ✅ Eureka & Distributed Tracing
-#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "{EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}"
 #      ZIPKIN_URL: http://zipkin:9411
 #
 #      # ✅ Kafka Broker Configuration
@@ -404,4 +407,3 @@ volumes:
     driver: local
   keycloak_data:     # ✅ Keycloak persistent storage
     driver: local
-

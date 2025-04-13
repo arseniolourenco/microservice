@@ -16,7 +16,7 @@ public class SecurityConfig {
         serverHttpSecurity
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/eureka/**", "/actuator/**")      // Allow Eureka & Actuator endpoints
+                        .pathMatchers("/eureka/**", "/actuator/**", "/login/**", "/logout/**", "/auth/**")      // Allow Eureka & Actuator endpoints
                         .permitAll()
                         .anyExchange()
                         .authenticated()) // Require authentication for other routes
