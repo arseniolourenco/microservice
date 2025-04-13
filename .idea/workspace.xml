@@ -4,14 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f4d48b2-7b2e-45d9-81fb-782c29b3ed7e" name="Changes" comment="gh action initial">
-      <change afterPath="$PROJECT_DIR$/postgres-data/postmaster.pid" afterDir="false" />
+    <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000173" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo11" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo11" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.000172" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.000172" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibtmp1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/postmaster.pid" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/postmaster.pid" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +106,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.ApiGatewayApplication.executor": "Debug",
+    "Application.ApiGatewayApplication.executor": "Run",
     "Application.DiscoveryServerApplication.executor": "Debug",
     "Application.InventoryServiceApplication.executor": "Debug",
     "Application.NotificationServiceApplication.executor": "Debug",
@@ -160,11 +184,11 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "full.screen.before.presentation.mode": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "#25 on develop",
     "ignore.preview.features.used": "true",
     "jdk.selected.JAVA_MODULE": "corretto-22 (2)",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new/inventory-service",
+    "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new/notification-service/src/main/resources",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -180,17 +204,19 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/notification-service/src/main/resources" />
+      <recent name="$PROJECT_DIR$/product-service/src/main/resources" />
+      <recent name="$PROJECT_DIR$/inventory-service/src/main/resources" />
       <recent name="$PROJECT_DIR$/inventory-service" />
       <recent name="$PROJECT_DIR$/discovery-server/src/main/resources" />
-      <recent name="$PROJECT_DIR$/product-service/src/main/resources" />
-      <recent name="$PROJECT_DIR$/notification-service/src/main/resources" />
-      <recent name="$PROJECT_DIR$/product-service" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/api-gateway" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/api-gateway/src/main/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.arseniolourenco.product_service" />
@@ -213,10 +239,10 @@
       <command value="mvn clean" />
       <command value="mvn spring-boot:start" />
       <command value="mvn clean test" />
-      <command value="mvn clean verify" />
+      <command value="mvn install" />
       <command value="mvn clean:clean" />
       <command value="mvn clean package" />
-      <command value="mvn install" />
+      <command value="mvn clean verify" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -226,7 +252,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ApiGatewayApplication">
+  <component name="RunManager" selected="Docker.docker-compose.yml.keycloak: Compose Deployment">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -258,7 +284,7 @@
       </method>
     </configuration>
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="temurin-22" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.apigateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -283,7 +309,8 @@
       </method>
     </configuration>
     <configuration name="DiscoveryServerApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.discoveryserver.DiscoveryServerApplication" />
       <module name="discovery-server" />
       <extension name="coverage">
@@ -312,7 +339,8 @@
       </method>
     </configuration>
     <configuration name="InventoryServiceApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.inventory_service.InventoryServiceApplication" />
       <module name="inventory-service" />
       <extension name="coverage">
@@ -336,6 +364,8 @@
       </method>
     </configuration>
     <configuration name="NotificationServiceApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.notification_service.NotificationServiceApplication" />
       <module name="notification-service" />
       <extension name="coverage">
@@ -360,6 +390,7 @@
     </configuration>
     <configuration name="OrderServiceApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.order_service.OrderServiceApplication" />
       <module name="order-service" />
       <extension name="coverage">
@@ -383,7 +414,8 @@
       </method>
     </configuration>
     <configuration name="ProductServiceApplication" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/Library/Java/JavaVirtualMachines/corretto-22.0.2-1/Contents/Home" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.arseniolourenco.product_service.ProductServiceApplication" />
       <module name="product-service" />
       <extension name="coverage">
@@ -491,19 +523,6 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.inventory-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="inventory-service" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <configuration name="docker-compose.yml.keycloak: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -517,12 +536,25 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.mysql: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="docker-compose.yml.notification-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="mysql" />
+              <option value="notification-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.order-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="order-service" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose.yml" />
@@ -537,19 +569,19 @@
       <item itemvalue="Application.NotificationServiceApplication" />
       <item itemvalue="Application.OrderServiceApplication" />
       <item itemvalue="Application.ProductServiceApplication" />
+      <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.mysql: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.inventory-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.api-gateway: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -586,7 +618,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743541059397</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="gh action initial">
+      <option name="closed" value="true" />
+      <created>1743717007337</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743717007337</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -650,6 +690,7 @@
     <MESSAGE value="Product Test" />
     <MESSAGE value="GH Action Initial" />
     <MESSAGE value="action initial" />
+    <MESSAGE value="enforce update" />
     <MESSAGE value="gh action initial" />
     <option name="LAST_COMMIT_MESSAGE" value="gh action initial" />
   </component>

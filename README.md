@@ -16,3 +16,8 @@ GRANT ALL PRIVILEGES ON inventoryDB.* TO 'mauro'@'%';
 GRANT ALL PRIVILEGES ON orderDB.* TO 'mauro'@'%';
 
 FLUSH PRIVILEGES;
+
+
+docker network connect microservices-network api-gateway
+docker network inspect microservices-network
+
