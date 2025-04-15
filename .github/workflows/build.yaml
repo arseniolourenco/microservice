@@ -36,6 +36,9 @@ jobs:
       - name: Run Tests
         run: mvn test
 
+      - name: Run Unit Tests
+        run: mvn test
+
       - name: Submit Dependencies to GitHub
         uses: github/dependency-submission-action@v4
         with:
@@ -44,8 +47,31 @@ jobs:
       - name: Submit dependency graph
         uses: github/dependency-submission-action@v3
 
-      - name: Set up Docker Buildx
+      - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Images
+        run: |
+          docker build -t your-dockerhub/discovery-server ./discovery-server
+          docker build -t your-dockerhub/api-gateway ./api-gateway
+          docker build -t your-dockerhub/order-service ./order-service
+          docker build -t your-dockerhub/inventory-service ./inventory-service
+          docker build -t your-dockerhub/notification-service ./notification-service
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push Docker Images
+        run: |
+          docker push your-dockerhub/discovery-server
+          docker push your-dockerhub/api-gateway
+          docker push your-dockerhub/order-service
+          docker push your-dockerhub/inventory-service
+          docker push your-dockerhub/notification-service
+
+      # Optional: Deploy to server, Kubernetes, etc.
+      - name: Deploy (SSH or K8s)
+        run: echo "Deploy step here"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
