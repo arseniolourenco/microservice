@@ -1,6 +1,5 @@
-# Use the official Eclipse Temurin JDK image as the base image
-FROM eclipse-temurin:22-jdk
-
+# Use Amazon Corretto JDK 22
+FROM amazoncorretto:22-alpine
 # Set the working directory in the container
 WORKDIR /app
 
