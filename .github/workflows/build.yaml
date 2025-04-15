@@ -13,10 +13,10 @@ env:
   REPO_OWNER: ${{ github.repository_owner }}
 
 jobs:
-  build:
+  build-and-deploy:
     strategy:
       matrix:
-        service: ["api-gateway", "discovery-server", "order-service", "product-service", "inventory-service", "notification-service"]
+        service: ["discovery-server", "api-gateway", "order-service", "inventory-service", "notification-service", "product-service"]
     runs-on: ubuntu-latest
 
     steps:
@@ -36,52 +36,42 @@ jobs:
       - name: Run Tests
         run: mvn test
 
-      - name: Run Unit Tests
-        run: mvn test
-
-      - name: Submit Dependencies to GitHub
+      - name: Submit Dependency Graph
         uses: github/dependency-submission-action@v4
         with:
           working-directory: ${{ matrix.service }}
 
-      - name: Submit dependency graph
-        uses: github/dependency-submission-action@v3
-
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker Images
-        run: |
-          docker build -t your-dockerhub/discovery-server ./discovery-server
-          docker build -t your-dockerhub/api-gateway ./api-gateway
-          docker build -t your-dockerhub/order-service ./order-service
-          docker build -t your-dockerhub/inventory-service ./inventory-service
-          docker build -t your-dockerhub/notification-service ./notification-service
-
-      - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Push Docker Images
-        run: |
-          docker push your-dockerhub/discovery-server
-          docker push your-dockerhub/api-gateway
-          docker push your-dockerhub/order-service
-          docker push your-dockerhub/inventory-service
-          docker push your-dockerhub/notification-service
-
-      # Optional: Deploy to server, Kubernetes, etc.
-      - name: Deploy (SSH or K8s)
-        run: echo "Deploy step here"
-
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry (GHCR)
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image for ${{ matrix.service }}
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Docker Image to GHCR and DockerHub
         working-directory: ${{ matrix.service }}
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest .
-          docker push ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest
+          IMAGE_NAME_GHCR=${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest
+          IMAGE_NAME_DOCKERHUB=${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest
+
+          echo "Building image for ${{ matrix.service }}..."
+          docker build -t $IMAGE_NAME_GHCR -t $IMAGE_NAME_DOCKERHUB .
+
+          echo "Pushing to GitHub Container Registry..."
+          docker push $IMAGE_NAME_GHCR
+
+          echo "Pushing to Docker Hub..."
+          docker push $IMAGE_NAME_DOCKERHUB
+
+      # Optional: Deployment step (SSH, Kubernetes, etc.)
+      - name: Deploy Step
+        run: echo "Add your deployment logic here (e.g., SSH, Helm, kubectl, etc.)"
