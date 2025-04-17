@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        service: ["api-gateway", "discovery-server", "order-service", "product-service", "inventory-service", "notification-service"]
+        service: [ "api-gateway", "discovery-server", "order-service", "product-service", "inventory-service", "notification-service" ]
     runs-on: ubuntu-latest
 
     steps:

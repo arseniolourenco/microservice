@@ -30,7 +30,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://kafka:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
@@ -175,9 +175,9 @@ services:
     image: quay.io/keycloak/keycloak:26.1.2
     container_name: keycloak
     restart: always
-    hostname: keycloak
+#    hostname: keycloak
     ports:
-      - "8181:8080"
+      - "8080:8080"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
@@ -214,6 +214,8 @@ services:
       MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       ZIPKIN_BASE_URL: http://zipkin:9411
       EUREKA_INSTANCE_HOSTNAME: discovery-server
+      EUREKA_USERNAME: eureka
+      EUREKA_PASSWORD: password
     networks:
       - microservices-network
     healthcheck:
@@ -232,17 +234,19 @@ services:
       dockerfile: Dockerfile
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      ZIPKIN_BASE_URL: http://zipkin:9411
+#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+#      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_INSTANCE_HOSTNAME: api-gateway
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
+#      EUREKA_INSTANCE_HOSTNAME: api-gateway
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8181/realms/spring-boot-microservices-realm
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/certs
     networks:
       - microservices-network
     ports:
-      - "8080:8080"
+      - "8181:8080"
+    expose:
+      - "8181"
     depends_on:
       discovery-server:
         condition: service_started
@@ -262,21 +266,21 @@ services:
     depends_on:
       api-gateway:
         condition: service_started  # Waits for API Gateway to start
-    ports:
-      - "8081:8081"
+#    ports:
+#      - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      ZIPKIN_BASE_URL: http://zipkin:9411
+#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+#      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EEUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
-      EUREKA_INSTANCE_HOSTNAME: order-service
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/orderDB
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+#      EUREKA_INSTANCE_HOSTNAME: order-service
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/orderDB
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     networks:
       - microservices-network
 
@@ -288,10 +292,8 @@ services:
     build:
       context: ./inventory-service
       dockerfile: Dockerfile
-    ports:
-      - "8082:8082"
-    expose:
-      - "8082"
+#    ports:
+#      - "8082:8082"
     depends_on:
       api-gateway:
         condition: service_started
@@ -299,16 +301,16 @@ services:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      ZIPKIN_BASE_URL: http://zipkin:9411
+#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+#      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
-      EUREKA_INSTANCE_HOSTNAME: inventory-service
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/inventoryDB
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+#      EUREKA_INSTANCE_HOSTNAME: inventory-service
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/inventoryDB
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: root
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     networks:
       - microservices-network
 
@@ -320,8 +322,8 @@ services:
     build:
       context: ./notification-service
       dockerfile: Dockerfile
-    ports:
-      - "8084:8084"
+#    ports:
+#      - "8084:8084"
     depends_on:
       kafka:
         condition: service_started
@@ -329,13 +331,13 @@ services:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-      ZIPKIN_BASE_URL: http://zipkin:9411
+#      MANAGEMENT_TRACING_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+#      ZIPKIN_BASE_URL: http://zipkin:9411
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
-      EUREKA_INSTANCE_HOSTNAME: notification-service
-      KAFKA_BROKER: kafka:29092
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_SERVER_URL}
+#      EUREKA_INSTANCE_HOSTNAME: notification-service
+#      KAFKA_BROKER: kafka:29092
+#      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     networks:
       - microservices-network
 
@@ -406,4 +408,6 @@ volumes:
   postgres_data:     # ✅ PostgreSQL database storage
     driver: local
   keycloak_data:     # ✅ Keycloak persistent storage
+    driver: local
+  realms_data:       # ✅ realms persistent storage
     driver: local
