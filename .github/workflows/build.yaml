@@ -14,10 +14,11 @@ env:
 
 jobs:
   build-and-deploy:
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         service: [ "api-gateway", "discovery-server", "order-service", "product-service", "inventory-service", "notification-service" ]
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -30,12 +31,10 @@ jobs:
           java-version: '22'
           cache: maven
 
-      - name: Build Maven Project
-        working-directory: ${{ matrix.service }}
+      - name: Build All Modules (Skip Tests)
         run: mvn clean install -DskipTests
 
-      - name: Run Tests
-        working-directory: ${{ matrix.service }}
+      - name: Run All Tests
         run: mvn test
 
       - name: Submit Dependency Graph to GitHub
@@ -53,7 +52,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image for ${{ matrix.service }}
         working-directory: ${{ matrix.service }}
         run: |
           docker build -t ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest .
