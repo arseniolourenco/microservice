@@ -1,8 +1,8 @@
-# Use Amazon Corretto JDK 22
-FROM amazoncorretto:22
+# FROM eclipse-temurin:22-jre
+FROM openjdk:22
 
-# Copy the application JAR file to the container
+# Copy the JAR file separately to maximize caching
 COPY target/*.jar app.jar
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Set the entry point
+ENTRYPOINT ["java", "-jar", "app.jar"]

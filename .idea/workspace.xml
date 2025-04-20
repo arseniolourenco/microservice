@@ -5,115 +5,113 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
-      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000174" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000175" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/000000010000000000000001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/keycloakdb.mv.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/pg_control" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/pg_internal.init" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/pg_internal1.init" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/pg_internal2.init" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25,_19_13_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_04_25__19_13__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discovery-server/Dockerfile.layered" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grafana.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory-service/Dockerfile.layered" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000206" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000207" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000208" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000209" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000210" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000211" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000212" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000213" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000214" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/binlog.000215" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql_data/ibtmp1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/Dockerfile.layered" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/Dockerfile.layered" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postgres-data/postmaster.pid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/Dockerfile.layered" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prometheus/prometheus.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/microservices_new_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsonSchemas.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25,_23_48_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_31_03_25__23_48__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devbox.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devbox.lock" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/discovery-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo11" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.000173" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.000173" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ibtmp1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notification-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/1259" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/1259" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619_fsm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619_fsm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2619_vm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2619_vm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2696" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2696" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2840" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2840" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2840_fsm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2840_fsm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2840_vm" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2840_vm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/2841" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/2841" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/1/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/1/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1247" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1247" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1249" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1249" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/1259" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/1259" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16385" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16385" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16386" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16386" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16389" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16389" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16386" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16389" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16391" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16391" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16392" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16392" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16395" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16395" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16397" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16397" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/16400" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/16400" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2224" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2224" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2579" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2579" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2606" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2606" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2608" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2608" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2610" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2610" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2620" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2620" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2658" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2658" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2659" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2659" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2662" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2662" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2663" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2663" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2664" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2664" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2665" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2665" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2666" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2666" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2667" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2667" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2673" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2673" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2674" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2674" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2678" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2678" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2679" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2679" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2699" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2699" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2701" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2701" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2702" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2702" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2703" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2703" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/2704" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/2704" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/3455" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/3455" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/5002" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/5002" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/16384/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/base/5/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/global/1260" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/1260" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_control" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/global/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postgres-data/pg_stat/pgstat.stat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_wal/000000010000000000000001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postgres-data/pg_xact/0000" beforeDir="false" afterPath="$PROJECT_DIR$/postgres-data/pg_xact/0000" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postgres-data/postmaster.pid" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +156,6 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-        <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -249,6 +246,7 @@
     "JUnit.ProductServiceTest.shouldRetrieveProductById.executor": "Debug",
     "JUnit.ProductServiceTest.updateProduct.executor": "Debug",
     "JUnit.ProductServiceUnitTest.executor": "Debug",
+    "Maven.microservices-new [clean,compile...].executor": "Run",
     "Maven.microservices-new [clean,package].executor": "Run",
     "Maven.microservices-new [clean,test].executor": "Run",
     "Maven.microservices-new [clean,verify].executor": "Run",
@@ -260,8 +258,7 @@
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.google.cloudcode.ide_session_index": "20250417_0003",
+    "com.google.cloudcode.ide_session_index": "20250419_0001",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "full.screen.before.presentation.mode": "true",
@@ -270,11 +267,10 @@
     "jdk.selected.JAVA_MODULE": "corretto-22 (2)",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new",
-    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
+    "project.structure.side.proportion": "0.2850575",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "MavenSettings",
     "settings.editor.splitter.proportion": "0.29531568"
   },
   "keyToStringList": {
@@ -320,10 +316,11 @@
       <command value="mvn clean" />
       <command value="mvn spring-boot:start" />
       <command value="mvn clean test" />
-      <command value="mvn clean:clean" />
       <command value="mvn clean package" />
       <command value="mvn clean verify" />
       <command value="mvn install" />
+      <command value="mvn clean:clean" />
+      <command value="mvn clean compile jib:build" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -333,7 +330,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.api-gateway/Dockerfile">
+  <component name="RunManager" selected="Application.ApiGatewayApplication">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -646,18 +643,18 @@
       <item itemvalue="Application.OrderServiceApplication" />
       <item itemvalue="Application.ProductServiceApplication" />
       <item itemvalue="Docker.api-gateway/Dockerfile" />
-      <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.api-gateway/Dockerfile" />
-        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.order-service: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.notification-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.discovery-server: Compose Deployment" />
+        <item itemvalue="Docker.api-gateway/Dockerfile" />
       </list>
     </recent_temporary>
   </component>

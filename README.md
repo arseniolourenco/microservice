@@ -21,3 +21,9 @@ FLUSH PRIVILEGES;
 docker network connect microservices-network api-gateway
 docker network inspect microservices-network
 
+./mvnw compile jib:build
+
+
+update host file on local machine 127.0.0.1 keycloak on mac
+sudo nano /etc/hosts
+127.0.0.1 keycloak
