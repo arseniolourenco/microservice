@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+
 env:
   REGISTRY: ghcr.io
   REPO_OWNER: ${{ github.repository_owner }}
@@ -55,5 +60,8 @@ jobs:
       - name: Build and Push Docker Image for ${{ matrix.service }}
         working-directory: ${{ matrix.service }}
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest .
-          docker push ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest
+          docker buildx build \
+            --platform linux/amd64 \
+            --tag ${{ env.REGISTRY }}/${{ env.REPO_OWNER }}/${{ matrix.service }}:latest \
+            --push \
+            .
