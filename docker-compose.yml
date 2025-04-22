@@ -1,5 +1,5 @@
-#version: '3.9'
-
+#version: '3.8'  # Use Docker Compose version 3.8 or higher
+# ✅ Define the services and their configurations
 services:
 
   #   🚀Infrastructure Services
@@ -147,27 +147,27 @@ services:
       retries: 5
       start_period: 20s
 
-  #  # ✅ MongoDB for Product Service
-  #  mongoDB:
-  #    image: mongo:latest
-  #    container_name: mongoDB
-  #    restart: always
-  #    ports:
-  #      - "27017:27017"
-  #    environment:
-  #      MONGO_INITDB_ROOT_USERNAME: mongoadmin
-  #      MONGO_INITDB_ROOT_PASSWORD: secret
-  #      MONGO_INITDB_DATABASE: productDB
-  #    volumes:
-  #      - ./mongo-data:/data/db
-  #      - ./mongo-init-scripts:/docker-entrypoint-initdb.d # ✅ Place initialization scripts here
-  #    networks:
-  #      - microservices-network
-  #    healthcheck: # ✅ Ensures MongoDB is fully ready before dependent services start
-  #      test: echo 'db.runCommand("ping").ok' | mongosh --quiet mongodb://mongoadmin:secret@localhost:27017/admin || exit 1
-  #      interval: 10s
-  #      retries: 5
-  #      start_period: 20s
+  # ✅ MongoDB for Product Service
+  mongoDB:
+    image: mongo:latest
+    container_name: mongoDB
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: productDB
+    volumes:
+      - ./mongo-data:/data/db
+#      - ./mongo-init-scripts:/docker-entrypoint-initdb.d # ✅ Place initialization scripts here
+    networks:
+      - microservices-network
+    healthcheck: # ✅ Ensures MongoDB is fully ready before dependent services start
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet mongodb://mongoadmin:secret@localhost:27017/admin || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
 
   #  🔐 Security & Authentication
   #  •	keycloak
@@ -198,13 +198,15 @@ services:
   #    •  product-service
 
   discovery-server:
-    #    image: discovery-server:latest
-    image: arseniolourenco/discovery-server:latest
+    #    Uncomment to use local Dockerfile
+    #    image: discovery-server:latest # ✅ Use the correct image name from docker desktop
+    image: arseniolourenco/discovery-server:latest  # ✅ Pull image from dockerhub to docker desktop
     platform: linux/amd64
     container_name: discovery-server
     restart: always
     pull_policy: always
-    #    build:
+    #    Uncomment to build from local Dockerfile
+    #    build: # ✅ Build the image from local Dockerfile
     #      context: ./discovery-server
     #      dockerfile: Dockerfile
     ports:
@@ -229,13 +231,15 @@ services:
 
   # ✅ API Gateway
   api-gateway:
-    #    image: api-gateway:latest
-    image: arseniolourenco/api-gateway:latest
+    #    Uncomment to use local Dockerfile
+    #    image: api-gateway:latest  # ✅ Use the correct image name from docker desktop
+    image: arseniolourenco/api-gateway:latest # ✅ Pull image from dockerhub to docker desktop
     platform: linux/amd64
     container_name: api-gateway
     restart: always
     pull_policy: always
-    #    build:
+    #    Uncomment to build from local Dockerfile
+    #    build: # ✅ Build the image from local Dockerfile
     #      context: ./api-gateway
     #      dockerfile: Dockerfile
     environment:
@@ -263,13 +267,15 @@ services:
 
   # ✅ Order Service
   order-service:
-    #    image: order-service:latest
-    image: arseniolourenco/order-service:latest
+    #    Uncomment to use local Dockerfile
+    #    image: order-service:latest  # ✅ Use the correct image name from docker desktop
+    image: arseniolourenco/order-service:latest # ✅ Pull image from dockerhub to docker desktop
     platform: linux/amd64
     container_name: order-service
     restart: always
     pull_policy: always
-    #    build:
+    #    Uncomment to build from local Dockerfile
+    #    build: # ✅ Build the image from local Dockerfile
     #      context: ./order-service
     #      dockerfile: Dockerfile
     depends_on:
@@ -295,13 +301,15 @@ services:
 
   # ✅ Inventory Service
   inventory-service:
-    #    image: inventory-service:latest
-    image: arseniolourenco/inventory-service:latest
+    #    Uncomment to use local Dockerfile
+    #    image: inventory-service:latest  # ✅ Use the correct image name from docker desktop
+    image: arseniolourenco/inventory-service:latest # ✅ Pull image from dockerhub to docker desktop and use it
     platform: linux/amd64
     container_name: inventory-service
     restart: always
     pull_policy: always
-    #    build:
+    #    Uncomment to build from local Dockerfile
+    #    build: # ✅ Build the image from local Dockerfile
     #      context: ./inventory-service
     #      dockerfile: Dockerfile
     #    ports:
@@ -328,13 +336,15 @@ services:
 
   # ✅ Notification Service
   notification-service:
-    #    image: notification-service:latest
-    image: arseniolourenco/notification-service:latest
+    #    Uncomment to use local Dockerfile
+    #    image: notification-service:latest     # ✅ Use the correct image name from docker desktop
+    image: arseniolourenco/notification-service:latest   # ✅ Pull image from dockerhub to docker desktop and use it
     platform: linux/amd64
     container_name: notification-service
     restart: unless-stopped
     pull_policy: always
-    #    build:
+    #    Uncomment to build from local Dockerfile
+    #    build: # ✅ Build the image from local Dockerfile
     #      context: ./notification-service
     #      dockerfile: Dockerfile
     #    ports:
@@ -356,53 +366,48 @@ services:
     networks:
       - microservices-network
 
+  # ✅ Product Service
+  product-service:
+    #    Uncomment to use local Dockerfile
+    image: arseniolourenco/product-service:latest # ✅ Pull image from dockerhub to docker desktop
+    platform: linux/amd64
+    container_name: product-service
+    restart: always
+    pull_policy: always
+    #    Uncomment to build from local Dockerfile
+    #      build: # ✅ Build the image from local Dockerfile
+    #        context: ./product-service
+    #        dockerfile: Dockerfile
+    #      ports:
+    #        - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
+      MONGODB_URL: mongodb://mongoadmin:secret@mongoDB:27017/productDB?authSource=admin
+    depends_on:
+      mongoDB:
+        condition: service_healthy  # ✅ Ensures MongoDB is ready before starting
+      discovery-server:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    networks:
+      - microservices-network
 
-  #  # ✅ Product Service
-  #  product-service:
-  #    image: product-service:latest
-  #    container_name: product-service
-  #    restart: always
-  #    build:
-  #      context: ./product-service
-  #      dockerfile: Dockerfile
-  #    ports:
-  #      - "8083:8083"
-  #    environment:
-  #      SERVER_PORT: 8083
-  #
-  #      # ✅ MongoDB Configuration
-  #      MONGODB_HOST: mongoDB  # ✅ Use correct container name (was 'mongo')
-  #      MONGODB_PORT: 27017
-  #      MONGODB_USERNAME: mongoadmin
-  #      MONGODB_PASSWORD: secret
-  #      MONGODB_DATABASE: productDB
-  #      MONGODB_AUTH_DATABASE: admin
-  #
-  #      # ✅ Eureka & Distributed Tracing
-  #      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "{EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}"
-  #      ZIPKIN_URL: http://zipkin:9411
-  #
-  #      # ✅ Kafka Broker Configuration
-  #      KAFKA_BROKER: kafka:9092
-  #
-  #    depends_on:
-  #      mongoDB:
-  #        condition: service_healthy  # ✅ Ensures MongoDB is ready before starting
-  #      discovery-server:
-  #        condition: service_started
-  #      api-gateway:
-  #        condition: service_started
-  #    networks:
-  #      - microservices-network
-  #
-
-
-  #  db = db.getSiblingDB('productDB');
-  #  db.createUser({
-  #  user: "productUser",
-  #  pwd: "productPass",
-  #  roles: [ { role: "readWrite", db: "productDB" } ]
-  #});
+  config-server:
+    #    Uncomment to use local Dockerfile
+    image: arseniolourenco/config-server:latest # ✅ Pull image from dockerhub to docker desktop
+    platform: linux/amd64
+    container_name: config-server
+    restart: always
+    pull_policy: always
+    ports:
+      - "8888:8888"
+    depends_on:
+      discovery-server:
+        condition: service_started
+    networks:
+      - microservices-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -414,7 +419,7 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - order-service
-#      - product-service
+      - product-service
       - inventory-service
       - notification-service
       - api-gateway
@@ -434,7 +439,6 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     networks:
       - microservices-network
-
 
 # ✅ Define the Docker Network
 networks:

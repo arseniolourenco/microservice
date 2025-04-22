@@ -17,12 +17,12 @@ scrape_configs:
         labels:
           application: 'Inventory Service Application'
 
-  #    - job_name: 'product-service'
-  #      metrics_path: /actuator/prometheus
-  #      static_configs:
-  #        - targets: [ 'product-service:8080' ]
-  #          labels:
-  #            application: 'Product Service Application'
+  - job_name: 'product-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'product-service:8080' ]
+        labels:
+          application: 'Product Service Application'
 
   - job_name: 'notification-service'
     metrics_path: /actuator/prometheus
