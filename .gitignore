@@ -19,6 +19,16 @@ target/
 *.realms
 *.env
 
+# Ignore Docker volume directories
+mongo_data/
+postgres_data/
+keycloak_data/
+mysql_data/
+realms_data/
+
+# Ignore environment variable files
+.env
+
 
 ### Eclipse ###
 .apt_generated
