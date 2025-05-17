@@ -12,13 +12,6 @@ target/
 *.iml
 *.ipr
 
-*.mongo_data
-*.postgres_data
-*.keycloak_data
-*.mysql_data
-*.realms
-*.env
-
 # Ignore Docker volume directories
 mongo_data/
 postgres_data/
