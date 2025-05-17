@@ -12,10 +12,15 @@ target/
 *.iml
 *.ipr
 
-*.postgres-data
-*.keycloak_data
-*.mysql_data
-*.realms
+# Ignore Docker volume directories
+mongo_data/
+postgres_data/
+keycloak_data/
+mysql_data/
+realms_data/
+
+# Ignore environment variable files
+.env
 
 
 ### Eclipse ###
