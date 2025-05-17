@@ -17,6 +17,7 @@ target/
 *.keycloak_data
 *.mysql_data
 *.realms
+*.env
 
 
 ### Eclipse ###
