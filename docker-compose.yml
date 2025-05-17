@@ -138,7 +138,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: orderDB
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - microservices-network
     healthcheck:

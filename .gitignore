@@ -12,7 +12,8 @@ target/
 *.iml
 *.ipr
 
-*.postgres-data
+*.mongo_data
+*.postgres_data
 *.keycloak_data
 *.mysql_data
 *.realms
