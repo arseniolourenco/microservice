@@ -5,7 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/classes/application-docker.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/classes/banner.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/classes/com/arseniolourenco/configserver/ConfigServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/jib-classpath-file" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/jib-main-class-file" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/6a57c2c89528c1f4b4f54dfa4d6232bc76af0557f93aad467f17a694631f9879/3f6d0a5cd25d56d47583ee308c6f74e15fceba7e932414a9b79f583d4a98c9b8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/bfe6bdd367f2b8cf960097302fd48e87ab72dd56db10f19f9d6c527d1c8c5ea3/b2c2daa06a01e8f685540f29eab8734216f3202bf4cafaf25dd5a630da4b68e4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/eb409dd1cf066a3edac912e82ef74961cc35e79f8e25e8a4d602a0741c96cf3e/cb1c6099fe22acab83ed8c72d2d431e7c59a266ccf9ab300927623608ee07e93" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/f5562ebc89867607a8b2e289150ecda7af7e20cdee4559dbe7766a065efe2ccc/710eeb21bfd40ee45e336e05304ca788a3d4be122b011117897c8c26d0695247" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/2616c5b5cf98566e3f1999d84a43223f545f1160a256a38534329960b9db2ed8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/b96947624bef0caf1265f6ea89e53ad1a967862c2b03a0f1f3d93cf77977cdba" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/d8ec2520bc3ee1eab660a4180ee8d4b8c65092dc2a549d24044a9d43570dfac7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/ef85d7f53320fcb7f68be90c906374e06878b0881bc8868fad684053467535c5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.digest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.id" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/.mongodb/mongosh/68284b85e40d3f33df65d0fa_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/.mongodb/mongosh/68284b886b87e37ab665d0fa_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/WiredTiger.turtle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/WiredTiger.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/_mdb_catalog.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/collection-2-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/collection-2-14043058767241425313.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/collection-4-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/collection-4-14043058767241425313.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/index-3-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-3-14043058767241425313.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/index-5-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-5-14043058767241425313.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/index-6-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-6-14043058767241425313.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/journal/WiredTigerLog.0000000002" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/mongod.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongo_data/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/sizeStorer.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.000219" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.000219" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibtmp1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +106,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/arseniolourenco/microservice-kitadi-API.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/arseniolourenco/microservice.git&quot;,
     &quot;accountId&quot;: &quot;d9864795-b34f-4322-a65d-b2423e42c3bb&quot;
   }
 }</component>
@@ -73,106 +137,110 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.ApiGatewayApplication.executor": "Run",
-    "Application.DiscoveryServerApplication.executor": "Debug",
-    "Application.InventoryServiceApplication.executor": "Debug",
-    "Application.NotificationServiceApplication.executor": "Debug",
-    "Application.OrderServiceApplication.executor": "Debug",
-    "Application.ProductServiceApplication.executor": "Debug",
-    "Application.Unnamed.executor": "Debug",
-    "Docker.api-gateway/Dockerfile.executor": "Run",
-    "Docker.discovery-server/Dockerfile deps.executor": "Run",
-    "Docker.discovery-server/Dockerfile.executor": "Run",
-    "Docker.docker-compose.yml.api-gateway: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.discovery-server: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.discovery: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.inventory-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.kafdrop: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.kafka-ui: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.kafka: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mongo: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mongoDB: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mysql: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.notification-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.order-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.postgres-inventory: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.postgres-order: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.postgres: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.product-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.volumes: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.zipkin: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.zookeeper: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "Docker.inventory-service/Dockerfile.executor": "Run",
-    "Docker.product-service/Dockerfile.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JAR Application.discovery-server-1.0-SNAPSHOT.jar.executor": "Debug",
-    "JUnit.All in microservices-new (1).executor": "Debug",
-    "JUnit.All in microservices-new.executor": "Coverage",
-    "JUnit.ProductServiceApplicationIntegrationTests.executor": "Debug",
-    "JUnit.ProductServiceApplicationIntegrationTests.shouldCreateProduct.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests (1).executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.shouldCreateAndRetrieveProduct.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.shouldCreateProduct.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.shouldGetProduct.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.shouldGetProductById.executor": "Debug",
-    "JUnit.ProductServiceApplicationTests.shouldRetrieveProduct.executor": "Debug",
-    "JUnit.ProductServiceApplicationUnitTests.executor": "Debug",
-    "JUnit.ProductServiceIntegrationTest.executor": "Debug",
-    "JUnit.ProductServiceIntegrationTest.shouldCreateProduct.executor": "Debug",
-    "JUnit.ProductServiceIntegrationTest.shouldGetProductById.executor": "Debug",
-    "JUnit.ProductServiceIntegrationTest.shouldRetrieveProduct.executor": "Debug",
-    "JUnit.ProductServiceTest.deleteProduct.executor": "Debug",
-    "JUnit.ProductServiceTest.deleteProduct_Success.executor": "Debug",
-    "JUnit.ProductServiceTest.deleteProduct_WhenProductNotFound_ShouldThrowException.executor": "Debug",
-    "JUnit.ProductServiceTest.executor": "Debug",
-    "JUnit.ProductServiceTest.getAllProducts.executor": "Debug",
-    "JUnit.ProductServiceTest.getProductById.executor": "Debug",
-    "JUnit.ProductServiceTest.shouldCreateProduct.executor": "Debug",
-    "JUnit.ProductServiceTest.shouldDeleteProduct_Success.executor": "Debug",
-    "JUnit.ProductServiceTest.shouldRetrieveAllProducts.executor": "Debug",
-    "JUnit.ProductServiceTest.shouldRetrieveProductById.executor": "Debug",
-    "JUnit.ProductServiceTest.updateProduct.executor": "Debug",
-    "JUnit.ProductServiceUnitTest.executor": "Debug",
-    "Maven.microservices-new [clean,compile...].executor": "Run",
-    "Maven.microservices-new [clean,package].executor": "Run",
-    "Maven.microservices-new [clean,test].executor": "Run",
-    "Maven.microservices-new [clean,verify].executor": "Run",
-    "Maven.microservices-new [clean:clean].executor": "Run",
-    "Maven.microservices-new [clean].executor": "Run",
-    "Maven.microservices-new [install].executor": "Run",
-    "Maven.microservices-new [spring-boot:start].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.google.cloudcode.ide_session_index": "20250419_0001",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "full.screen.before.presentation.mode": "true",
-    "git-widget-placeholder": "#31 on develop",
-    "ignore.preview.features.used": "true",
-    "jdk.selected.JAVA_MODULE": "corretto-22 (2)",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/arseniolourenco/Development/microservices-new",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2850575",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "settings.editor.splitter.proportion": "0.29531568"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DiscoveryServerApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.InventoryServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.NotificationServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.OrderServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.ProductServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Debug&quot;,
+    &quot;Docker.api-gateway/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.discovery-server/Dockerfile deps.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.discovery-server/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.api-gateway: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.discovery-server: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.discovery: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.inventory-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.kafdrop: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.kafka-ui: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.kafka: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.keycloak: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mongo: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mongoDB: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mysql: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.notification-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.order-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.postgres-inventory: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.postgres-order: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.postgres: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.product-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.volumes: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.zipkin: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.zookeeper: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.inventory-service/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.product-service/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JAR Application.discovery-server-1.0-SNAPSHOT.jar.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.All in microservices-new (1).executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.All in microservices-new.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.ProductServiceApplicationIntegrationTests.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationIntegrationTests.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests (1).executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.shouldCreateAndRetrieveProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.shouldGetProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.shouldGetProductById.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationTests.shouldRetrieveProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceApplicationUnitTests.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceIntegrationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceIntegrationTest.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceIntegrationTest.shouldGetProductById.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceIntegrationTest.shouldRetrieveProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.deleteProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.deleteProduct_Success.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.deleteProduct_WhenProductNotFound_ShouldThrowException.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.getAllProducts.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.getProductById.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.shouldCreateProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.shouldDeleteProduct_Success.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.shouldRetrieveAllProducts.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.shouldRetrieveProductById.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.updateProduct.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceUnitTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.microservices-new [clean,compile...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [clean,test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [clean,verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [clean:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.microservices-new [spring-boot:start].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.google.cloudcode.ide_session_index&quot;: &quot;20250517_0001&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-22 (2)&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/arseniolourenco/Development/microservices-new&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2850575&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.29531568&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "SQL"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;SQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/notification-service/src/main/resources" />
@@ -560,6 +628,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729361947702</updated>
+      <workItem from="1747494348769" duration="22000" />
+      <workItem from="1747494596549" duration="38000" />
     </task>
     <task id="LOCAL-00001" summary="Product Test">
       <option name="closed" value="true" />
@@ -633,7 +703,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/develop" />
+                        <option value="develop" />
                       </list>
                     </value>
                   </entry>
