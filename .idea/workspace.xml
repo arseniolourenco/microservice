@@ -5,71 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eace871-93f9-4d19-8b19-92b15eff8ee9" name="Changes" comment="gh action initial">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application-docker.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/classes/application-docker.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/classes/banner.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/classes/com/arseniolourenco/configserver/ConfigServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/jib-classpath-file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/jib-main-class-file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/6a57c2c89528c1f4b4f54dfa4d6232bc76af0557f93aad467f17a694631f9879/3f6d0a5cd25d56d47583ee308c6f74e15fceba7e932414a9b79f583d4a98c9b8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/bfe6bdd367f2b8cf960097302fd48e87ab72dd56db10f19f9d6c527d1c8c5ea3/b2c2daa06a01e8f685540f29eab8734216f3202bf4cafaf25dd5a630da4b68e4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/eb409dd1cf066a3edac912e82ef74961cc35e79f8e25e8a4d602a0741c96cf3e/cb1c6099fe22acab83ed8c72d2d431e7c59a266ccf9ab300927623608ee07e93" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/layers/f5562ebc89867607a8b2e289150ecda7af7e20cdee4559dbe7766a065efe2ccc/710eeb21bfd40ee45e336e05304ca788a3d4be122b011117897c8c26d0695247" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/2616c5b5cf98566e3f1999d84a43223f545f1160a256a38534329960b9db2ed8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/b96947624bef0caf1265f6ea89e53ad1a967862c2b03a0f1f3d93cf77977cdba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/d8ec2520bc3ee1eab660a4180ee8d4b8c65092dc2a549d24044a9d43570dfac7" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-cache/selectors/ef85d7f53320fcb7f68be90c906374e06878b0881bc8868fad684053467535c5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.digest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.id" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/jib-image.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application-docker.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application-docker.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak_data/h2/keycloakdb.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/.mongodb/mongosh/68284b85e40d3f33df65d0fa_log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/.mongodb/mongosh/68284b886b87e37ab665d0fa_log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mongo_data/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/WiredTiger.turtle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mongo_data/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/WiredTiger.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/_mdb_catalog.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/collection-2-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/collection-2-14043058767241425313.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mongo_data/collection-4-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/collection-4-14043058767241425313.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/index-3-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-3-14043058767241425313.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/index-5-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-5-14043058767241425313.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mongo_data/index-6-14043058767241425313.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/index-6-14043058767241425313.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/journal/WiredTigerLog.0000000002" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/mongod.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo_data/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_data/sizeStorer.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#ib_16384_0.dblwr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_redo/#ib_redo12" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_1.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_10.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_2.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_3.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_4.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_5.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_6.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_7.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_8.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/#innodb_temp/temp_9.ibt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.000219" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.000219" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/binlog.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ib_buffer_pool" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/ibtmp1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/inventoryDB/t_inventory.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/mysql.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql_data/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql_data/undo_002" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/resources/application-docker.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application-docker.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application-docker.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
