@@ -1,0 +1,77 @@
+# ==============================
+# MAVEN
+# ==============================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# ==============================
+# ENVIRONMENT VARIABLES
+# ==============================
+.env
+.env.example
+!.env.example
+
+k8s
+
+# ==============================
+# DOCKER VOLUMES
+# ==============================
+mongo_data/
+postgres_data/
+mysql_data/
+keycloak_data/
+realms_data/
+
+# Config repo local clone
+config-repo/
+
+# ==============================
+# INTELLIJ
+# ==============================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ==============================
+# ECLIPSE
+# ==============================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# ==============================
+# NETBEANS
+# ==============================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# ==============================
+# VSCODE
+# ==============================
+.vscode/
+
+# ==============================
+# MAC
+# ==============================
+.DS_Store
+
+# ==============================
+# LOGS
+# ==============================
+*.log
+
+# ==============================
+# TEMP FILES
+# ==============================
+*.tmp
+*.swp.secrets/

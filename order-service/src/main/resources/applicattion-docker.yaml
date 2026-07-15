@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ${ORDER_SERVICE_NAME}
+
+  config:
+    import: ${CONFIG_SERVER_IMPORT:optional:configserver:http://config-server:8888}
+
+  cloud:
+    config:
+      enabled: true
+      fail-fast: true

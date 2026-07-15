@@ -1,0 +1,24 @@
+# --------- Stage 1: Extract layers using layertools ---------
+FROM eclipse-temurin:22-jre AS builder
+
+WORKDIR /layers
+COPY target/*.jar app.jar
+
+# Extract Spring Boot layers
+RUN java -Djarmode=layertools -jar app.jar extract
+
+# --------- Stage 2: Build final runtime image ---------
+FROM eclipse-temurin:22-jre
+
+WORKDIR /app
+
+# Copy each layer separately to leverage Docker caching
+COPY --from=builder /layers/dependencies/ ./
+COPY --from=builder /layers/snapshot-dependencies/ ./
+COPY --from=builder /layers/spring-boot-loader/ ./
+COPY --from=builder /layers/application/ ./
+
+EXPOSE 8282
+
+# Run the app using Spring Boot loader
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
