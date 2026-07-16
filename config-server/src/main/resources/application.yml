@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/arseniolourenco/config-repo.git
+          clone-on-start: true
+          default-label: main
+          refresh-rate: 60
+server:
+  port: 8888

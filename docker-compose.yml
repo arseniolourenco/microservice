@@ -1,207 +1,154 @@
 #version: '3.9'
 
+networks:
+  microservices-network:
+    driver: bridge
+
+volumes:
+  kafka_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+  mongo_data:
+    driver: local
+  mysql_data:
+    driver: local
+  postgres_data:
+    driver: local
+  keycloak_data:
+    driver: local
+  realms:
+    driver: local
+  keycloak_certs:
+
 services:
 
-  #   🚀Infrastructure Services
-  #  •	zookeeper
-  #  •	kafka
-
-  # ✅ Zookeeper (Required by Kafka)
+  # ==========================================
+  # INFRASTRUCTURE (Zookeeper & Kafka)
+  # ==========================================
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.3
     container_name: zookeeper
     restart: always
     ports:
-      - "2181:2181"
+    - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     networks:
-      - microservices-network
+    - microservices-network
     deploy:
       resources:
         limits:
           memory: 350m
 
+    healthcheck:
+      test: ["CMD-SHELL", "echo ruok | nc localhost 2181 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   kafka:
     image: confluentinc/cp-kafka:7.5.3
     container_name: kafka
     restart: on-failure
     ports:
-      - "9092:9092"
+    - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 
+        PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: 
+        PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     depends_on:
-      - zookeeper
+      zookeeper:
+        condition: service_healthy
     networks:
-      - microservices-network
+    - microservices-network
     deploy:
       resources:
         limits:
           memory: 350m
-  #    volumes:
-  #      - kafka_data:/var/lib/kafka/data
-  #    healthcheck:
-  #      test: [ "CMD-SHELL", "kafka-topics --bootstrap-server kafka:29092 --list" ]
-  #      interval: 30s
-  #      retries: 5
-  #      start_period: 30s
-  #      timeout: 10s
 
-  #  📊Monitoring & Observability
-  #  •	zipkin
-  #  •	kafka-ui
-  #  •	kafdrop
-
-  # ✅ Zipkin (Distributed Tracing)
-  zipkin:
-    image: openzipkin/zipkin:latest
-    container_name: zipkin
-    ports:
-      - "9411:9411"
-    restart: unless-stopped
-    networks:
-      - microservices-network
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:9411/health" ]
-      interval: 10s
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list || exit 1"]
+      interval: 30s
+      timeout: 10s
       retries: 5
-      start_period: 15s
-    deploy:
-      resources:
-        limits:
-          memory: 150m
+      start_period: 30s
 
-  # ✅ Kafka UI (for Monitoring)
-  #  kafka-ui:
-  #    image: provectuslabs/kafka-ui:latest
-  #    container_name: kafka-ui
-  #    restart: always
-  #    ports:
-  #      - "8090:8080"
-  #    environment:
-  #      KAFKA_CLUSTERS_0_NAME: local
-  #      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
-  #    depends_on:
-  #      - kafka
-  #    networks:
-  #      - microservices-network
-
-  # ✅ Kafdrop (for Monitoring)
-  #  kafdrop:
-  #    image: obsidiandynamics/kafdrop
-  #    container_name: kafdrop
-  #    restart: always
-  #    depends_on:
-  #      - kafka
-  #    ports:
-  #      - "9000:9000"
-  #    environment:
-  #      KAFKA_BROKERCONNECT: kafka:29092
-  #      JVM_OPTS: "-Xms32M -Xmx64M"
-  #    networks:
-  #      - microservices-network
-
-  #  🗄 Databases
-  #  •	mysql (for Keycloak & Inventory)
-  #  •	postgres (for Orders)
-  #  •	mongoDB (for Product Service)
-
-  # ✅ MySQL Database
+  # ==========================================
+  # DATABASES (MySQL, Postgres, MongoDB)
+  # ==========================================
   mysql:
     image: mysql:latest
     container_name: mysql
     restart: always
     ports:
-      - "3306:3306"
+    - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - mysql_data:/var/lib/mysql
+    - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - microservices-network
+    - microservices-network
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${MYSQL_ROOT_USER:-root}", "-p${MYSQL_ROOT_PASSWORD}" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${MYSQL_ROOT_USER:-root}",
+        "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
       retries: 10
       start_period: 30s
-
-#  # ✅ PostgreSQL Database
-#  postgres:
-#    image: postgres:latest
-#    container_name: postgres
-#    restart: always
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#      POSTGRES_DB: ${POSTGRES_DB}
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
-#      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-#    networks:
-#      - microservices-network
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-#      interval: 10s
-#      retries: 5
-#      timeout: 5s
-#      start_period: 30s
 
   postgres:
     image: postgres:16
     container_name: postgres
     restart: always
     ports:
-      - "5432:5432"
+    - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - postgres_data:/var/lib/postgresql/data
+    - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - microservices-network
+    - microservices-network
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       retries: 5
       timeout: 5s
       start_period: 30s
 
-  # ✅ MongoDB for Product Service
   mongo:
     image: mongo:latest
     container_name: mongo
     restart: always
     ports:
-      - "27017:27017"
+    - "27017:27017"
     env_file:
-      - .env
+    - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - mongo_data:/data/db
-    #        - ./mongo-init-scripts:/docker-entrypoint-initdb.d # ✅ Place initialization scripts here
+    - mongo_data:/data/db
     networks:
-      - microservices-network
+    - microservices-network
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh --quiet mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/admin || exit 1
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet 
+        mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/admin
+        || exit 1
       interval: 10s
       retries: 5
       start_period: 20s
@@ -210,111 +157,9 @@ services:
         limits:
           memory: 350m
 
-  #  🔐 Security & Authentication
-  #  •	keycloak
-
-  #  keycloak:
-  #    container_name: keycloak
-  #    image: quay.io/keycloak/keycloak:latest  # Repositório oficial e atualizado
-  #    restart: always
-  #    ports:
-  #      - "8080:8080"
-  #    environment:
-  #      # Base de dados
-  #      KC_DB: postgres
-  #      KC_DB_URL: ${KC_DB_URL}
-  #      KC_DB_USERNAME: ${POSTGRES_USER}
-  #      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-  #
-  #      # Admin inicial
-  #      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
-  #      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-  #
-  #      # HTTP/HTTPS Configurações
-  #      KC_HTTP_ENABLED: "true"
-  #      KC_HTTPS_ENABLED: "false"
-  #      KC_HOSTNAME_STRICT: "false"
-  #      KC_SSL_REQUIRED: "none"
-  #      KC_PROXY_HEADERS: xforwarded
-  #      KC_HTTP_RELATIVE_PATH: /
-  #      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
-  #
-  #      # Importação de realm
-  #      KC_IMPORT: /opt/keycloak/data/import/realms.json
-  #      KC_IMPORT_STRATEGY: IGNORE_EXISTING
-  #
-  #    command:
-  #      - start-dev
-  #    depends_on:
-  #      postgres:
-  #        condition: service_healthy
-  #    volumes:
-  #      - keycloak_data:/opt/keycloak/data                # Dados persistentes
-  #      - ./realms:/opt/keycloak/data/import/             # Realms para importação
-  #    networks:
-  #      - microservices-network
-
-#  # 🔐 Keycloak - Ambiente PROD
-#  keycloak:
-#    container_name: keycloak
-#    image: quay.io/keycloak/keycloak:26.5.4
-#    restart: unless-stopped
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    ports:
-#      - "8443:8443"   # HTTPS (Prod)
-#
-#    environment:
-#      # ---------------------------
-#      # Base de Dados
-#      # ---------------------------
-#      KC_DB: postgres
-#      KC_DB_URL: ${KC_DB_URL}
-#      KC_DB_USERNAME: ${POSTGRES_USER}
-#      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-#
-#      # ---------------------------
-#      # Admin Inicial
-#      # ---------------------------
-#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-#      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-#
-#      # ---------------------------
-#      # Configuração Prod
-#      # ---------------------------
-#      KC_HTTP_ENABLED: "${KC_HTTP_ENABLED}"        # true para Dev, false para Prod
-#      KC_HTTPS_ENABLED: "${KC_HTTPS_ENABLED}"      # true para Prod, false para Dev
-#      KC_HOSTNAME: "${KC_HOSTNAME}"                # hostname real para Prod
-#      KC_HOSTNAME_STRICT: "${KC_HOSTNAME_STRICT}"  # false para Dev
-#      KC_SSL_REQUIRED: "${KC_SSL_REQUIRED}"        # none para Dev, external para Prod
-#      KC_PROXY_HEADERS: xforwarded
-#      KC_HTTP_RELATIVE_PATH: /
-#      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
-#      KC_HEALTH_ENABLED: "true"
-#
-#
-#      # Import Realm
-#      KC_IMPORT: /opt/keycloak/data/import/realms.json
-#      KC_IMPORT_STRATEGY: IGNORE_EXISTING
-#
-#    command:
-#      - start-dev
-#      - --import-realm
-#      - --hostname-strict=false
-#
-#    networks:
-#      - microservices-network
-#    volumes:
-#      - keycloak_data:/opt/keycloak/data
-#      - ./realms:/opt/keycloak/data/import
-##      - ./certs:/opt/keycloak/certs   # Apenas para Prod HTTPS
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 512m
-
-  # 🔐 Keycloak - Ambiente DEV
+  # ==========================================
+  # SECURITY (Keycloak)
+  # ==========================================
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:26.5.4
@@ -323,331 +168,76 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - "8080:8080"   # HTTP para DEV
+    - "8080:8080"
     env_file:
-      - .env
+    - .env
     environment:
-      # ---------------------------
-      # Base de Dados
-      # ---------------------------
       KC_DB: postgres
-      KC_DB_URL: ${KC_DB_URL}              # Ex: jdbc:postgresql://postgres:5432/keycloak
-      KC_DB_USERNAME: ${POSTGRES_USER}     # Ex: keycloak
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD} # Ex: password
-
-      # ---------------------------
-      # Admin Inicial
-      # ---------------------------
+      KC_DB_URL: ${KC_DB_URL}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-
-      # ---------------------------
-      # DEV Settings
-      # ---------------------------
       KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_SSL_REQUIRED: "NONE"
-
-      # ---------------------------
-      # Realm Import (opcional)
-      # ---------------------------
       KC_IMPORT: /opt/keycloak/data/import/realms.json
       KC_IMPORT_STRATEGY: IGNORE_EXISTING
-
     command:
-      - start-dev
-      - --import-realm
-      - --hostname-strict=false
-
+    - start-dev
+    - --import-realm
+    - --hostname-strict=false
     networks:
-      - microservices-network
+    - microservices-network
     volumes:
-      - keycloak_data:/opt/keycloak/data
-      - ./realms:/opt/keycloak/data/import   # Se quiser importar realms
+    - keycloak_data:/opt/keycloak/data
+    - ./realms:/opt/keycloak/data/import
     deploy:
       resources:
         limits:
           memory: 512m
 
-  #    ⚙️ Core Backend Services
-  #    •  Config-server
-  #    •  discovery-server
-  #    •  api-gateway
-  #    •  order-service
-  #    •  inventory-service
-  #    •  notification-service
-  #    •  product-service
-
-  config-server:
-#    image: arseniolourenco/config-server:latest
-#    pull_policy: always
-    image: config-server:latest
-    container_name: config-server
-    restart: always
-    platform: linux/amd64
-    build:
-      context: .
-      dockerfile: ./config-server/Dockerfile
-    develop:
-      watch:
-        - path: ./config-server
-          action: rebuild
-    env_file:
-      - .env
-    ports:
-      - "8888:8888"
-    environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      CONFIG_REPO_URI: ${CONFIG_SERVER_URI}
-      CONFIG_REPO_USERNAME: ${GIT_USERNAME}
-      CONFIG_REPO_PASSWORD: ${GIT_TOKEN}
-      CONFIG_REPO_DEFAULT_LABEL: ${CONFIG_SERVER_DEFAULT_LABEL}
-    networks:
-      - microservices-network
-    deploy:
-      resources:
-        limits:
-          memory: 350m
-
-  discovery-server:
-#    image: arseniolourenco/discovery-server:latest
-#    pull_policy: always
-    image: discovery-server:latest
-    platform: linux/amd64
-    container_name: discovery-server
-    restart: always
-    build:
-      context: .
-      dockerfile: ./discovery-server/Dockerfile
-    develop:
-      watch:
-        - path: ./discovery-server
-          action: rebuild
-    env_file:
-      - .env
-    ports:
-      - "8761:8761"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-    networks:
-      - microservices-network
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:8761/actuator/health" ]
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nhost: localhost:8080\\r\\nConnection: close\\r\\n\\r\\n' >&3 && grep '200 OK' <&3"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ==========================================
+  # OBSERVABILITY (Zipkin, Prometheus, Grafana)
+  # ==========================================
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+    - "9411:9411"
+    restart: unless-stopped
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9411/health"]
       interval: 10s
-      retries: 10
-      start_period: 20s
+      retries: 5
+      start_period: 15s
     deploy:
       resources:
         limits:
-          memory: 350m
-
-  # ✅ API Gateway
-  api-gateway:
-#    image: arseniolourenco/api-gateway:latest
-#    pull_policy: always
-    image: api-gateway:latest
-    platform: linux/amd64
-    container_name: api-gateway
-    restart: always
-    build:
-      context: .
-      dockerfile: ./api-gateway/Dockerfile
-    env_file:
-      - .env
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-    networks:
-      - microservices-network
-    ports:
-      - "8181:8080"
-    expose:
-      - "8181"
-    depends_on:
-      discovery-server:
-        condition: service_started
-      keycloak:
-        condition: service_started
-      zipkin:
-        condition: service_started
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 350m
-
-  # ✅ Order Service
-  order-service:
-#    image: arseniolourenco/order-service:latest
-#    pull_policy: always
-    image: order-service:latest
-    platform: linux/amd64
-    container_name: order-service
-    restart: always
-    build:
-      context: .
-      dockerfile: ./order-service/Dockerfile
-    env_file:
-      - .env
-    depends_on:
-      api-gateway:
-        condition: service_started  # Waits for API Gateway to start
-      discovery-server:
-        condition: service_started
-    #    ports:
-    #      - "8081:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-    networks:
-      - microservices-network
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 350m
-
-  # ✅ Inventory Service
-  inventory-service:
-#    image: arseniolourenco/inventory-service:latest
-#    pull_policy: always
-    image: inventory-service:latest
-    platform: linux/amd64
-    container_name: inventory-service
-    restart: always
-    build:
-      context: .
-      dockerfile: ./inventory-service/Dockerfile
-#    ports:
-#      - "8083:8080"
-    env_file:
-      - .env
-    depends_on:
-      api-gateway:
-        condition: service_started
-      mysql:
-        condition: service_started
-    #      config-server:
-    #        condition: service_started  # ✅ Ensure Config Server is ready before starting
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
-    networks:
-      - microservices-network
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 350m
-
-  # ✅ Notification Service
-  notification-service:
-#    image: arseniolourenco/notification-service:latest
-#    pull_policy: always
-    image: notification-service:latest
-    platform: linux/amd64
-    container_name: notification-service
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./notification-service/Dockerfile
-    #    ports:
-    #      - "8085:8080"
-    env_file:
-      - .env
-    depends_on:
-      kafka:
-        condition: service_started
-      api-gateway:
-        condition: service_started
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
-    networks:
-      - microservices-network
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 350m
-
-  # ✅ Product Service
-  product-service:
-#    image: arseniolourenco/product-service:latest
-#    pull_policy: always
-    image: product-service:latest
-    platform: linux/amd64
-    container_name: product-service
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./product-service/Dockerfile
-    #    ports:
-    #      - "8084:8080"
-    env_file:
-      - .env
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
-      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
-    depends_on:
-      mongo:
-        condition: service_started  # ✅ Ensures MongoDB is ready before starting
-      discovery-server:
-        condition: service_started
-      api-gateway:
-        condition: service_started
-      config-server:
-        condition: service_started  # ✅ Ensure Config Server is ready before starting
-    networks:
-      - microservices-network
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 350m
+          memory: 150m
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
     ports:
-      - "9090:9090"
+    - "9090:9090"
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - order-service
-      - product-service
-      - inventory-service
-      - notification-service
-      - api-gateway
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - microservices-network
+    - microservices-network
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:9090/-/ready" ]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/ready"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -661,38 +251,292 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "3000:3000"
+    - "3000:3000"
     links:
-      - prometheus
+    - prometheus
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+    - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
+    - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
     networks:
-      - microservices-network
+    - microservices-network
     deploy:
       resources:
         limits:
           memory: 350m
 
-# ✅ Define the Docker Network
-networks:
-  microservices-network:
-    driver: bridge
+  # ==========================================
+  # CORE SERVICES (Config & Discovery Server)
+  # ==========================================
+  config-server:
+    image: config-server:latest
+    container_name: config-server
+    restart: always
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./config-server/Dockerfile
+    develop:
+      watch:
+      - path: ./config-server
+        action: rebuild
+    env_file:
+    - .env
+    ports:
+    - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 350m
 
-# ✅ Define Persistent Named Volumes
-volumes:
-  kafka_data: # ✅ Kafka message storage
-    driver: local
-  zookeeper_data: # ✅ Zookeeper metadata storage
-    driver: local
-  mongo_data: # ✅ MongoDB persistent storage
-    driver: local
-  mysql_data: # ✅ MySQL database storage
-    driver: local
-  postgres_data: # ✅ PostgreSQL database storage
-    driver: local
-  keycloak_data: # ✅ Keycloak persistent storage
-    driver: local
-  realms:
-    driver: local
-  keycloak_certs:
+  discovery-server:
+    image: discovery-server:latest
+    platform: linux/amd64
+    container_name: discovery-server
+    restart: always
+    build:
+      context: .
+      dockerfile: ./discovery-server/Dockerfile
+    develop:
+      watch:
+      - path: ./discovery-server
+        action: rebuild
+    env_file:
+    - .env
+    ports:
+    - "8761:8761"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      retries: 10
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+    depends_on:
+      config-server:
+        condition: service_healthy
+  api-gateway:
+    image: api-gateway:latest
+    platform: linux/amd64
+    container_name: api-gateway
+    restart: always
+    build:
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    ports:
+    - "8181:8080"
+    expose:
+    - "8181"
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+  # ==========================================
+  # BUSINESS MICROSERVICES
+  # ==========================================
+  order-service:
+    image: order-service:latest
+    platform: linux/amd64
+    container_name: order-service
+    restart: always
+    build:
+      context: .
+      dockerfile: ./order-service/Dockerfile
+    env_file:
+    - .env
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+  inventory-service:
+    image: inventory-service:latest
+    platform: linux/amd64
+    container_name: inventory-service
+    restart: always
+    build:
+      context: .
+      dockerfile: ./inventory-service/Dockerfile
+    env_file:
+    - .env
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+  notification-service:
+    image: notification-service:latest
+    platform: linux/amd64
+    container_name: notification-service
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./notification-service/Dockerfile
+    env_file:
+    - .env
+    depends_on:
+      kafka:
+        condition: service_healthy
+      api-gateway:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+  product-service:
+    image: product-service:latest
+    platform: linux/amd64
+    container_name: product-service
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./product-service/Dockerfile
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    depends_on:
+      mongo:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      api-gateway:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
+
+  user-service:
+    image: user-service:latest
+    platform: linux/amd64
+    container_name: user-service
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./user-service/Dockerfile
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    depends_on:
+      postgres:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      api-gateway:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 350m
