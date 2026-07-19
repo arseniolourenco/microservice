@@ -22,7 +22,8 @@ import org.springframework.test.context.TestPropertySource;
         "eureka.client.enabled=false",
         "spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer",
         "spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer",
-        "spring.kafka.consumer.properties.spring.json.trusted.packages=*"
+        "spring.kafka.consumer.properties.spring.json.trusted.packages=*",
+        "spring.kafka.consumer.auto-offset-reset=earliest"
 })
 class NotificationIntegrationTest {
 
