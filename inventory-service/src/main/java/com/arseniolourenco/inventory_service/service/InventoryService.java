@@ -26,7 +26,6 @@ public class InventoryService {
     private final com.arseniolourenco.inventory_service.mapper.InventoryMapper inventoryMapper;
 
     @Transactional(readOnly = true)
-    @SneakyThrows
     public List<InventoryResponse> isInStock(List<String> skuCodes) {
         List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
 
@@ -43,74 +42,6 @@ public class InventoryService {
             return new InventoryResponse(code, totalQuantity > 0, totalQuantity);
         }).collect(Collectors.toList());
     }
-//    public List<InventoryResponse> isInStock(List<String> skuCodes) {
-//        // Fetch inventory records matching the skuCodes
-//        List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
-//
-//        // Map each skuCode to a total quantity by summing duplicates
-//        Map<String, Integer> skuCodeToTotalQuantity = inventoryList
-//                .stream()
-//                .collect(Collectors.toMap(
-//                        Inventory::getSkuCode,
-//                        Inventory::getQuantity,
-//                        Integer::sum // Sum the quantities if duplicates are found
-//                ));
-//
-//        // Generate the InventoryResponse list indicating stock status and total quantity
-//        return skuCodes
-//                .stream()
-//                .map(code -> {
-//                    Integer totalQuantity = skuCodeToTotalQuantity.getOrDefault(code, 0); // Get total quantity or default to 0
-//                    return new InventoryResponse(
-//                            code,
-//                            totalQuantity > 0, // Check if the total quantity is greater than 0 for stock status
-//                            totalQuantity // Include the total quantity in the response
-//                    );
-//                })
-//                .collect(Collectors.toList());
-//    }
-
-
-
-//    @Transactional
-//    public List<InventoryRequest> reduceStock(List<String> skuCodes, List<Integer> quantities) {
-//        // Aggregate quantities for each SKU code
-//        Map<String, Integer> aggregatedSkuQuantityMap = aggregateSkuQuantities(skuCodes, quantities);
-//
-//        // Fetch inventory for the SKUs in the request
-//        List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
-//
-//        // Validate SKU existence in the inventory
-//        validateSkuExistence(skuCodes, inventoryList);
-//
-//        // Map current stock levels for SKUs
-//        Map<String, Integer> skuStockMap = mapSkuStockLevels(inventoryList);
-//
-//        // Reduce stock and build updated inventory requests
-//        return processStockReduction(aggregatedSkuQuantityMap, inventoryList, skuStockMap);
-//    }
-
-//    @Transactional
-//    public List<InventoryRequest> reduceStock(InventoryRequest inventoryRequest) {
-//        // Extract SKU codes and quantities from the InventoryRequest object
-//        List<String> skuCodes = inventoryRequest.getSkuCodes();
-//        List<Integer> quantities = inventoryRequest.getQuantities();
-//
-//        // Aggregate quantities for each SKU code
-//        Map<String, Integer> aggregatedSkuQuantityMap = aggregateSkuQuantities(skuCodes, quantities);
-//
-//        // Fetch inventory for the SKUs in the request
-//        List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
-//
-//        // Validate SKU existence in the inventory
-//        validateSkuExistence(skuCodes, inventoryList);
-//
-//        // Map current stock levels for SKUs
-//        Map<String, Integer> skuStockMap = mapSkuStockLevels(inventoryList);
-//
-//        // Reduce stock and build updated inventory requests
-//        return processStockReduction(aggregatedSkuQuantityMap, inventoryList, skuStockMap);
-//    }
 
     @Transactional
     public void reduceStock(List<InventoryRequest> inventoryRequests) {
@@ -164,21 +95,6 @@ public class InventoryService {
         return skuStockMap;
     }
 
-  /*  private void processStockReduction(Map<String, Integer> aggregatedSkuQuantityMap, List<Inventory> inventoryList, Map<String, Integer> skuStockMap) {
-        for (Map.Entry<String, Integer> entry : aggregatedSkuQuantityMap.entrySet()) {
-            String skuCode = entry.getKey();
-            Integer requestedQuantity = entry.getValue();
-            Integer currentStock = skuStockMap.getOrDefault(skuCode, 0);
-
-            // Ensure enough stock exists
-            if (currentStock < requestedQuantity) {
-                throw new RuntimeException("Insufficient stock for SKU: " + skuCode + ". Available: " + currentStock + ", Required: " + requestedQuantity);
-            }
-
-            // Reduce stock in the inventory for the specified SKU code
-            reduceStockForSku(inventoryList, skuCode, requestedQuantity);
-        }
-    }*/
 
     private void processStockReduction(Map<String, Integer> aggregatedSkuQuantityMap,
                                        List<Inventory> inventoryList,
@@ -211,39 +127,29 @@ public class InventoryService {
         inventoryRepository.saveAll(updatedInventories); // 🚀 batch save
     }
 
-    private void reduceStockForSku(List<Inventory> inventoryList, String skuCode, int requestedQuantity) {
-        int quantityToReduce = requestedQuantity;
-        for (Inventory inventory : inventoryList) {
-            if (inventory.getSkuCode().equals(skuCode) && quantityToReduce > 0) {
-                Integer availableStock = inventory.getQuantity();
-                Integer reduceAmount = Math.min(availableStock, quantityToReduce);
-                inventory.setQuantity(availableStock - reduceAmount);
-                quantityToReduce -= reduceAmount;
-                inventoryRepository.save(inventory);
-                log.info("Reduced stock for SKU: {} by {}. Remaining: {}", skuCode, reduceAmount, inventory.getQuantity());
-            }
-
-            if (quantityToReduce <= 0) break;
-        }
-
-        if (quantityToReduce > 0) {
-            throw new RuntimeException("Unable to reduce the full requested quantity for SKU: " + skuCode);
-        }
-    }
 
     @Transactional
     public void addStock(List<InventoryRequest> inventoryRequests) {
+        List<String> skuCodes = inventoryRequests.stream()
+                .map(InventoryRequest::skuCode)
+                .toList();
+
+        List<Inventory> existingInventories = inventoryRepository.findBySkuCodeIn(skuCodes);
+        Map<String, Inventory> existingInventoryMap = existingInventories.stream()
+                .collect(Collectors.toMap(Inventory::getSkuCode, inv -> inv));
+
+        List<Inventory> inventoriesToSave = new ArrayList<>();
+
         for (InventoryRequest request : inventoryRequests) {
-            List<Inventory> existing = inventoryRepository.findBySkuCodeIn(List.of(request.skuCode()));
-            if (!existing.isEmpty()) {
-                Inventory inventory = existing.get(0);
+            Inventory inventory = existingInventoryMap.get(request.skuCode());
+            if (inventory != null) {
                 inventory.setQuantity(inventory.getQuantity() + request.quantity());
-                inventoryRepository.save(inventory);
+                inventoriesToSave.add(inventory);
             } else {
-                Inventory newInventory = inventoryMapper.toInventory(request);
-                inventoryRepository.save(newInventory);
+                inventoriesToSave.add(inventoryMapper.toInventory(request));
             }
         }
-        inventoryRepository.flush();
+
+        inventoryRepository.saveAll(inventoriesToSave);
     }
 }

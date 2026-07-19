@@ -124,8 +124,11 @@ class InventoryServiceTest {
 
         // Assert
         assertEquals(15, inventory.getQuantity());
-        verify(inventoryRepository).save(inventory);
-        verify(inventoryRepository).flush();
+        verify(inventoryRepository).saveAll(argThat(iterable -> {
+            List<Inventory> list = new java.util.ArrayList<>();
+            iterable.forEach(list::add);
+            return list.size() == 1 && list.get(0).getQuantity() == 15;
+        }));
     }
 
     @Test
@@ -144,9 +147,10 @@ class InventoryServiceTest {
         inventoryService.addStock(List.of(request));
 
         // Assert
-        verify(inventoryRepository).save(argThat(inv -> 
-            inv != null && inv.getSkuCode().equals(sku) && inv.getQuantity() == 5
-        ));
-        verify(inventoryRepository).flush();
+        verify(inventoryRepository).saveAll(argThat(iterable -> {
+            List<Inventory> list = new java.util.ArrayList<>();
+            iterable.forEach(list::add);
+            return list.size() == 1 && list.get(0).getSkuCode().equals(sku) && list.get(0).getQuantity() == 5;
+        }));
     }
 }

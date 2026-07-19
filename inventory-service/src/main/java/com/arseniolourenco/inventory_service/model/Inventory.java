@@ -3,7 +3,8 @@ package com.arseniolourenco.inventory_service.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

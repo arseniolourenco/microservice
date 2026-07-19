@@ -27,15 +27,6 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryService.isInStock(skuCode));
     }
 
-
-//    @PostMapping("/reduce")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<InventoryRequest> reduceInventory(
-//            @RequestParam List<String> skuCode,
-//            @RequestParam List<Integer> quantity) {
-//        return inventoryService.reduceStock(skuCode, quantity);
-//    }
-
     @PostMapping("/reduce")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> reduceInventory(@RequestBody List<InventoryRequest> inventoryRequests) {
