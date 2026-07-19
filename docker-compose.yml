@@ -52,7 +52,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
     healthcheck:
       test: ["CMD-SHELL", "echo ruok | nc localhost 2181 || exit 1"]
@@ -87,7 +87,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
     healthcheck:
       test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list || exit 1"]
@@ -171,7 +171,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   # ==========================================
   # SECURITY (Keycloak)
@@ -261,7 +261,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   grafana:
     image: grafana/grafana:latest
@@ -279,7 +279,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   # ==========================================
   # CORE SERVICES (Config & Discovery Server)
@@ -309,7 +309,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   discovery-server:
     image: arseniolourenco/discovery-server:latest
@@ -336,7 +336,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
     depends_on:
       config-server:
         condition: service_healthy
@@ -378,7 +378,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   # ==========================================
   # BUSINESS MICROSERVICES
@@ -414,7 +414,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   inventory-service:
     image: arseniolourenco/inventory-service:latest
@@ -448,7 +448,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   notification-service:
     image: arseniolourenco/notification-service:latest
@@ -482,7 +482,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   product-service:
     image: arseniolourenco/product-service:latest
@@ -518,7 +518,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   user-service:
     image: arseniolourenco/user-service:latest
@@ -554,7 +554,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
   auth-service:
     image: arseniolourenco/auth-service:latest
@@ -590,5 +590,5 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350m
+          memory: 512m
 
