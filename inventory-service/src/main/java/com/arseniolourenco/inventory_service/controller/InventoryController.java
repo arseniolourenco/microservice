@@ -27,15 +27,6 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryService.isInStock(skuCode));
     }
 
-
-//    @PostMapping("/reduce")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<InventoryRequest> reduceInventory(
-//            @RequestParam List<String> skuCode,
-//            @RequestParam List<Integer> quantity) {
-//        return inventoryService.reduceStock(skuCode, quantity);
-//    }
-
     @PostMapping("/reduce")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> reduceInventory(@RequestBody List<InventoryRequest> inventoryRequests) {
@@ -45,6 +36,13 @@ public class InventoryController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error reducing inventory: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> addInventory(@RequestBody List<InventoryRequest> inventoryRequests) {
+        inventoryService.addStock(inventoryRequests);
+        return ResponseEntity.ok("Inventory added successfully");
     }
 
 }

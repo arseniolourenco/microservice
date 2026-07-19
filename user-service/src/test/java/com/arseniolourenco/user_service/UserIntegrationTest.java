@@ -30,6 +30,9 @@ import com.arseniolourenco.user_service.model.Role;
 import com.arseniolourenco.user_service.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @AutoConfigureMockMvc
@@ -38,6 +41,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         "eureka.client.enabled=false"
 })
 class UserIntegrationTest {
+
+    @MockBean
+    private JwtDecoder jwtDecoder;
 
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")

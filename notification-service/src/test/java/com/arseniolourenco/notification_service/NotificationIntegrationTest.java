@@ -15,14 +15,15 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
-@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
+@EmbeddedKafka(partitions = 1)
 @TestPropertySource(properties = {
-        "spring.kafka.bootstrap-servers=localhost:9092",
+        "spring.cloud.config.enabled=false",
         "spring.cloud.config.enabled=false",
         "eureka.client.enabled=false",
         "spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer",
         "spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer",
-        "spring.kafka.consumer.properties.spring.json.trusted.packages=*"
+        "spring.kafka.consumer.properties.spring.json.trusted.packages=*",
+        "spring.kafka.consumer.auto-offset-reset=earliest"
 })
 class NotificationIntegrationTest {
 

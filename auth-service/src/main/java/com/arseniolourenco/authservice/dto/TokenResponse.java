@@ -5,15 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class TokenResponse {
-    
-    private String accessToken;
-    private String refreshToken;
-    private Integer expiresIn;
-    private Integer refreshExpiresIn;
-    private String tokenType;
-}
+public record TokenResponse(
+    String accessToken,
+    String refreshToken,
+    Integer expiresIn,
+    Integer refreshExpiresIn,
+    String tokenType
+) {}

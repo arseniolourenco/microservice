@@ -99,8 +99,8 @@ class AuthServiceTest {
         TokenResponse result = authService.login(request);
 
         assertNotNull(result);
-        assertEquals(expectedToken, result.getAccessToken());
-        assertEquals("mock_refresh", result.getRefreshToken());
+        assertEquals(expectedToken, result.accessToken());
+        assertEquals("mock_refresh", result.refreshToken());
     }
 
     @Test

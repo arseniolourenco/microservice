@@ -30,18 +30,23 @@ public class AuthServiceImpl implements AuthService {
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", "password");
-        formData.add("username", request.getUsername());
-        formData.add("password", request.getPassword());
+        formData.add("username", request.username());
+        formData.add("password", request.password());
 
-        KeycloakTokenResponse keycloakResponse = keycloakWebClient
-                .post()
-                .uri(tokenEndpoint)
-                .headers(headers -> headers.setBasicAuth(keycloakConfig.getClientId(), keycloakConfig.getClientSecret()))
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(formData))
-                .retrieve()
-                .bodyToMono(KeycloakTokenResponse.class)
-                .block();
+        KeycloakTokenResponse keycloakResponse;
+        try {
+            keycloakResponse = keycloakWebClient
+                    .post()
+                    .uri(tokenEndpoint)
+                    .headers(headers -> headers.setBasicAuth(keycloakConfig.getClientId(), keycloakConfig.getClientSecret()))
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .body(BodyInserters.fromFormData(formData))
+                    .retrieve()
+                    .bodyToMono(KeycloakTokenResponse.class)
+                    .block();
+        } catch (org.springframework.web.reactive.function.client.WebClientResponseException.Unauthorized e) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        }
 
         if (keycloakResponse == null) {
             throw new RuntimeException("Failed to get token from Keycloak");
@@ -60,15 +65,15 @@ public class AuthServiceImpl implements AuthService {
     public void register(RegisterRequest request) {
         // 1. Create User in Keycloak
         org.keycloak.representations.idm.UserRepresentation user = new org.keycloak.representations.idm.UserRepresentation();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
+        user.setUsername(request.username());
+        user.setEmail(request.email());
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
         user.setEnabled(true);
 
         org.keycloak.representations.idm.CredentialRepresentation credential = new org.keycloak.representations.idm.CredentialRepresentation();
         credential.setType(org.keycloak.representations.idm.CredentialRepresentation.PASSWORD);
-        credential.setValue(request.getPassword());
+        credential.setValue(request.password());
         credential.setTemporary(false);
         user.setCredentials(java.util.List.of(credential));
 
@@ -96,10 +101,10 @@ public class AuthServiceImpl implements AuthService {
             String adminToken = keycloakAdmin.tokenManager().getAccessToken().getToken();
 
             java.util.Map<String, Object> userCreateRequest = new java.util.HashMap<>();
-            userCreateRequest.put("firstname", request.getFirstName());
-            userCreateRequest.put("lastname", request.getLastName());
-            userCreateRequest.put("email", request.getEmail());
-            userCreateRequest.put("password", request.getPassword());
+            userCreateRequest.put("firstname", request.firstName());
+            userCreateRequest.put("lastname", request.lastName());
+            userCreateRequest.put("email", request.email());
+            userCreateRequest.put("password", request.password());
             userCreateRequest.put("role", "ROLE_USER");
             userCreateRequest.put("enabled", true);
 

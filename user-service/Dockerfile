@@ -1,5 +1,5 @@
 # ---------- BUILD STAGE ----------
-FROM maven:3.9.9-eclipse-temurin-22 AS builder
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
 
 WORKDIR /build
 
@@ -25,7 +25,7 @@ COPY user-service/src user-service/src
 RUN mvn clean package -pl user-service -am -DskipTests
 
 # ---------- RUNTIME STAGE ----------
-FROM eclipse-temurin:22-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 

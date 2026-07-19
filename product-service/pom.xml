@@ -13,8 +13,8 @@
     <artifactId>product-service</artifactId>
 
     <properties>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -175,8 +175,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>22</source> <!-- or 21 depending on your project -->
-                    <target>22</target>
+                    <source>21</source> <!-- or 21 depending on your project -->
+                    <target>21</target>
                     <annotationProcessorPaths>
                         <!-- Lombok -->
                         <path>

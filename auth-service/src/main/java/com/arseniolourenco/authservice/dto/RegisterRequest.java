@@ -6,24 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class RegisterRequest {
+public record RegisterRequest(
 
     @NotBlank(message = "Username is required")
-    private String username;
+    String username,
 
     @NotBlank(message = "Password is required")
-    private String password;
+    String password,
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
-    private String email;
+    String email,
 
     @NotBlank(message = "First name is required")
-    private String firstName;
+    String firstName,
 
     @NotBlank(message = "Last name is required")
-    private String lastName;
+    String lastName
+) {
 }
