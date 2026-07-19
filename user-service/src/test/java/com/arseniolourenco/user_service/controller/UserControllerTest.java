@@ -25,9 +25,19 @@ import com.arseniolourenco.user_service.model.Role;
 import com.arseniolourenco.user_service.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false) // Desativa o Spring Security para testes unitários do Controller
+@TestPropertySource(properties = {
+        "spring.cloud.config.enabled=false",
+        "eureka.client.enabled=false"
+})
 class UserControllerTest {
+
+    @MockBean
+    private JwtDecoder jwtDecoder;
 
     @Autowired
     private MockMvc mockMvc;

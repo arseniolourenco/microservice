@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -24,16 +25,19 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @Testcontainers
 @AutoConfigureMockMvc
+@AutoConfigureWireMock(port = 0)
 @Tag("integration")
 @TestPropertySource(properties = {
         "spring.cloud.config.enabled=false",
-        "eureka.client.enabled=false"
+        "eureka.client.enabled=false",
+        "spring.cloud.discovery.client.simple.instances.inventory-service[0].uri=http://localhost:${wiremock.server.port}"
 })
 class OrderIntegrationTest {
 
@@ -73,6 +77,18 @@ class OrderIntegrationTest {
 
     @Test
     void shouldPlaceOrderAndSaveOutboxEvent() throws Exception {
+        // Stub inventory check response
+        stubFor(get(urlPathEqualTo("/api/inventory"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("[{\"skuCode\":\"iphone_15\",\"inStock\":true,\"quantity\":10}]")));
+
+        // Stub inventory reduce response
+        stubFor(post(urlPathEqualTo("/api/inventory/reduce"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "text/plain")
+                        .withBody("Inventory reduced")));
+
         // 1. Arrange
         OrderLineItemsDto item = OrderLineItemsDto.builder()
             .skuCode("iphone_15")
