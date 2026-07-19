@@ -69,13 +69,13 @@ class OrderIntegrationTest {
     @Test
     void shouldPlaceOrderAndSaveOutboxEvent() throws Exception {
         // 1. Arrange
-        OrderLineItemsDto item = new OrderLineItemsDto();
-        item.setSkuCode("iphone_15");
-        item.setPrice(BigDecimal.valueOf(1000));
-        item.setQuantity(1);
+        OrderLineItemsDto item = OrderLineItemsDto.builder()
+            .skuCode("iphone_15")
+            .price(BigDecimal.valueOf(1000))
+            .quantity(1)
+            .build();
 
-        OrderRequest request = new OrderRequest();
-        request.setOrderLineItemsDtoList(List.of(item));
+        OrderRequest request = new OrderRequest(List.of(item));
 
         String requestJson = objectMapper.writeValueAsString(request);
 
@@ -88,7 +88,7 @@ class OrderIntegrationTest {
         // 3. Assert
         Assertions.assertEquals(1, orderRepository.count());
         Assertions.assertEquals(1, outboxRepository.count());
-        Assertions.assertEquals("OrderCreated", outboxRepository.findAll().get(0).getEventType());
-        Assertions.assertEquals("NEW", outboxRepository.findAll().get(0).getStatus());
+        Assertions.assertEquals("OrderCreated", outboxRepository.findAll().getFirst().getEventType());
+        Assertions.assertEquals("NEW", outboxRepository.findAll().getFirst().getStatus());
     }
 }

@@ -41,13 +41,13 @@ class OrderControllerTest {
     @Test
     void shouldPlaceOrder() throws Exception {
         // Arrange
-        OrderLineItemsDto item = new OrderLineItemsDto();
-        item.setSkuCode("iphone_15");
-        item.setPrice(BigDecimal.valueOf(1000));
-        item.setQuantity(1);
+        OrderLineItemsDto item = OrderLineItemsDto.builder()
+            .skuCode("iphone_15")
+            .price(BigDecimal.valueOf(1000))
+            .quantity(1)
+            .build();
 
-        OrderRequest request = new OrderRequest();
-        request.setOrderLineItemsDtoList(List.of(item));
+        OrderRequest request = new OrderRequest(List.of(item));
 
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());

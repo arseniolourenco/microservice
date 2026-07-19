@@ -1,11 +1,9 @@
 package com.arseniolourenco.order_service.dto;
 
-import lombok.*;
+import lombok.Builder;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class InventoryRequest {
-    private String skuCode;
-    private Integer quantity;
-}
+@Builder
+public record InventoryRequest(
+    String skuCode,
+    Integer quantity
+) {}

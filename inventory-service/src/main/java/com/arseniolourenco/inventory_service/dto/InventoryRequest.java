@@ -7,13 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class InventoryRequest {
+public record InventoryRequest(
     @NotBlank(message = "SKU code cannot be blank")
-    private String skuCode;
+    String skuCode,
+    
     @Min(value = 1, message = "Quantity must be greater than 0")
-    private int quantity;
-}
+    int quantity
+) {}

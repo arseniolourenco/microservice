@@ -22,7 +22,9 @@ public record UserCreateRequest(
         @Size(min = 6, message = "Password must contain at least 6 characters")
         String password,
 
-        Role role
+        Role role,
+
+        Boolean enabled
 
 ) {
 }

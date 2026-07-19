@@ -13,6 +13,7 @@ COPY product-service/pom.xml product-service/
 COPY notification-service/pom.xml notification-service/
 COPY config-server/pom.xml config-server/
 COPY user-service/pom.xml user-service/
+COPY auth-service/pom.xml auth-service/
 
 # Fazer download das dependencias (Docker layer caching)
 RUN mvn dependency:go-offline -pl inventory-service -am
