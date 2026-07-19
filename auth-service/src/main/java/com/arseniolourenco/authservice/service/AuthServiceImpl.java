@@ -7,6 +7,7 @@ import com.arseniolourenco.authservice.dto.TokenResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class AuthServiceImpl implements AuthService {
 
     private final WebClient.Builder webClientBuilder;
+    private final WebClient keycloakWebClient;
     private final KeycloakConfig keycloakConfig;
     private final org.keycloak.admin.client.Keycloak keycloakAdmin;
 
@@ -27,15 +29,14 @@ public class AuthServiceImpl implements AuthService {
         String tokenEndpoint = keycloakConfig.getServerUrl() + "/realms/" + keycloakConfig.getRealm() + "/protocol/openid-connect/token";
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("client_id", keycloakConfig.getClientId());
-        formData.add("client_secret", keycloakConfig.getClientSecret());
         formData.add("grant_type", "password");
         formData.add("username", request.getUsername());
         formData.add("password", request.getPassword());
 
-        KeycloakTokenResponse keycloakResponse = webClientBuilder.build()
+        KeycloakTokenResponse keycloakResponse = keycloakWebClient
                 .post()
                 .uri(tokenEndpoint)
+                .headers(headers -> headers.setBasicAuth(keycloakConfig.getClientId(), keycloakConfig.getClientSecret()))
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(formData))
                 .retrieve()
