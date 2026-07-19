@@ -32,12 +32,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Testcontainers
 @AutoConfigureMockMvc
-@AutoConfigureWireMock(port = 0)
+@AutoConfigureWireMock(port = 8089)
 @Tag("integration")
 @TestPropertySource(properties = {
         "spring.cloud.config.enabled=false",
         "eureka.client.enabled=false",
-        "spring.cloud.discovery.client.simple.instances.inventory-service[0].uri=http://localhost:${wiremock.server.port}"
+        "spring.cloud.discovery.client.simple.instances.inventory-service[0].uri=http://localhost:8089"
 })
 class OrderIntegrationTest {
 
@@ -67,16 +67,6 @@ class OrderIntegrationTest {
         registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
         // Disable Kafka during this test to avoid connection errors if Kafka container isn't used
         registry.add("spring.kafka.bootstrap-servers", () -> "localhost:9092"); 
-    }
-
-    @org.springframework.boot.test.context.TestConfiguration
-    static class RestClientTestConfig {
-        @org.springframework.context.annotation.Bean
-        @org.springframework.context.annotation.Primary
-        public org.springframework.web.client.RestClient.Builder restClientBuilder(
-                @org.springframework.beans.factory.annotation.Value("${wiremock.server.port}") int port) {
-            return org.springframework.web.client.RestClient.builder().baseUrl("http://localhost:" + port);
-        }
     }
 
     @AfterEach
