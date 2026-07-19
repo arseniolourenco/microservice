@@ -21,7 +21,7 @@ jobs:
       - name: Set Up JDK 22
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'corretto'
           java-version: '22'
           cache: maven
 
@@ -32,13 +32,12 @@ jobs:
     name: Build & Push Docker Images
     needs: test
     runs-on: ubuntu-latest
-    # Define as permissoes necessarias para o GITHUB_TOKEN fazer push para o GHCR
+    # Define as permissoes necessarias para o GITHUB_TOKEN fazer push para o GHCR e para submeter dependencias
     permissions:
-      contents: read
+      contents: write
       packages: write
     
     strategy:
-      # Impede que a pipeline pare os restantes se um falhar
       fail-fast: false
       matrix:
         service: 
@@ -55,6 +54,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Submit Dependencies to GitHub
+        uses: github/dependency-submission-action@v4
+        with:
+          working-directory: ${{ matrix.service }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
