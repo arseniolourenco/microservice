@@ -78,13 +78,13 @@ class OrderIntegrationTest {
     @Test
     void shouldPlaceOrderAndSaveOutboxEvent() throws Exception {
         // Stub inventory check response
-        stubFor(get(urlPathEqualTo("/api/inventory"))
+        stubFor(com.github.tomakehurst.wiremock.client.WireMock.get(urlPathEqualTo("/api/inventory"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody("[{\"skuCode\":\"iphone_15\",\"inStock\":true,\"quantity\":10}]")));
 
         // Stub inventory reduce response
-        stubFor(post(urlPathEqualTo("/api/inventory/reduce"))
+        stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlPathEqualTo("/api/inventory/reduce"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "text/plain")
                         .withBody("Inventory reduced")));
