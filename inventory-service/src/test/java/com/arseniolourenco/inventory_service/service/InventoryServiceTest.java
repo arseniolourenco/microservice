@@ -43,18 +43,17 @@ class InventoryServiceTest {
                 .skuCode(sku)
                 .quantity(10)
                 .build();
-        InventoryResponse mockResponse = new InventoryResponse(sku, true, 10);
 
         when(inventoryRepository.findBySkuCodeIn(skuCodes)).thenReturn(List.of(inventory));
 
         // Act
-        List<InventoryResponse> responses = inventoryService.isInStock(skuCodes);
+        List<InventoryResponse> result = inventoryService.isInStock(skuCodes);
 
         // Assert
-        assertFalse(responses.isEmpty());
-        assertEquals(sku, responses.get(0).getSkuCode());
-        assertTrue(responses.get(0).isInStock());
-        assertEquals(10, responses.get(0).getQuantity());
+        assertEquals(1, result.size());
+        assertEquals(sku, result.get(0).skuCode());
+        assertTrue(result.get(0).isInStock());
+        assertEquals(10, result.get(0).quantity());
     }
 
     @Test
@@ -134,8 +133,12 @@ class InventoryServiceTest {
         // Arrange
         String sku = "new_item";
         InventoryRequest request = new InventoryRequest(sku, 5);
+        Inventory newInventory = new Inventory();
+        newInventory.setSkuCode(sku);
+        newInventory.setQuantity(5);
 
         when(inventoryRepository.findBySkuCodeIn(List.of(sku))).thenReturn(Collections.emptyList());
+        when(inventoryMapper.toInventory(request)).thenReturn(newInventory);
 
         // Act
         inventoryService.addStock(List.of(request));

@@ -5,14 +5,12 @@ import com.arseniolourenco.order_service.model.Order;
 import com.arseniolourenco.order_service.service.OrderService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
-import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,17 +22,16 @@ public class OrderController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name = "inventory", fallbackMethod = "fallbackMethod")
-    @TimeLimiter(name = "inventory")
     @Retry(name = "inventory")
     @Observed()
-    public CompletableFuture<String> placeOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        return CompletableFuture.supplyAsync(() -> {
-            Order order = orderService.placeOrder(orderRequest);
-            return "Order placed successfully! Order Number: " + order.getOrderNumber();
-        });
+    public String placeOrder(@Valid @RequestBody OrderRequest orderRequest) {
+        Order order = orderService.placeOrder(orderRequest);
+        return "Order placed successfully! Order Number: " + order.getOrderNumber();
     }
 
-    public CompletableFuture<String> fallbackMethod(OrderRequest orderRequest, RuntimeException runtimeException) {
-        return CompletableFuture.supplyAsync(() -> "Oops! Something went wrong, please order after some time");
+    public String fallbackMethod(OrderRequest orderRequest, Exception exception) {
+        System.err.println("Fallback triggered due to: " + exception.getMessage());
+        exception.printStackTrace();
+        return "Oops! Something went wrong, please order after some time. Reason: " + exception.getMessage();
     }
 }

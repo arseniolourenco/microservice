@@ -1,4 +1,4 @@
-package com.arseniolourenco.order_service.config;
+package com.arseniolourenco.authservice.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,11 @@ public class WebClientConfig {
     @Bean
     @LoadBalanced
     public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
 
-        return WebClient.builder().baseUrl("http://inventory-service");
+    @Bean(name = "keycloakWebClient")
+    public WebClient keycloakWebClient() {
+        return WebClient.builder().build();
     }
 }

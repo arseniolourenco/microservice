@@ -18,26 +18,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${eureka.username}")
-    private String username;
-
-    @Value("${eureka.password}")
-    private String password;
-
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder,
+                                                         @Value("${eureka.username}") String username,
+                                                         @Value("${eureka.password}") String password) {
         System.out.println("Eureka Username: " + username);
         System.out.println("Eureka Password: " + password);
-        PasswordEncoder encoder = passwordEncoder();
         UserDetails user = User.withUsername(username)
-                .password(encoder.encode(password))
+                .password(passwordEncoder.encode(password))
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

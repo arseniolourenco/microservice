@@ -23,6 +23,7 @@ public class InventoryService {
 
     @Autowired
     private final InventoryRepository inventoryRepository;
+    private final com.arseniolourenco.inventory_service.mapper.InventoryMapper inventoryMapper;
 
     @Transactional(readOnly = true)
     @SneakyThrows
@@ -132,7 +133,7 @@ public class InventoryService {
     private Map<String, Integer> aggregateSkuQuantities(List<InventoryRequest> inventoryRequests) {
         Map<String, Integer> aggregatedSkuQuantityMap = new HashMap<>();
         for (InventoryRequest request : inventoryRequests) {
-            aggregatedSkuQuantityMap.merge(request.getSkuCode(), request.getQuantity(), Integer::sum);
+            aggregatedSkuQuantityMap.merge(request.skuCode(), request.quantity(), Integer::sum);
         }
         return aggregatedSkuQuantityMap;
     }
@@ -233,15 +234,13 @@ public class InventoryService {
     @Transactional
     public void addStock(List<InventoryRequest> inventoryRequests) {
         for (InventoryRequest request : inventoryRequests) {
-            List<Inventory> existing = inventoryRepository.findBySkuCodeIn(List.of(request.getSkuCode()));
+            List<Inventory> existing = inventoryRepository.findBySkuCodeIn(List.of(request.skuCode()));
             if (!existing.isEmpty()) {
                 Inventory inventory = existing.get(0);
-                inventory.setQuantity(inventory.getQuantity() + request.getQuantity());
+                inventory.setQuantity(inventory.getQuantity() + request.quantity());
                 inventoryRepository.save(inventory);
             } else {
-                Inventory newInventory = new Inventory();
-                newInventory.setSkuCode(request.getSkuCode());
-                newInventory.setQuantity(request.getQuantity());
+                Inventory newInventory = inventoryMapper.toInventory(request);
                 inventoryRepository.save(newInventory);
             }
         }

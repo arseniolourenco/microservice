@@ -2,7 +2,6 @@ package com.arseniolourenco.order_service.service;
 
 import com.arseniolourenco.order_service.dto.InventoryRequest;
 import com.arseniolourenco.order_service.dto.InventoryResponse;
-import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
 import com.arseniolourenco.order_service.event.OrderPlacedEvent;
 import com.arseniolourenco.order_service.model.Order;
@@ -12,14 +11,16 @@ import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import com.arseniolourenco.order_service.repository.OutboxRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.arseniolourenco.order_service.model.OutboxEvent;
+import com.arseniolourenco.order_service.mapper.OrderMapper;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,37 +29,54 @@ import java.util.stream.IntStream;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClient.Builder webClientBuilder;
+    private final RestClient.Builder restClientBuilder;
     private final Tracer tracer;
-    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
+    private final OutboxRepository outboxRepository;
+    private final ObjectMapper objectMapper;
+    private final OrderMapper orderMapper;
 
     public Order placeOrder(OrderRequest orderRequest) {
-        Order order = initializeOrder(orderRequest);
-        Map<String, Integer> skuQuantityMap = aggregateSkuCodesAndQuantities(order);
+        Order order = orderMapper.toOrder(orderRequest);
+        order.setOrderNumber(UUID.randomUUID().toString());
+        order.setStatus("PENDING");
 
-        List<String> skuCodes = new ArrayList<>(skuQuantityMap.keySet());
-        List<String> aggregatedSkuCodes = new ArrayList<>(skuQuantityMap.keySet());
-        List<Integer> aggregatedQuantities = new ArrayList<>(skuQuantityMap.values());
+
+
+        List<String> skuCodes = order.getOrderLineItemsList().stream()
+                .map(OrderLineItems::getSkuCode)
+                .toList();
+
+        List<Integer> quantities = order.getOrderLineItemsList().stream()
+                .map(OrderLineItems::getQuantity)
+                .toList();
 
         // Check if the items are in stock
-        if (checkInventoryStock(skuCodes)) {
-            // Reduce inventory stock if items are in stock
-            try (Tracer.SpanInScope spanInScope = tracer.withSpan(startInventoryServiceSpan())) {
-                log.info("Checking inventory for SKUs: {}", aggregatedSkuCodes);
-                checkInventoryStock(aggregatedSkuCodes);
-                reduceInventoryStock(aggregatedSkuCodes, aggregatedQuantities);
+        Span inventoryServiceLookup = tracer.nextSpan().name("InventoryServiceLookup");
+        try (Tracer.SpanInScope spanInScope = tracer.withSpan(inventoryServiceLookup.start())) {
+            inventoryServiceLookup.event("Inventory stock verified");
+            
+            checkInventoryStock(skuCodes);
+            reduceInventoryStock(skuCodes, quantities);
 
-                // Save the order and publish the event
-                Order savedOrder = orderRepository.save(order);
-                kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(savedOrder.getOrderNumber()));
-                log.info("Order {} saved successfully with ID: {}", savedOrder.getOrderNumber(), savedOrder.getId());
-                return savedOrder;
-            } finally {
-                tracer.currentSpan().end();
+            // Save the order and outbox event
+            Order savedOrder = orderRepository.save(order);
+            
+            try {
+                OutboxEvent outboxEvent = new OutboxEvent();
+                outboxEvent.setAggregateId(savedOrder.getId().toString());
+                outboxEvent.setAggregateType("Order");
+                outboxEvent.setEventType("OrderCreated");
+                outboxEvent.setPayload(objectMapper.writeValueAsString(new OrderPlacedEvent(savedOrder.getOrderNumber())));
+                outboxEvent.setStatus("NEW");
+                outboxRepository.save(outboxEvent);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException("Error creating outbox payload", e);
             }
-        } else {
-            log.error("Product is not in stock. Please try again later.");
-            throw new RuntimeException("Product is not in stock. Please try again later.");
+
+            log.info("Order {} saved successfully with ID: {}", savedOrder.getOrderNumber(), savedOrder.getId());
+            return savedOrder;
+        } finally {
+            inventoryServiceLookup.end();
         }
     }
 
@@ -66,60 +84,27 @@ public class OrderService {
         return tracer.nextSpan().name("InventoryServiceLookup").start();
     }
 
-    private Order initializeOrder(OrderRequest orderRequest) {
-        Order order = new Order();
-        order.setOrderNumber(UUID.randomUUID().toString());
-        order.setOrderLineItemsList(orderRequest.getOrderLineItemsDtoList()
-                .stream()
-                .map(this::mapToEntity)
-                .toList());
-        return order;
-    }
-
-    private OrderLineItems mapToEntity(OrderLineItemsDto orderLineItemsDto) {
-        OrderLineItems orderLineItems = new OrderLineItems();
-        orderLineItems.setPrice(orderLineItemsDto.getPrice());
-        orderLineItems.setQuantity(orderLineItemsDto.getQuantity());
-        orderLineItems.setSkuCode(orderLineItemsDto.getSkuCode());
-        return orderLineItems;
-    }
-
-    private Map<String, Integer> aggregateSkuCodesAndQuantities(Order order) {
-        List<OrderLineItems> orderLineItems = order.getOrderLineItemsList();
-        List<String> skuCodes = orderLineItems.stream()
-                .map(OrderLineItems::getSkuCode)
-                .toList();
-        List<Integer> quantities = orderLineItems.stream()
-                .map(OrderLineItems::getQuantity)
-                .toList();
-
-        return IntStream.range(0, skuCodes.size())
-                .boxed()
-                .collect(Collectors.toMap(
-                        skuCodes::get,
-                        quantities::get,
-                        Integer::sum // Aggregate quantities for duplicate SKUs
-                ));
-    }
-
-    private boolean checkInventoryStock(List<String> skuCodes) {
-        InventoryResponse[] inventoryResponses = webClientBuilder.build()
-                .get()
+    private void checkInventoryStock(List<String> skuCodes) {
+        InventoryResponse[] inventoryResponseArray = restClientBuilder.build().get()
                 .uri(uriBuilder -> uriBuilder
-                        .scheme("http") // Specify the scheme explicitly
-                        .host("inventory-service") // Specify the host explicitly
-                        .path("/api/inventories") // Add the path to the inventory service endpoint
-                        .queryParam("skuCode", skuCodes.toArray()) // Correctly add query parameters
+                        .path("/api/inventory")
+                        .queryParam("skuCode", skuCodes.toArray())
                         .build())
                 .retrieve()
-                .bodyToMono(InventoryResponse[].class)
-                .block();
+                .body(InventoryResponse[].class);
 
-        assert inventoryResponses != null;
-        boolean allInStock = Arrays.stream(inventoryResponses).allMatch(InventoryResponse::isInStock);
+        if (inventoryResponseArray == null) {
+            throw new IllegalArgumentException("Failed to check inventory status");
+        }
+
+        log.info("Received inventoryResponses: {}", Arrays.toString(inventoryResponseArray));
+        boolean allInStock = Arrays.stream(inventoryResponseArray).allMatch(InventoryResponse::isInStock);
 
         log.info("Inventory check for SKUs {}: {}", skuCodes, allInStock ? "All in stock" : "Some out of stock");
-        return allInStock;
+        
+        if (!allInStock) {
+            throw new IllegalArgumentException("One or more products are not in stock, please try again later.");
+        }
     }
 
 //    private void reduceInventoryStock(List<String> skuCodes, List<Integer> quantities) {
@@ -148,19 +133,19 @@ public class OrderService {
             inventoryRequests.add(new InventoryRequest(skuCodes.get(i), quantities.get(i)));
         }
 
-        String response = webClientBuilder.build()
-                .post()
-                .uri("/api/inventories/reduce")
-                .bodyValue(inventoryRequests) // Pass the list of InventoryRequest objects as the JSON request body
-                .retrieve()
-                .bodyToMono(String.class)
-                .onErrorResume(e -> {
-                    log.error("Error reducing inventory: {}", e.getMessage());
-                    throw new RuntimeException("Inventory service error: " + e.getMessage());
-                })
-                .block();
+        try {
+            String response = restClientBuilder.build()
+                    .post()
+                    .uri("/api/inventory/reduce")
+                    .body(inventoryRequests) // Pass the list of InventoryRequest objects as the JSON request body
+                    .retrieve()
+                    .body(String.class);
 
-        log.info("Inventory reduction response: {}", response);
+            log.info("Inventory reduction response: {}", response);
+        } catch (Exception e) {
+            log.error("Error reducing inventory: {}", e.getMessage());
+            throw new RuntimeException("Inventory service error: " + e.getMessage());
+        }
     }
     public void updateOrderStatus(String orderNumber, String status, String message) {
         orderRepository.findByOrderNumber(orderNumber).ifPresent(order -> {

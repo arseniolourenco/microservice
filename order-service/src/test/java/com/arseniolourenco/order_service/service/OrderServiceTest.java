@@ -2,7 +2,9 @@ package com.arseniolourenco.order_service.service;
 
 import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
+import com.arseniolourenco.order_service.dto.InventoryResponse;
 import com.arseniolourenco.order_service.model.Order;
+import com.arseniolourenco.order_service.model.OutboxEvent;
 import com.arseniolourenco.order_service.repository.OrderRepository;
 import com.arseniolourenco.order_service.repository.OutboxRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,26 +34,70 @@ class OrderServiceTest {
     @Mock
     private ObjectMapper objectMapper;
 
+    @Mock
+    private org.springframework.web.client.RestClient.Builder restClientBuilder;
+
+    @Mock
+    private org.springframework.kafka.core.KafkaTemplate kafkaTemplate;
+
+    @Mock
+    private io.micrometer.tracing.Tracer tracer;
+
+    @Mock
+    private com.arseniolourenco.order_service.mapper.OrderMapper orderMapper;
+
     @InjectMocks
     private OrderService orderService;
 
     @Test
     void shouldPlaceOrder_AndCreateOutboxEvent() throws Exception {
         // Arrange
-        OrderLineItemsDto itemDto = new OrderLineItemsDto();
-        itemDto.setSkuCode("iphone_15");
-        itemDto.setPrice(BigDecimal.valueOf(1000));
-        itemDto.setQuantity(1);
+        OrderLineItemsDto itemDto = OrderLineItemsDto.builder()
+            .skuCode("iphone_15")
+            .price(BigDecimal.valueOf(1000))
+            .quantity(1)
+            .build();
 
-        OrderRequest orderRequest = new OrderRequest();
-        orderRequest.setOrderLineItemsDtoList(List.of(itemDto));
+        OrderRequest orderRequest = new OrderRequest(List.of(itemDto));
 
         Order order = new Order();
+        order.setId(1L);
         order.setOrderNumber("12345");
         order.setStatus("PENDING");
+        
+        com.arseniolourenco.order_service.model.OrderLineItems item = new com.arseniolourenco.order_service.model.OrderLineItems();
+        item.setSkuCode("iphone_15");
+        item.setQuantity(1);
+        item.setPrice(BigDecimal.valueOf(1000));
+        order.setOrderLineItemsList(List.of(item));
 
+        when(orderMapper.toOrder(orderRequest)).thenReturn(order);
         when(orderRepository.save(any(Order.class))).thenReturn(order);
-        when(objectMapper.writeValueAsString(any())).thenReturn("{}");
+
+        org.springframework.web.client.RestClient restClientMock = mock(org.springframework.web.client.RestClient.class);
+        org.springframework.web.client.RestClient.RequestHeadersUriSpec uriSpecMock = mock(org.springframework.web.client.RestClient.RequestHeadersUriSpec.class);
+        org.springframework.web.client.RestClient.ResponseSpec responseSpecMock = mock(org.springframework.web.client.RestClient.ResponseSpec.class);
+        
+        when(restClientBuilder.build()).thenReturn(restClientMock);
+        when(restClientMock.get()).thenReturn(uriSpecMock);
+        when(uriSpecMock.uri(any(java.util.function.Function.class))).thenReturn(uriSpecMock);
+        when(uriSpecMock.retrieve()).thenReturn(responseSpecMock);
+        when(responseSpecMock.body(InventoryResponse[].class)).thenReturn(new InventoryResponse[]{
+            InventoryResponse.builder().isInStock(true).build()
+        });
+
+        org.springframework.web.client.RestClient.RequestBodyUriSpec postUriSpecMock = mock(org.springframework.web.client.RestClient.RequestBodyUriSpec.class);
+        when(restClientMock.post()).thenReturn(postUriSpecMock);
+        when(postUriSpecMock.uri(any(String.class))).thenReturn(postUriSpecMock);
+        when(postUriSpecMock.body(any(List.class))).thenReturn(postUriSpecMock);
+        when(postUriSpecMock.retrieve()).thenReturn(responseSpecMock);
+        when(responseSpecMock.body(String.class)).thenReturn("Success");
+
+        io.micrometer.tracing.Span spanMock = mock(io.micrometer.tracing.Span.class);
+        when(tracer.nextSpan()).thenReturn(spanMock);
+        when(spanMock.name(anyString())).thenReturn(spanMock);
+        when(spanMock.start()).thenReturn(spanMock);
+        when(tracer.withSpan(any())).thenReturn(mock(io.micrometer.tracing.Tracer.SpanInScope.class));
 
         // Act
         Order result = orderService.placeOrder(orderRequest);
@@ -59,7 +105,7 @@ class OrderServiceTest {
         // Assert
         assertNotNull(result);
         verify(orderRepository).save(any(Order.class));
-        verify(outboxRepository).save(any());
+        verify(outboxRepository).save(any(OutboxEvent.class));
         assertEquals("PENDING", result.getStatus());
     }
 

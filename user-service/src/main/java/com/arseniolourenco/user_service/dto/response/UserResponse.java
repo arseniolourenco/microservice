@@ -10,6 +10,7 @@ public record UserResponse(
         String lastname,
         String email,
         Role role,
+        Boolean enabled,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
