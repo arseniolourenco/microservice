@@ -59,6 +59,11 @@ class InventoryIntegrationTest {
         registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
     }
 
+    @org.junit.jupiter.api.BeforeEach
+    void setUp() {
+        inventoryRepository.deleteAll();
+    }
+
     @AfterEach
     void tearDown() {
         inventoryRepository.deleteAll();
