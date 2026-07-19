@@ -85,11 +85,11 @@ class AuthIntegrationTest {
         // 2. Prepare Request
         LoginRequest request = new LoginRequest("testuser", "wrongpass");
 
-        // 3. Act & Assert (O nosso código atual manda um RuntimeException genérico, que o Spring converte para 500. 
-        // Idealmente deveríamos mapear para 401 no GlobalExceptionHandler, mas verificamos o erro).
+        // 3. Act & Assert (O nosso código agora apanha o 401 do Keycloak e lança ResponseStatusException(401),
+        // o que o Spring traduz perfeitamente para um 401 Unauthorized no endpoint do auth-service).
         mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isUnauthorized());
     }
 }

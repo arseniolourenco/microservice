@@ -33,15 +33,20 @@ public class AuthServiceImpl implements AuthService {
         formData.add("username", request.username());
         formData.add("password", request.password());
 
-        KeycloakTokenResponse keycloakResponse = keycloakWebClient
-                .post()
-                .uri(tokenEndpoint)
-                .headers(headers -> headers.setBasicAuth(keycloakConfig.getClientId(), keycloakConfig.getClientSecret()))
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(formData))
-                .retrieve()
-                .bodyToMono(KeycloakTokenResponse.class)
-                .block();
+        KeycloakTokenResponse keycloakResponse;
+        try {
+            keycloakResponse = keycloakWebClient
+                    .post()
+                    .uri(tokenEndpoint)
+                    .headers(headers -> headers.setBasicAuth(keycloakConfig.getClientId(), keycloakConfig.getClientSecret()))
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .body(BodyInserters.fromFormData(formData))
+                    .retrieve()
+                    .bodyToMono(KeycloakTokenResponse.class)
+                    .block();
+        } catch (org.springframework.web.reactive.function.client.WebClientResponseException.Unauthorized e) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        }
 
         if (keycloakResponse == null) {
             throw new RuntimeException("Failed to get token from Keycloak");
