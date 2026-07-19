@@ -120,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Data
-    private static class KeycloakTokenResponse {
+    static class KeycloakTokenResponse {
         @JsonProperty("access_token")
         private String accessToken;
         
