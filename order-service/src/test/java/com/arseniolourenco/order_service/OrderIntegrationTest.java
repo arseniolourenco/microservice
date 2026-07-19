@@ -69,6 +69,16 @@ class OrderIntegrationTest {
         registry.add("spring.kafka.bootstrap-servers", () -> "localhost:9092"); 
     }
 
+    @org.springframework.boot.test.context.TestConfiguration
+    static class RestClientTestConfig {
+        @org.springframework.context.annotation.Bean
+        @org.springframework.context.annotation.Primary
+        public org.springframework.web.client.RestClient.Builder restClientBuilder(
+                @org.springframework.beans.factory.annotation.Value("${wiremock.server.port}") int port) {
+            return org.springframework.web.client.RestClient.builder().baseUrl("http://localhost:" + port);
+        }
+    }
+
     @AfterEach
     void tearDown() {
         outboxRepository.deleteAll();
