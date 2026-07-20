@@ -8,6 +8,8 @@ import com.arseniolourenco.product_service.model.Product;
 import com.arseniolourenco.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,7 @@ public class ProductService {
     /**
      * Create a new product.
      */
+    @CacheEvict(value = {"products", "product"}, allEntries = true)
     public ProductResponse createProduct(ProductRequest productRequest) {
 
         // Convert ProductRequest to Product using the mapper
@@ -45,6 +48,7 @@ public class ProductService {
     /**
      * Retrieve all products.
      */
+    @Cacheable(value = "products", key = "'all'")
     public List<ProductResponse> getAllProducts() {
 
         List<Product> products = productRepository.findAll();
@@ -59,6 +63,7 @@ public class ProductService {
     /**
      * Retrieve a product by ID.
      */
+    @Cacheable(value = "product", key = "#productId")
     public ProductResponse getProductById(String productId) {
 
         Product existProduct = productRepository.findById(productId)
@@ -70,6 +75,7 @@ public class ProductService {
     /**
      * Update an existing product.
      */
+    @CacheEvict(value = {"products", "product"}, allEntries = true)
     public ProductResponse updateProduct(String productId, ProductRequest productRequest) {
 
         Product existProduct = productRepository.findById(productId)
@@ -88,6 +94,7 @@ public class ProductService {
     /**
      * Delete a product by ID.
      */
+    @CacheEvict(value = {"products", "product"}, allEntries = true)
     public void deleteProduct(String productId) {
         Product existProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException("Product With ID: " + productId + " Not Found"));
