@@ -30,4 +30,7 @@ public interface OrderMapper {
     
     List<OrderLineItems> toOrderLineItemsList(List<OrderLineItemsDto> orderLineItemsDtoList);
     List<OrderLineItemsDto> toOrderLineItemsDtoList(List<OrderLineItems> orderLineItemsList);
+
+    com.arseniolourenco.order_service.event.OrderPlacedEvent.OrderItemDto toOrderItemDto(OrderLineItems orderLineItems);
+    List<com.arseniolourenco.order_service.event.OrderPlacedEvent.OrderItemDto> toOrderItemDtoList(List<OrderLineItems> orderLineItemsList);
 }

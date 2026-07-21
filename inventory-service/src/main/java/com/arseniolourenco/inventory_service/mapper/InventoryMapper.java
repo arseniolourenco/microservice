@@ -15,4 +15,10 @@ public interface InventoryMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
     Inventory toInventory(InventoryRequest inventoryRequest);
+
+    @Mapping(source = "skuCode", target = "skuCode")
+    @Mapping(source = "quantity", target = "quantity")
+    InventoryRequest toInventoryRequest(com.arseniolourenco.inventory_service.event.OrderPlacedEvent.OrderItemDto orderItemDto);
+    
+    java.util.List<InventoryRequest> toInventoryRequestList(java.util.List<com.arseniolourenco.inventory_service.event.OrderPlacedEvent.OrderItemDto> orderItemDtoList);
 }

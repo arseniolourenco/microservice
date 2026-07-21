@@ -19,6 +19,7 @@ import java.util.List;
 public class OrderEventsConsumer {
 
     private final InventoryService inventoryService;
+    private final com.arseniolourenco.inventory_service.mapper.InventoryMapper inventoryMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
@@ -29,9 +30,7 @@ public class OrderEventsConsumer {
             OrderPlacedEvent event = objectMapper.readValue(message, OrderPlacedEvent.class);
             log.info("Processing OrderPlacedEvent for order: {}", event.orderNumber());
 
-            List<InventoryRequest> requests = event.items().stream()
-                    .map(item -> new InventoryRequest(item.skuCode(), item.quantity()))
-                    .toList();
+            List<InventoryRequest> requests = inventoryMapper.toInventoryRequestList(event.items());
 
             try {
                 inventoryService.reduceStock(requests);
