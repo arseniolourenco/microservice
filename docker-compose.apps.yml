@@ -1,0 +1,200 @@
+name: microservices-apps
+
+# ==============================================================================
+# MICROSSERVIÇOS DE NEGÓCIO (Aplicações)
+# Estes são os serviços que você desenvolveu e vai editar no dia-a-dia.
+# Devem ser iniciados APÓS a infraestrutura e os serviços core estarem saudáveis.
+# Comando para iniciar: docker-compose -f docker-compose.apps.yml up -d
+# ==============================================================================
+
+networks:
+  microservices-network:
+    external: true
+    name: microservices-network
+
+services:
+
+  # ---------------------------------------------------------
+  # ORDER SERVICE
+  # Responsável pela criação de encomendas.
+  # Emite eventos via Outbox Pattern para o Kafka.
+  # ---------------------------------------------------------
+  order-service:
+    image: arseniolourenco/order-service:latest
+    container_name: order-service
+    restart: always
+    build:
+      context: .
+      dockerfile: ./order-service/Dockerfile
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # INVENTORY SERVICE
+  # Gere o stock dos produtos.
+  # Ouve eventos do Kafka vindos do Order Service.
+  # ---------------------------------------------------------
+  inventory-service:
+    image: arseniolourenco/inventory-service:latest
+    container_name: inventory-service
+    build:
+      context: .
+      dockerfile: ./inventory-service/Dockerfile
+    restart: always
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # NOTIFICATION SERVICE
+  # Responsável por enviar notificações (ex: emails).
+  # Ativado via mensagens Kafka.
+  # ---------------------------------------------------------
+  notification-service:
+    image: arseniolourenco/notification-service:latest
+    container_name: notification-service
+    build:
+      context: .
+      dockerfile: ./notification-service/Dockerfile
+    restart: unless-stopped
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # PRODUCT SERVICE
+  # Catálogo de produtos.
+  # Utiliza cache Redis em cima da base de dados MongoDB.
+  # ---------------------------------------------------------
+  product-service:
+    image: arseniolourenco/product-service:latest
+    container_name: product-service
+    build:
+      context: .
+      dockerfile: ./product-service/Dockerfile
+    restart: unless-stopped
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # USER SERVICE
+  # Gere o perfil e os detalhes dos utilizadores.
+  # ---------------------------------------------------------
+  user-service:
+    image: arseniolourenco/user-service:latest
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: ./user-service/Dockerfile
+    restart: unless-stopped
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # AUTH SERVICE
+  # Wrapper sobre o Keycloak / Serviços de Autenticação ad-hoc.
+  # ---------------------------------------------------------
+  auth-service:
+    image: arseniolourenco/auth-service:latest
+    container_name: auth-service
+    build:
+      context: .
+      dockerfile: ./auth-service/Dockerfile
+    restart: unless-stopped
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: trace
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8086/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m

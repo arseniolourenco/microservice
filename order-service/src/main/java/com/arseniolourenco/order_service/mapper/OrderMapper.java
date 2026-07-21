@@ -5,6 +5,8 @@ import com.arseniolourenco.order_service.dto.OrderRequest;
 import com.arseniolourenco.order_service.dto.OrderResponse;
 import com.arseniolourenco.order_service.model.Order;
 import com.arseniolourenco.order_service.model.OrderLineItems;
+import com.arseniolourenco.order_service.model.OutboxEvent;
+import com.arseniolourenco.order_service.dto.OutboxEventDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
+
+    @Mapping(target = "id", ignore = true)
+    OutboxEvent toOutboxEvent(OutboxEventDto outboxEventDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "orderNumber", ignore = true)

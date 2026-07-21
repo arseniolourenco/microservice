@@ -73,40 +73,25 @@ class OrderServiceTest {
 
         when(orderMapper.toOrder(orderRequest)).thenReturn(order);
         when(orderRepository.save(any(Order.class))).thenReturn(order);
-
-        org.springframework.web.client.RestClient restClientMock = mock(org.springframework.web.client.RestClient.class);
-        org.springframework.web.client.RestClient.RequestHeadersUriSpec uriSpecMock = mock(org.springframework.web.client.RestClient.RequestHeadersUriSpec.class);
-        org.springframework.web.client.RestClient.ResponseSpec responseSpecMock = mock(org.springframework.web.client.RestClient.ResponseSpec.class);
+        when(orderMapper.toOrderItemDtoList(anyList())).thenReturn(List.of());
+        when(objectMapper.writeValueAsString(any())).thenReturn("{}");
+        when(orderMapper.toOutboxEvent(any())).thenReturn(new OutboxEvent());
         
-        when(restClientBuilder.build()).thenReturn(restClientMock);
-        when(restClientMock.get()).thenReturn(uriSpecMock);
-        when(uriSpecMock.uri(any(java.util.function.Function.class))).thenReturn(uriSpecMock);
-        when(uriSpecMock.retrieve()).thenReturn(responseSpecMock);
-        when(responseSpecMock.body(InventoryResponse[].class)).thenReturn(new InventoryResponse[]{
-            InventoryResponse.builder().isInStock(true).build()
-        });
-
-        org.springframework.web.client.RestClient.RequestBodyUriSpec postUriSpecMock = mock(org.springframework.web.client.RestClient.RequestBodyUriSpec.class);
-        when(restClientMock.post()).thenReturn(postUriSpecMock);
-        when(postUriSpecMock.uri(any(String.class))).thenReturn(postUriSpecMock);
-        when(postUriSpecMock.body(any(List.class))).thenReturn(postUriSpecMock);
-        when(postUriSpecMock.retrieve()).thenReturn(responseSpecMock);
-        when(responseSpecMock.body(String.class)).thenReturn("Success");
-
-        io.micrometer.tracing.Span spanMock = mock(io.micrometer.tracing.Span.class);
-        when(tracer.nextSpan()).thenReturn(spanMock);
-        when(spanMock.name(anyString())).thenReturn(spanMock);
-        when(spanMock.start()).thenReturn(spanMock);
-        when(tracer.withSpan(any())).thenReturn(mock(io.micrometer.tracing.Tracer.SpanInScope.class));
+        com.arseniolourenco.order_service.dto.OrderResponse orderResponse = new com.arseniolourenco.order_service.dto.OrderResponse(
+            "12345",
+            "PENDING",
+            List.of()
+        );
+        when(orderMapper.toOrderResponse(any(Order.class))).thenReturn(orderResponse);
 
         // Act
-        Order result = orderService.placeOrder(orderRequest);
+        com.arseniolourenco.order_service.dto.OrderResponse result = orderService.placeOrder(orderRequest);
 
         // Assert
         assertNotNull(result);
         verify(orderRepository).save(any(Order.class));
         verify(outboxRepository).save(any(OutboxEvent.class));
-        assertEquals("PENDING", result.getStatus());
+        assertEquals("PENDING", result.orderStatus());
     }
 
     @Test

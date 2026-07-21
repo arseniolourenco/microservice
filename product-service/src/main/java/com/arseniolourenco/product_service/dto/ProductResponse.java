@@ -8,4 +8,4 @@ public record ProductResponse(
     String skuCode,
     String description,
     BigDecimal price
-) {}
+) implements java.io.Serializable {}

@@ -1,0 +1,118 @@
+name: microservices-core
+
+# ==============================================================================
+# MICROSERVIÇOS CORE (Infraestrutura Aplicacional)
+# Estes são os serviços de base do Spring Cloud.
+# Devem ser iniciados APÓS a infraestrutura (Bases de Dados, Kafka, etc.)
+# Comando para iniciar: docker-compose -f docker-compose.core.yml up -d
+# ==============================================================================
+
+networks:
+  microservices-network:
+    external: true
+    name: microservices-network
+
+services:
+
+  # ---------------------------------------------------------
+  # CONFIG SERVER
+  # Fornece configurações centralizadas a todos os microserviços
+  # ---------------------------------------------------------
+  config-server:
+    image: arseniolourenco/config-server:latest
+    container_name: config-server
+    restart: always
+    build:
+      context: .
+      dockerfile: ./config-server/Dockerfile
+    env_file:
+    - .env
+    ports:
+    - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  # ---------------------------------------------------------
+  # DISCOVERY SERVER (Eureka)
+  # Regista todos os microserviços para que possam comunicar entre si
+  # Depende do Config Server para arrancar
+  # ---------------------------------------------------------
+  discovery-server:
+    image: arseniolourenco/discovery-server:latest
+    container_name: discovery-server
+    build:
+      context: .
+      dockerfile: ./discovery-server/Dockerfile
+    restart: always
+    env_file:
+    - .env
+    ports:
+    - "8761:8761"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    depends_on:
+      config-server:
+        condition: service_healthy
+
+  # ---------------------------------------------------------
+  # API GATEWAY
+  # Ponto de entrada principal para a aplicação. Encaminha requests.
+  # Protegido via integração com Keycloak
+  # ---------------------------------------------------------
+  api-gateway:
+    image: arseniolourenco/api-gateway:latest
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
+    restart: always
+    env_file:
+    - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: ${CONFIG_SERVER_IMPORT}
+    networks:
+    - microservices-network
+    ports:
+    - "8181:8080"
+    expose:
+    - "8181"
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 300s
+    deploy:
+      resources:
+        limits:
+          memory: 512m

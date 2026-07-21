@@ -18,7 +18,7 @@ public class Order {
     private String orderNumber;
     private String status;
     private String message;
-    @OneToMany(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderLineItems> orderLineItemsList;
 
 

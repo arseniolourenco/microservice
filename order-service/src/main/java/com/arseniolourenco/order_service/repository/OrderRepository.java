@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"orderLineItemsList"})
     Optional<Order> findByOrderNumber(String orderNumber);
 }
