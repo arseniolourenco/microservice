@@ -645,7 +645,7 @@ services:
     networks:
     - microservices-network
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8086/actuator/health"]
       interval: 10s
       timeout: 10s
       retries: 10

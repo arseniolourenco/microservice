@@ -1,4 +1,4 @@
-package com.arseniolourenco.order_service.event;
+package com.arseniolourenco.inventory_service.event;
 
 import java.util.List;
 

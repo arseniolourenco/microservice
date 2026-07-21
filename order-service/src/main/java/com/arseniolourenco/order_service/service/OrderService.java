@@ -19,6 +19,7 @@ import com.arseniolourenco.order_service.model.OutboxEvent;
 import com.arseniolourenco.order_service.mapper.OrderMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.util.*;
 
@@ -35,6 +36,7 @@ public class OrderService {
     private final ObjectMapper objectMapper;
     private final OrderMapper orderMapper;
 
+    @CircuitBreaker(name = "inventory", fallbackMethod = "placeOrderFallback")
     public Order placeOrder(OrderRequest orderRequest) {
         Order order = orderMapper.toOrder(orderRequest);
         order.setOrderNumber(UUID.randomUUID().toString());
@@ -66,7 +68,12 @@ public class OrderService {
                 outboxEvent.setAggregateId(savedOrder.getId().toString());
                 outboxEvent.setAggregateType("Order");
                 outboxEvent.setEventType("OrderCreated");
-                outboxEvent.setPayload(objectMapper.writeValueAsString(new OrderPlacedEvent(savedOrder.getOrderNumber())));
+                
+                List<OrderPlacedEvent.OrderItemDto> items = savedOrder.getOrderLineItemsList().stream()
+                        .map(item -> new OrderPlacedEvent.OrderItemDto(item.getSkuCode(), item.getQuantity()))
+                        .toList();
+                        
+                outboxEvent.setPayload(objectMapper.writeValueAsString(new OrderPlacedEvent(savedOrder.getOrderNumber(), items)));
                 outboxEvent.setStatus("NEW");
                 outboxRepository.save(outboxEvent);
             } catch (JsonProcessingException e) {
@@ -78,6 +85,36 @@ public class OrderService {
         } finally {
             inventoryServiceLookup.end();
         }
+    }
+
+    public Order placeOrderFallback(OrderRequest orderRequest, Throwable throwable) {
+        log.warn("Circuit Breaker opened or Inventory Service failed. Fallback executed for order. Reason: {}", throwable.getMessage());
+        Order order = orderMapper.toOrder(orderRequest);
+        order.setOrderNumber(UUID.randomUUID().toString());
+        order.setStatus("PENDING");
+        order.setMessage("Inventory service is currently unavailable. Order is pending verification.");
+
+        // Save the order
+        Order savedOrder = orderRepository.save(order);
+
+        try {
+            OutboxEvent outboxEvent = new OutboxEvent();
+            outboxEvent.setAggregateId(savedOrder.getId().toString());
+            outboxEvent.setAggregateType("Order");
+            outboxEvent.setEventType("OrderCreated");
+            
+            List<OrderPlacedEvent.OrderItemDto> items = savedOrder.getOrderLineItemsList().stream()
+                    .map(item -> new OrderPlacedEvent.OrderItemDto(item.getSkuCode(), item.getQuantity()))
+                    .toList();
+                    
+            outboxEvent.setPayload(objectMapper.writeValueAsString(new OrderPlacedEvent(savedOrder.getOrderNumber(), items)));
+            outboxEvent.setStatus("NEW");
+            outboxRepository.save(outboxEvent);
+        } catch (JsonProcessingException e) {
+            log.error("Error creating outbox payload in fallback", e);
+        }
+
+        return savedOrder;
     }
 
     private Span startInventoryServiceSpan() {
