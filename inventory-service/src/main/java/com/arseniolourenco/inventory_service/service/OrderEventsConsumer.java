@@ -1,9 +1,10 @@
 package com.arseniolourenco.inventory_service.service;
 
-import com.arseniolourenco.inventory_service.dto.InventoryRequest;
+import com.arseniolourenco.inventory_service.dto.InventoryRequestDTO;
 import com.arseniolourenco.inventory_service.event.InventoryFailedEvent;
 import com.arseniolourenco.inventory_service.event.InventoryReservedEvent;
 import com.arseniolourenco.inventory_service.event.OrderPlacedEvent;
+import com.arseniolourenco.inventory_service.mapper.InventoryMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import java.util.List;
 public class OrderEventsConsumer {
 
     private final InventoryService inventoryService;
-    private final com.arseniolourenco.inventory_service.mapper.InventoryMapper inventoryMapper;
+    private final InventoryMapper inventoryMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
@@ -30,17 +31,17 @@ public class OrderEventsConsumer {
             OrderPlacedEvent event = objectMapper.readValue(message, OrderPlacedEvent.class);
             log.info("Processing OrderPlacedEvent for order: {}", event.orderNumber());
 
-            List<InventoryRequest> requests = inventoryMapper.toInventoryRequestList(event.items());
+            List<InventoryRequestDTO> requests = inventoryMapper.toInventoryRequestList(event.items());
 
             try {
                 inventoryService.reduceStock(requests);
                 log.info("Stock successfully reduced for order {}", event.orderNumber());
-                
+
                 InventoryReservedEvent reservedEvent = new InventoryReservedEvent(event.orderNumber());
                 kafkaTemplate.send("inventory-events", event.orderNumber(), objectMapper.writeValueAsString(reservedEvent));
             } catch (Exception e) {
                 log.error("Failed to reduce stock for order {}: {}", event.orderNumber(), e.getMessage());
-                
+
                 InventoryFailedEvent failedEvent = new InventoryFailedEvent(event.orderNumber(), e.getMessage());
                 kafkaTemplate.send("inventory-events", event.orderNumber(), objectMapper.writeValueAsString(failedEvent));
             }

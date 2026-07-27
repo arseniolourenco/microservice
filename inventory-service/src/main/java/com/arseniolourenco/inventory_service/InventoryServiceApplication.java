@@ -1,6 +1,6 @@
 package com.arseniolourenco.inventory_service;
 
-import com.arseniolourenco.inventory_service.model.Inventory;
+import com.arseniolourenco.inventory_service.model.InventoryModel;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,16 +19,16 @@ public class InventoryServiceApplication {
     public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
         return args -> {
             if (inventoryRepository.count() == 0) {
-                Inventory inventory1 = new Inventory();
-                inventory1.setSkuCode("iPhone 15");
+                InventoryModel inventory1 = new InventoryModel();
+                inventory1.setSkuCode("IPHONE15");
                 inventory1.setQuantity(10);
 
-                Inventory inventory2 = new Inventory();
-                inventory2.setSkuCode("iPhone 16");
+                InventoryModel inventory2 = new InventoryModel();
+                inventory2.setSkuCode("IPHONE16");
                 inventory2.setQuantity(10);
 
-                Inventory inventory3 = new Inventory();
-                inventory3.setSkuCode("iPhone 12");
+                InventoryModel inventory3 = new InventoryModel();
+                inventory3.setSkuCode("IPHONE17");
                 inventory3.setQuantity(10);
 
                 inventoryRepository.save(inventory1);

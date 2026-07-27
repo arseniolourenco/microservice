@@ -118,13 +118,7 @@
                     <version>3.4.4</version>
                     <configuration>
                         <from>
-                            <image>eclipse-temurin:22-jre@sha256:a94532aaca0997d728c6f88927f2209d383a185fbbf7398c8dc41bf4ffd21118</image>
-                            <platforms>
-                                <platform>
-                                    <architecture>amd64</architecture>
-                                    <os>linux</os>
-                                </platform>
-                            </platforms>
+                            <image>eclipse-temurin:21-jre-alpine</image>
                         </from>
                         <to>
                             <image>arseniolourenco/${project.artifactId}</image>

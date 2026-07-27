@@ -2,8 +2,7 @@ package com.arseniolourenco.order_service.service;
 
 import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
-import com.arseniolourenco.order_service.dto.InventoryResponse;
-import com.arseniolourenco.order_service.model.Order;
+import com.arseniolourenco.order_service.model.OrderModel;
 import com.arseniolourenco.order_service.model.OutboxEvent;
 import com.arseniolourenco.order_service.repository.OrderRepository;
 import com.arseniolourenco.order_service.repository.OutboxRepository;
@@ -60,7 +59,7 @@ class OrderServiceTest {
 
         OrderRequest orderRequest = new OrderRequest(List.of(itemDto));
 
-        Order order = new Order();
+        OrderModel order = new OrderModel();
         order.setId(1L);
         order.setOrderNumber("12345");
         order.setStatus("PENDING");
@@ -72,7 +71,7 @@ class OrderServiceTest {
         order.setOrderLineItemsList(List.of(item));
 
         when(orderMapper.toOrder(orderRequest)).thenReturn(order);
-        when(orderRepository.save(any(Order.class))).thenReturn(order);
+        when(orderRepository.save(any(OrderModel.class))).thenReturn(order);
         when(orderMapper.toOrderItemDtoList(anyList())).thenReturn(List.of());
         when(objectMapper.writeValueAsString(any())).thenReturn("{}");
         when(orderMapper.toOutboxEvent(any())).thenReturn(new OutboxEvent());
@@ -82,14 +81,14 @@ class OrderServiceTest {
             "PENDING",
             List.of()
         );
-        when(orderMapper.toOrderResponse(any(Order.class))).thenReturn(orderResponse);
+        when(orderMapper.toOrderResponse(any(OrderModel.class))).thenReturn(orderResponse);
 
         // Act
         com.arseniolourenco.order_service.dto.OrderResponse result = orderService.placeOrder(orderRequest);
 
         // Assert
         assertNotNull(result);
-        verify(orderRepository).save(any(Order.class));
+        verify(orderRepository).save(any(OrderModel.class));
         verify(outboxRepository).save(any(OutboxEvent.class));
         assertEquals("PENDING", result.orderStatus());
     }
@@ -98,7 +97,7 @@ class OrderServiceTest {
     void shouldUpdateOrderStatus() {
         // Arrange
         String orderNumber = "12345";
-        Order order = new Order();
+        OrderModel order = new OrderModel();
         order.setOrderNumber(orderNumber);
         order.setStatus("PENDING");
 

@@ -1,11 +1,11 @@
 package com.arseniolourenco.inventory_service.service;
 
-import com.arseniolourenco.inventory_service.dto.InventoryRequest;
-import com.arseniolourenco.inventory_service.dto.InventoryResponse;
+import com.arseniolourenco.inventory_service.dto.InventoryRequestDTO;
+import com.arseniolourenco.inventory_service.dto.InventoryResponseDTO;
 import com.arseniolourenco.inventory_service.exception.InsufficientStockException;
 import com.arseniolourenco.inventory_service.exception.SkuNotFoundException;
 import com.arseniolourenco.inventory_service.mapper.InventoryMapper;
-import com.arseniolourenco.inventory_service.model.Inventory;
+import com.arseniolourenco.inventory_service.model.InventoryModel;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,10 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -38,7 +36,7 @@ class InventoryServiceTest {
         // Arrange
         String sku = "iphone_15";
         List<String> skuCodes = List.of(sku);
-        Inventory inventory = Inventory.builder()
+        InventoryModel inventory = InventoryModel.builder()
                 .id(1L)
                 .skuCode(sku)
                 .quantity(10)
@@ -47,7 +45,7 @@ class InventoryServiceTest {
         when(inventoryRepository.findBySkuCodeIn(skuCodes)).thenReturn(List.of(inventory));
 
         // Act
-        List<InventoryResponse> result = inventoryService.isInStock(skuCodes);
+        List<InventoryResponseDTO> result = inventoryService.isInStock(skuCodes);
 
         // Assert
         assertEquals(1, result.size());
@@ -60,8 +58,8 @@ class InventoryServiceTest {
     void shouldReduceStock_Success() {
         // Arrange
         String sku = "iphone_15";
-        InventoryRequest request = new InventoryRequest(sku, 5);
-        Inventory inventory = Inventory.builder()
+        InventoryRequestDTO request = new InventoryRequestDTO(sku, 5);
+        InventoryModel inventory = InventoryModel.builder()
                 .id(1L)
                 .skuCode(sku)
                 .quantity(10)
@@ -81,7 +79,7 @@ class InventoryServiceTest {
     void shouldThrowException_WhenSkuNotFound() {
         // Arrange
         String sku = "unknown";
-        InventoryRequest request = new InventoryRequest(sku, 5);
+        InventoryRequestDTO request = new InventoryRequestDTO(sku, 5);
 
         when(inventoryRepository.findBySkuCodeIn(any())).thenReturn(Collections.emptyList());
 
@@ -93,8 +91,8 @@ class InventoryServiceTest {
     void shouldThrowException_WhenInsufficientStock() {
         // Arrange
         String sku = "iphone_15";
-        InventoryRequest request = new InventoryRequest(sku, 20);
-        Inventory inventory = Inventory.builder()
+        InventoryRequestDTO request = new InventoryRequestDTO(sku, 20);
+        InventoryModel inventory = InventoryModel.builder()
                 .id(1L)
                 .skuCode(sku)
                 .quantity(10)
@@ -110,8 +108,8 @@ class InventoryServiceTest {
     void shouldAddStock_ToExistingSku() {
         // Arrange
         String sku = "iphone_15";
-        InventoryRequest request = new InventoryRequest(sku, 5);
-        Inventory inventory = Inventory.builder()
+        InventoryRequestDTO request = new InventoryRequestDTO(sku, 5);
+        InventoryModel inventory = InventoryModel.builder()
                 .id(1L)
                 .skuCode(sku)
                 .quantity(10)
@@ -125,7 +123,7 @@ class InventoryServiceTest {
         // Assert
         assertEquals(15, inventory.getQuantity());
         verify(inventoryRepository).saveAll(argThat(iterable -> {
-            List<Inventory> list = new java.util.ArrayList<>();
+            List<InventoryModel> list = new java.util.ArrayList<>();
             iterable.forEach(list::add);
             return list.size() == 1 && list.get(0).getQuantity() == 15;
         }));
@@ -135,8 +133,8 @@ class InventoryServiceTest {
     void shouldAddStock_ToNewSku() {
         // Arrange
         String sku = "new_item";
-        InventoryRequest request = new InventoryRequest(sku, 5);
-        Inventory newInventory = new Inventory();
+        InventoryRequestDTO request = new InventoryRequestDTO(sku, 5);
+        InventoryModel newInventory = new InventoryModel();
         newInventory.setSkuCode(sku);
         newInventory.setQuantity(5);
 
@@ -148,7 +146,7 @@ class InventoryServiceTest {
 
         // Assert
         verify(inventoryRepository).saveAll(argThat(iterable -> {
-            List<Inventory> list = new java.util.ArrayList<>();
+            List<InventoryModel> list = new java.util.ArrayList<>();
             iterable.forEach(list::add);
             return list.size() == 1 && list.get(0).getSkuCode().equals(sku) && list.get(0).getQuantity() == 5;
         }));

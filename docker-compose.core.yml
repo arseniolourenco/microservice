@@ -29,8 +29,14 @@ services:
     - .env
     ports:
     - "8888:8888"
+    volumes:
+      - ./config-repo:/app/config-repo
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE},git
+      GIT_URI: ${GIT_URI}
+      GIT_USERNAME: ${GIT_USERNAME}
+      GIT_PASSWORD: ${GIT_PASSWORD}
+      GIT_DEFAULT_LABEL: ${GIT_DEFAULT_LABEL}
     networks:
     - microservices-network
     healthcheck:

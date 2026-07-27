@@ -3,7 +3,7 @@ package com.arseniolourenco.order_service.service;
 import com.arseniolourenco.order_service.dto.OrderRequest;
 import com.arseniolourenco.order_service.dto.OrderResponse;
 import com.arseniolourenco.order_service.event.OrderPlacedEvent;
-import com.arseniolourenco.order_service.model.Order;
+import com.arseniolourenco.order_service.model.OrderModel;
 import com.arseniolourenco.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +30,13 @@ public class OrderService {
     private final OrderMapper orderMapper;
 
     public OrderResponse placeOrder(OrderRequest orderRequest) {
-        Order order = orderMapper.toOrder(orderRequest);
+        OrderModel order = orderMapper.toOrder(orderRequest);
         order.setOrderNumber(UUID.randomUUID().toString());
         order.setStatus("PENDING");
         order.setMessage("Order received and is pending inventory validation.");
 
         // Save the order and outbox event
-        Order savedOrder = orderRepository.save(order);
+        OrderModel savedOrder = orderRepository.save(order);
         
         try {
             List<OrderPlacedEvent.OrderItemDto> items = orderMapper.toOrderItemDtoList(savedOrder.getOrderLineItemsList());
@@ -60,7 +60,7 @@ public class OrderService {
     }
 
     public OrderResponse getOrder(String orderNumber) {
-        Order order = orderRepository.findByOrderNumber(orderNumber)
+        OrderModel order = orderRepository.findByOrderNumber(orderNumber)
                 .orElseThrow(() -> new RuntimeException("Order not found with order number: " + orderNumber));
         return orderMapper.toOrderResponse(order);
     }

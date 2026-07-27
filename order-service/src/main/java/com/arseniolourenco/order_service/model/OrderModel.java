@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_orders")
-public class Order {
+public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

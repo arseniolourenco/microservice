@@ -27,4 +27,4 @@ COPY --from=builder /builder/extracted/application/ ./
 EXPOSE 8080
 
 # Inicia a aplicação injetando suporte a limites do container e JAVA_OPTS
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -XX:+UseContainerSupport org.springframework.boot.loader.launch.JarLauncher"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -XX:+UseContainerSupport -jar app.jar"]

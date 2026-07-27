@@ -1,7 +1,7 @@
 package com.arseniolourenco.inventory_service.controller;
 
-import com.arseniolourenco.inventory_service.dto.InventoryRequest;
-import com.arseniolourenco.inventory_service.dto.InventoryResponse;
+import com.arseniolourenco.inventory_service.dto.InventoryRequestDTO;
+import com.arseniolourenco.inventory_service.dto.InventoryResponseDTO;
 import com.arseniolourenco.inventory_service.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +22,14 @@ public class InventoryController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<InventoryResponse>> isInStock(@RequestParam List<String> skuCode) {
+    public ResponseEntity<List<InventoryResponseDTO>> isInStock(@RequestParam List<String> skuCode) {
         log.info("Checking inventory for SKUs: {}", skuCode);
         return ResponseEntity.ok(inventoryService.isInStock(skuCode));
     }
 
     @PostMapping("/reduce")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> reduceInventory(@RequestBody List<InventoryRequest> inventoryRequests) {
+    public ResponseEntity<String> reduceInventory(@RequestBody List<InventoryRequestDTO> inventoryRequests) {
         try {
             inventoryService.reduceStock(inventoryRequests);
             return ResponseEntity.ok("Inventory reduced successfully");
@@ -40,7 +40,7 @@ public class InventoryController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> addInventory(@RequestBody List<InventoryRequest> inventoryRequests) {
+    public ResponseEntity<String> addInventory(@RequestBody List<InventoryRequestDTO> inventoryRequests) {
         inventoryService.addStock(inventoryRequests);
         return ResponseEntity.ok("Inventory added successfully");
     }

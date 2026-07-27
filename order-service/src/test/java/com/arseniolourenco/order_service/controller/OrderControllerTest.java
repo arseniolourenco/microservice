@@ -2,7 +2,6 @@ package com.arseniolourenco.order_service.controller;
 
 import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
-import com.arseniolourenco.order_service.model.Order;
 import com.arseniolourenco.order_service.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

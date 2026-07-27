@@ -1,13 +1,13 @@
 package com.arseniolourenco.inventory_service.service;
 
-import com.arseniolourenco.inventory_service.dto.InventoryRequest;
-import com.arseniolourenco.inventory_service.dto.InventoryResponse;
+import com.arseniolourenco.inventory_service.dto.InventoryRequestDTO;
+import com.arseniolourenco.inventory_service.dto.InventoryResponseDTO;
 import com.arseniolourenco.inventory_service.exception.InsufficientStockException;
 import com.arseniolourenco.inventory_service.exception.SkuNotFoundException;
-import com.arseniolourenco.inventory_service.model.Inventory;
+import com.arseniolourenco.inventory_service.mapper.InventoryMapper;
+import com.arseniolourenco.inventory_service.model.InventoryModel;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,33 +23,33 @@ public class InventoryService {
 
     @Autowired
     private final InventoryRepository inventoryRepository;
-    private final com.arseniolourenco.inventory_service.mapper.InventoryMapper inventoryMapper;
+    private final InventoryMapper inventoryMapper;
 
     @Transactional(readOnly = true)
-    public List<InventoryResponse> isInStock(List<String> skuCodes) {
-        List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
+    public List<InventoryResponseDTO> isInStock(List<String> skuCodes) {
+        List<InventoryModel> inventoryList = inventoryRepository.findBySkuCodeIn(skuCodes);
 
         Map<String, Integer> skuCodeToTotalQuantity = inventoryList
                 .stream()
                 .collect(Collectors.toMap(
-                        Inventory::getSkuCode,
-                        Inventory::getQuantity,
+                        InventoryModel::getSkuCode,
+                        InventoryModel::getQuantity,
                         Integer::sum // Merge duplicates
                 ));
 
         return skuCodes.stream().map(code -> {
             Integer totalQuantity = skuCodeToTotalQuantity.getOrDefault(code, 0);
-            return new InventoryResponse(code, totalQuantity > 0, totalQuantity);
+            return new InventoryResponseDTO(code, totalQuantity > 0, totalQuantity);
         }).collect(Collectors.toList());
     }
 
     @Transactional
-    public void reduceStock(List<InventoryRequest> inventoryRequests) {
+    public void reduceStock(List<InventoryRequestDTO> inventoryRequests) {
         // Aggregate quantities for each SKU code
         Map<String, Integer> aggregatedSkuQuantityMap = aggregateSkuQuantities(inventoryRequests);
 
         // Fetch inventory for the SKUs in the request
-        List<Inventory> inventoryList = inventoryRepository.findBySkuCodeIn(new ArrayList<>(aggregatedSkuQuantityMap.keySet()));
+        List<InventoryModel> inventoryList = inventoryRepository.findBySkuCodeIn(new ArrayList<>(aggregatedSkuQuantityMap.keySet()));
 
         // Validate SKU existence in the inventory
         validateSkuExistence(aggregatedSkuQuantityMap.keySet(), inventoryList);
@@ -61,18 +61,18 @@ public class InventoryService {
         processStockReduction(aggregatedSkuQuantityMap, inventoryList, skuStockMap);
     }
 
-    private Map<String, Integer> aggregateSkuQuantities(List<InventoryRequest> inventoryRequests) {
+    private Map<String, Integer> aggregateSkuQuantities(List<InventoryRequestDTO> inventoryRequests) {
         Map<String, Integer> aggregatedSkuQuantityMap = new HashMap<>();
-        for (InventoryRequest request : inventoryRequests) {
+        for (InventoryRequestDTO request : inventoryRequests) {
             aggregatedSkuQuantityMap.merge(request.skuCode(), request.quantity(), Integer::sum);
         }
         return aggregatedSkuQuantityMap;
     }
 
-    private void validateSkuExistence(Collection<String> skuCodes, List<Inventory> inventoryList) {
+    private void validateSkuExistence(Collection<String> skuCodes, List<InventoryModel> inventoryList) {
         // Create a set of existing SKU codes from the inventory
         Set<String> existingSkuCodes = inventoryList.stream()
-                .map(Inventory::getSkuCode)
+                .map(InventoryModel::getSkuCode)
                 .collect(Collectors.toSet());
 
         // Identify missing SKU codes by checking which requested SKU codes are not in the existing set
@@ -87,9 +87,9 @@ public class InventoryService {
         }
     }
 
-    private Map<String, Integer> mapSkuStockLevels(List<Inventory> inventoryList) {
+    private Map<String, Integer> mapSkuStockLevels(List<InventoryModel> inventoryList) {
         Map<String, Integer> skuStockMap = new HashMap<>();
-        for (Inventory inventory : inventoryList) {
+        for (InventoryModel inventory : inventoryList) {
             skuStockMap.merge(inventory.getSkuCode(), inventory.getQuantity(), Integer::sum);
         }
         return skuStockMap;
@@ -97,9 +97,9 @@ public class InventoryService {
 
 
     private void processStockReduction(Map<String, Integer> aggregatedSkuQuantityMap,
-                                       List<Inventory> inventoryList,
+                                       List<InventoryModel> inventoryList,
                                        Map<String, Integer> skuStockMap) {
-        List<Inventory> updatedInventories = new ArrayList<>();
+        List<InventoryModel> updatedInventories = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : aggregatedSkuQuantityMap.entrySet()) {
             String skuCode = entry.getKey();
@@ -113,7 +113,7 @@ public class InventoryService {
             }
 
             int quantityToReduce = requestedQuantity;
-            for (Inventory inventory : inventoryList) {
+            for (InventoryModel inventory : inventoryList) {
                 if (inventory.getSkuCode().equals(skuCode) && quantityToReduce > 0) {
                     int reduceAmount = Math.min(inventory.getQuantity(), quantityToReduce);
                     inventory.setQuantity(inventory.getQuantity() - reduceAmount);
@@ -129,19 +129,19 @@ public class InventoryService {
 
 
     @Transactional
-    public void addStock(List<InventoryRequest> inventoryRequests) {
+    public void addStock(List<InventoryRequestDTO> inventoryRequests) {
         List<String> skuCodes = inventoryRequests.stream()
-                .map(InventoryRequest::skuCode)
+                .map(InventoryRequestDTO::skuCode)
                 .toList();
 
-        List<Inventory> existingInventories = inventoryRepository.findBySkuCodeIn(skuCodes);
-        Map<String, Inventory> existingInventoryMap = existingInventories.stream()
-                .collect(Collectors.toMap(Inventory::getSkuCode, inv -> inv));
+        List<InventoryModel> existingInventories = inventoryRepository.findBySkuCodeIn(skuCodes);
+        Map<String, InventoryModel> existingInventoryMap = existingInventories.stream()
+                .collect(Collectors.toMap(InventoryModel::getSkuCode, inv -> inv));
 
-        List<Inventory> inventoriesToSave = new ArrayList<>();
+        List<InventoryModel> inventoriesToSave = new ArrayList<>();
 
-        for (InventoryRequest request : inventoryRequests) {
-            Inventory inventory = existingInventoryMap.get(request.skuCode());
+        for (InventoryRequestDTO request : inventoryRequests) {
+            InventoryModel inventory = existingInventoryMap.get(request.skuCode());
             if (inventory != null) {
                 inventory.setQuantity(inventory.getQuantity() + request.quantity());
                 inventoriesToSave.add(inventory);
