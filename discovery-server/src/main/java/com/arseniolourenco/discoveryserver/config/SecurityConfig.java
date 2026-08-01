@@ -19,9 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder,
-                                                         @Value("${eureka.username}") String username,
-                                                         @Value("${eureka.password}") String password) {
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder, @Value("${eureka.username}") String username, @Value("${eureka.password}") String password) {
         System.out.println("Eureka Username: " + username);
         System.out.println("Eureka Password: " + password);
         UserDetails user = User.withUsername(username)
@@ -41,7 +39,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .build();
