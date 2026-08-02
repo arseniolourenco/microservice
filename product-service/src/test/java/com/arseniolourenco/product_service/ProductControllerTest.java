@@ -41,8 +41,8 @@ class ProductControllerTest {
 
     @Test
     void createProduct() throws Exception {
-        ProductRequest request = new ProductRequest("iPhone 16", "iphone_16", "Latest iPhone", BigDecimal.valueOf(1600));
-        ProductResponse response = new ProductResponse("1", "iPhone 16", "iphone_16", "Latest iPhone", BigDecimal.valueOf(1600));
+        ProductRequest request = new ProductRequest("IPHONE 15", "IPHONE_15", "Latest iPhone", BigDecimal.valueOf(1600));
+        ProductResponse response = new ProductResponse("1", "IPHONE 15", "IPHONE_15", "Latest iPhone", BigDecimal.valueOf(1600));
 
         when(productService.createProduct(any(ProductRequest.class))).thenReturn(response);
 
@@ -51,13 +51,13 @@ class ProductControllerTest {
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.name").value("iPhone 16"))
-                .andExpect(jsonPath("$.skuCode").value("iphone_16"));
+                .andExpect(jsonPath("$.name").value("IPHONE 15"))
+                .andExpect(jsonPath("$.skuCode").value("IPHONE_15"));
     }
 
     @Test
     void getAllProducts() throws Exception {
-        ProductResponse response = new ProductResponse("1", "iPhone 16", "iphone_16", "Latest iPhone", BigDecimal.valueOf(1600));
+        ProductResponse response = new ProductResponse("1", "IPHONE 15", "IPHONE_15", "Latest iPhone", BigDecimal.valueOf(1600));
         
         when(productService.getAllProducts()).thenReturn(List.of(response));
 
@@ -70,7 +70,7 @@ class ProductControllerTest {
 
     @Test
     void getProductById() throws Exception {
-        ProductResponse response = new ProductResponse("1", "iPhone 16", "iphone_16", "Latest iPhone", BigDecimal.valueOf(1600));
+        ProductResponse response = new ProductResponse("1", "IPHONE 15", "IPHONE_15", "Latest iPhone", BigDecimal.valueOf(1600));
 
         when(productService.getProductById("1")).thenReturn(response);
 
@@ -82,8 +82,8 @@ class ProductControllerTest {
 
     @Test
     void updateProduct() throws Exception {
-        ProductRequest request = new ProductRequest("iPhone 16 Pro", "iphone_16_pro", "Latest iPhone Pro", BigDecimal.valueOf(2000));
-        ProductResponse response = new ProductResponse("1", "iPhone 16 Pro", "iphone_16_pro", "Latest iPhone Pro", BigDecimal.valueOf(2000));
+        ProductRequest request = new ProductRequest("IPHONE 15 Pro", "IPHONE_15_PRO", "Latest IPHONE 15 Pro", BigDecimal.valueOf(2000));
+        ProductResponse response = new ProductResponse("1", "IPHONE 15 Pro", "IPHONE_15_PRO", "Latest IPHONE 15 Pro", BigDecimal.valueOf(2000));
 
         when(productService.updateProduct(eq("1"), any(ProductRequest.class))).thenReturn(response);
 
@@ -91,7 +91,8 @@ class ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("iPhone 16 Pro"));
+                .andExpect(jsonPath("$.name").value("IPHONE 15 Pro"))
+                .andExpect(jsonPath("$.skuCode").value("IPHONE_15_PRO"));
     }
 
     @Test
