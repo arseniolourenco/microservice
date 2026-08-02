@@ -1,9 +1,6 @@
 package com.arseniolourenco.authservice.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Builder
 public record TokenResponse(

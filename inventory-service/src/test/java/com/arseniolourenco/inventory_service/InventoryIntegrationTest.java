@@ -1,6 +1,6 @@
 package com.arseniolourenco.inventory_service;
 
-import com.arseniolourenco.inventory_service.dto.InventoryRequest;
+import com.arseniolourenco.inventory_service.dto.InventoryRequestDTO;
 import com.arseniolourenco.inventory_service.repository.InventoryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
@@ -72,7 +72,7 @@ class InventoryIntegrationTest {
     @Test
     void shouldAddStockAndCheckStock() throws Exception {
         // 1. Arrange - Prepare stock addition
-        InventoryRequest request = new InventoryRequest("iphone_16", 10);
+        InventoryRequestDTO request = new InventoryRequestDTO("iphone_16", 10);
         String requestJson = objectMapper.writeValueAsString(List.of(request));
 
         // 2. Act - Add stock via API

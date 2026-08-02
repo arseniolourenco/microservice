@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
 @Builder
-public record InventoryRequest(
+public record InventoryRequestDTO(
     @NotBlank(message = "SKU code cannot be blank")
     String skuCode,
     

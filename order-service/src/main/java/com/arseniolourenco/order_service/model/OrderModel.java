@@ -11,14 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_orders")
-public class Order {
+public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String orderNumber;
     private String status;
     private String message;
-    @OneToMany(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderLineItems> orderLineItemsList;
 
 

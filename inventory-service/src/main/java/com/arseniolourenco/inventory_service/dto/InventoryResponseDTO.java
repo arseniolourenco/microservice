@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 @Builder
-public record InventoryResponse(
+public record InventoryResponseDTO(
     String skuCode,
     @JsonProperty("inStock") boolean isInStock,
     int quantity

@@ -10,7 +10,7 @@ import lombok.*;
 @Entity
 @Table(name = "t_inventory")
 @Builder
-public class Inventory {
+public class InventoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +19,6 @@ public class Inventory {
     @Column(nullable = false)
     private Integer quantity;
     @Version
-    private Long version; // 🔒 Optimistic Locking
+    private Long version;   //  Optimistic Locking
 
 }

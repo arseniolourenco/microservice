@@ -8,7 +8,7 @@
     "database.user": "postgres",
     "database.password": "postgres",
     "database.dbname": "orderDB",
-    "topic.prefix": "order",
+    "topic.prefix": "order-server",
     "schema.include.list": "public",
     "table.include.list": "public.t_outbox",
     "plugin.name": "pgoutput",
@@ -20,8 +20,8 @@
     "transforms.outbox.table.field.event.key": "aggregate_id",
     "transforms.outbox.table.field.event.type": "event_type",
     "transforms.outbox.table.field.event.payload": "payload",
-    "transforms.outbox.table.expand.json.payload": "true",
-    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "transforms.outbox.route.by.field": "aggregate_type",
+    "transforms.outbox.table.fields.additional.placement": "status:header:status",
     "value.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter.schemas.enable": "false"
   }

@@ -2,7 +2,6 @@ package com.arseniolourenco.order_service.controller;
 
 import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
-import com.arseniolourenco.order_service.model.Order;
 import com.arseniolourenco.order_service.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -49,9 +48,11 @@ class OrderControllerTest {
 
         OrderRequest request = new OrderRequest(List.of(item));
 
-        Order order = new Order();
-        order.setOrderNumber(UUID.randomUUID().toString());
-        order.setStatus("PENDING");
+        com.arseniolourenco.order_service.dto.OrderResponse order = new com.arseniolourenco.order_service.dto.OrderResponse(
+            UUID.randomUUID().toString(),
+            "PENDING",
+            List.of()
+        );
 
         when(orderService.placeOrder(any(OrderRequest.class))).thenReturn(order);
 

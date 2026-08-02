@@ -16,6 +16,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MongoDBContainer;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -34,6 +35,8 @@ class ProductServiceIntegrationTest {
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest"); // ✅ Removed withReuse(true)
+    @Container
+    static GenericContainer<?> redisContainer = new GenericContainer<>("redis:7.0-alpine").withExposedPorts(6379);
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -44,16 +47,20 @@ class ProductServiceIntegrationTest {
     @BeforeAll
     static void startContainer() {
         mongoDBContainer.start();
+        redisContainer.start();
     }
 
     @AfterAll
     static void stopContainer() {
         mongoDBContainer.stop();
+        redisContainer.stop();
     }
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry dynamicPropertyRegistry) {
         dynamicPropertyRegistry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+        dynamicPropertyRegistry.add("spring.data.redis.host", redisContainer::getHost);
+        dynamicPropertyRegistry.add("spring.data.redis.port", () -> redisContainer.getMappedPort(6379).toString());
     }
 
     @BeforeEach
@@ -83,8 +90,8 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals(1, productRepository.count()); // ✅ Used count() instead of findAll().size()
 
         Product savedProduct = productRepository.findAll().get(0);
-        Assertions.assertEquals("iPhone 16", savedProduct.getName());
-        Assertions.assertEquals("iphone_16", savedProduct.getSkuCode());
+        Assertions.assertEquals("IPHONE 15", savedProduct.getName());
+        Assertions.assertEquals("IPHONE_15", savedProduct.getSkuCode());
         Assertions.assertEquals("The latest Apple iPhone", savedProduct.getDescription());
         Assertions.assertEquals(0, BigDecimal.valueOf(1600).compareTo(savedProduct.getPrice()));
     }
@@ -198,8 +205,8 @@ class ProductServiceIntegrationTest {
 
     private ProductRequest createProductRequest() {
         return new ProductRequest(
-                "iPhone 16",
-                "iphone_16",
+                "IPHONE 15",
+                "IPHONE_15",
                 "The latest Apple iPhone",
                 BigDecimal.valueOf(1600)
         );
