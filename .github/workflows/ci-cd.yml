@@ -66,39 +66,12 @@ jobs:
       - id: matrix
         shell: bash
         run: |
-
-          SERVICES=(
-            api-gateway
-            auth-service
-            config-server
-            discovery-server
-            inventory-service
-            notification-service
-            order-service
-            product-service
-            user-service
-          )
-
           if [[ "${{ steps.changes.outputs.global }}" == "true" ]]; then
-
-            printf -v JSON '%s",' "${SERVICES[@]}"
-            JSON="[\"${JSON//,/\",\"}"
-            JSON="${JSON%\"}"
-            echo "services=$JSON" >> "$GITHUB_OUTPUT"
-
-            exit 0
+            echo 'services=["api-gateway","auth-service","config-server","discovery-server","inventory-service","notification-service","order-service","product-service","user-service"]' >> "$GITHUB_OUTPUT"
+          else
+            CHANGES='${{ toJSON(steps.changes.outputs.changes) }}'
+            echo "services=$CHANGES" >> "$GITHUB_OUTPUT"
           fi
-
-          RESULT=()
-
-          for service in "${SERVICES[@]}"
-          do
-            if [[ "${{ steps.changes.outputs[service] }}" == "true" ]]; then
-              RESULT+=("\"$service\"")
-            fi
-          done
-
-          echo "services=[$(IFS=,; echo "${RESULT[*]}")]" >> "$GITHUB_OUTPUT"
 
   test:
 
@@ -190,7 +163,7 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.service }}
+          context: .
           file: ./${{ matrix.service }}/Dockerfile
           push: true
 
