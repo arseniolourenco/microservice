@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -36,6 +37,9 @@ class NotificationIntegrationTest {
 
     @SpyBean
     private NotificationServiceApplication notificationServiceApplication;
+
+    @MockBean
+    private org.springframework.mail.javamail.JavaMailSender javaMailSender;
 
     @Test
     void shouldReceiveNotification() throws InterruptedException {
