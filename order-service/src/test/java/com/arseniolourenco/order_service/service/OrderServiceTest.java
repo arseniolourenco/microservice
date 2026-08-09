@@ -2,16 +2,22 @@ package com.arseniolourenco.order_service.service;
 
 import com.arseniolourenco.order_service.dto.OrderLineItemsDto;
 import com.arseniolourenco.order_service.dto.OrderRequest;
+import com.arseniolourenco.order_service.dto.OrderResponse;
+import com.arseniolourenco.order_service.mapper.OrderMapper;
+import com.arseniolourenco.order_service.model.OrderLineItems;
 import com.arseniolourenco.order_service.model.OrderModel;
 import com.arseniolourenco.order_service.model.OutboxEvent;
 import com.arseniolourenco.order_service.repository.OrderRepository;
 import com.arseniolourenco.order_service.repository.OutboxRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.tracing.Tracer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,16 +40,16 @@ class OrderServiceTest {
     private ObjectMapper objectMapper;
 
     @Mock
-    private org.springframework.web.client.RestClient.Builder restClientBuilder;
+    private RestClient.Builder restClientBuilder;
 
     @Mock
-    private org.springframework.kafka.core.KafkaTemplate kafkaTemplate;
+    private KafkaTemplate kafkaTemplate ;
 
     @Mock
-    private io.micrometer.tracing.Tracer tracer;
+    private Tracer tracer;
 
     @Mock
-    private com.arseniolourenco.order_service.mapper.OrderMapper orderMapper;
+    private OrderMapper orderMapper;
 
     @InjectMocks
     private OrderService orderService;
@@ -64,7 +70,7 @@ class OrderServiceTest {
         order.setOrderNumber("12345");
         order.setStatus("PENDING");
         
-        com.arseniolourenco.order_service.model.OrderLineItems item = new com.arseniolourenco.order_service.model.OrderLineItems();
+        OrderLineItems item = new OrderLineItems();
         item.setSkuCode("iphone_15");
         item.setQuantity(1);
         item.setPrice(BigDecimal.valueOf(1000));
@@ -76,7 +82,7 @@ class OrderServiceTest {
         when(objectMapper.writeValueAsString(any())).thenReturn("{}");
         when(orderMapper.toOutboxEvent(any())).thenReturn(new OutboxEvent());
         
-        com.arseniolourenco.order_service.dto.OrderResponse orderResponse = new com.arseniolourenco.order_service.dto.OrderResponse(
+        OrderResponse orderResponse = new OrderResponse(
             "12345",
             "PENDING",
             List.of()
@@ -84,7 +90,7 @@ class OrderServiceTest {
         when(orderMapper.toOrderResponse(any(OrderModel.class))).thenReturn(orderResponse);
 
         // Act
-        com.arseniolourenco.order_service.dto.OrderResponse result = orderService.placeOrder(orderRequest);
+        OrderResponse result = orderService.placeOrder(orderRequest);
 
         // Assert
         assertNotNull(result);
