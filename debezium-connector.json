@@ -21,7 +21,7 @@
     "transforms.outbox.table.field.event.type": "event_type",
     "transforms.outbox.table.field.event.payload": "payload",
     "transforms.outbox.route.by.field": "aggregate_type",
-    "transforms.outbox.table.fields.additional.placement": "status:header:status",
+    "transforms.outbox.table.fields.additional.placement": "status:header:status,event_type:header:eventType",
     "value.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter.schemas.enable": "false"
   }

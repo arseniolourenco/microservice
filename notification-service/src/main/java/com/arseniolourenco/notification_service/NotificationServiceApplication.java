@@ -24,21 +24,27 @@ public class NotificationServiceApplication {
     }
 
     @KafkaListener(topics = "order-events", groupId = "notificationId")
-    public void handleNotification(String message, 
+    public void handleNotification(OrderPlacedEvent event, 
                                    @Header(value = KafkaHeaders.RECEIVED_KEY, required = false) String key,
                                    @Header(value = "eventType", required = false) String eventType) {
         if ("OrderApproved".equals(eventType)) {
-            log.info("Received APPROVED Notification for Order {}", key);
             
             try {
+                String orderNumber = event.orderNumber();
+                if (orderNumber == null || orderNumber.isEmpty()) {
+                    orderNumber = key; // fallback
+                }
+
+                log.info("Received APPROVED Notification for Order {}", orderNumber);
+
                 SimpleMailMessage mailMessage = new SimpleMailMessage();
                 mailMessage.setFrom("noreply@microservices.com");
                 mailMessage.setTo("seniomauro@gmail.com");
                 mailMessage.setSubject("Seu pedido foi aprovado!");
-                mailMessage.setText(String.format("Olá, seu pedido %s foi aprovado pelo inventário e está sendo processado.", key));
+                mailMessage.setText(String.format("Olá, seu pedido %s foi aprovado pelo inventário e está sendo processado.", orderNumber));
                 
                 javaMailSender.send(mailMessage);
-                log.info("Email enviado com sucesso para o pedido {}", key);
+                log.info("Email enviado com sucesso para o pedido {}", orderNumber);
             } catch (Exception e) {
                 log.error("Erro ao enviar email para o pedido {}", key, e);
             }

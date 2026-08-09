@@ -60,6 +60,6 @@ class NotificationIntegrationTest {
         TimeUnit.SECONDS.sleep(3);
 
         // Assert
-        verify(notificationServiceApplication).handleNotification(any(String.class), eq("ORD-12345"), eq("OrderApproved"));
+        verify(notificationServiceApplication).handleNotification(any(OrderPlacedEvent.class), eq("ORD-12345"), eq("OrderApproved"));
     }
 }

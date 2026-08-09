@@ -29,9 +29,21 @@ public class OrderService {
     private final ObjectMapper objectMapper;
     private final OrderMapper orderMapper;
 
+    private String generateOrderNumber() {
+        String dateStr = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder randomPart = new StringBuilder();
+        Random rnd = new Random();
+        while (randomPart.length() < 9) {
+            int index = (int) (rnd.nextFloat() * chars.length());
+            randomPart.append(chars.charAt(index));
+        }
+        return "ORD-" + dateStr + "-" + randomPart.toString();
+    }
+
     public OrderResponse placeOrder(OrderRequest orderRequest) {
         OrderModel order = orderMapper.toOrder(orderRequest);
-        order.setOrderNumber(UUID.randomUUID().toString());
+        order.setOrderNumber(generateOrderNumber());
         order.setStatus("PENDING");
         order.setMessage("Order received and is pending inventory validation.");
 
