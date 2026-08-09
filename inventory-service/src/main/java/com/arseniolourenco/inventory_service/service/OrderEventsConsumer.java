@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,11 @@ public class OrderEventsConsumer {
     private final ObjectMapper objectMapper;
 
     @KafkaListener(topics = "order-events", groupId = "inventory-group")
-    public void consumeOrderCreatedEvent(String message) {
+    public void consumeOrderCreatedEvent(String message, @Header(value = "eventType", required = false) String eventType) {
+        if (!"OrderCreated".equals(eventType)) {
+            log.debug("Ignored event type {} in inventory-service", eventType);
+            return;
+        }
         log.info("Received event on order-events topic: {}", message);
         try {
             OrderPlacedEvent event = objectMapper.readValue(message, OrderPlacedEvent.class);
